@@ -1,13 +1,17 @@
 /**
  * Capture screenshots for design review.
- * Usage: BASE_URL=http://127.0.0.1:3000 node scripts/capture-sections.mjs [home|products|about|resources|contact|services|fullpages|all]
+ * Usage: BASE_URL=http://127.0.0.1:3000 node scripts/capture-sections.mjs [home|products|...|fullpages|routes|all]
  *
- * `all` — homepage section clips + home-full-page.png + fullpage-*.png for every public route
- * `fullpages` — only fullpage-*.png (1280px wide, full document height)
+ * `routes` — full-page PNGs for the review set → apps/web/docs/screenshots/routes/ (committed to repo)
+ * `all` — homepage section clips + page-*.png + fullpage-*.png (default OUT_DIR)
  */
 import fs from "node:fs/promises"
 import path from "node:path"
+import { fileURLToPath } from "node:url"
 import puppeteer from "puppeteer-core"
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const REPO_ROUTES_DIR = path.join(__dirname, "../docs/screenshots/routes")
 
 const OUT_DIR = process.env.SCREENSHOT_DIR ?? "/opt/cursor/artifacts/screenshots"
 const BASE = process.env.BASE_URL ?? "http://127.0.0.1:3000"
@@ -59,6 +63,21 @@ const fullPageRoutes = [
   { path: "/terms", file: "terms" },
 ]
 
+/** Routes requested for repo screenshots (order preserved) */
+const routesForRepo = [
+  { path: "/", file: "route-home" },
+  { path: "/products", file: "route-products" },
+  { path: "/about", file: "route-about" },
+  { path: "/contact", file: "route-contact" },
+  { path: "/services/custom-antibody", file: "route-services-custom-antibody" },
+  { path: "/services/elisa-development", file: "route-services-elisa-development" },
+  { path: "/services/conjugation", file: "route-services-conjugation" },
+  { path: "/services/multiplex-ihc", file: "route-services-multiplex-ihc" },
+  { path: "/resources", file: "route-resources" },
+  { path: "/account", file: "route-account" },
+  { path: "/cart", file: "route-cart" },
+]
+
 async function captureHome(page) {
   await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 })
   await page.goto(`${BASE}/`, { waitUntil: WAIT, timeout: 90000 })
@@ -93,17 +112,18 @@ async function captureHome(page) {
   console.log("Wrote", fullPath)
 }
 
-async function capturePageFull(page, route, fileBase) {
+async function capturePageFull(page, route, fileBase, outputDir = OUT_DIR) {
   await page.setViewport({ width: 1280, height: 900, deviceScaleFactor: 1 })
   await page.goto(`${BASE}${route}`, { waitUntil: WAIT, timeout: 90000 })
   if (SETTLE_MS) await new Promise((r) => setTimeout(r, SETTLE_MS))
-  const fp = path.join(OUT_DIR, `${fileBase}.png`)
+  const fp = path.join(outputDir, `${fileBase}.png`)
   await page.screenshot({ path: fp, fullPage: true })
   console.log("Wrote", fp)
 }
 
 async function main() {
-  await fs.mkdir(OUT_DIR, { recursive: true })
+  const outDir = mode === "routes" ? REPO_ROUTES_DIR : OUT_DIR
+  await fs.mkdir(outDir, { recursive: true })
 
   const browser = await puppeteer.launch({
     executablePath: EXECUTABLE,
@@ -113,6 +133,13 @@ async function main() {
 
   try {
     const page = await browser.newPage()
+
+    if (mode === "routes") {
+      for (const r of routesForRepo) {
+        await capturePageFull(page, r.path, r.file, REPO_ROUTES_DIR)
+      }
+      return
+    }
 
     if (mode === "home" || mode === "all") {
       await captureHome(page)
