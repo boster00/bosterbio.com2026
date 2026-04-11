@@ -12,13 +12,15 @@
     "migration:generate": "medusa db:generate"
   },
   "dependencies": {
-    "@medusajs/medusa": "^2.0.0",
-    "@medusajs/framework": "^2.0.0",
+    "@bosterbio/types": "workspace:*",
     "@medusajs/core-flows": "^2.0.0",
-    "@bosterbio/types": "workspace:*"
+    "@medusajs/framework": "^2.0.0",
+    "@medusajs/medusa": "^2.0.0"
   },
   "devDependencies": {
+    "@swc/core": "^1.15.24",
     "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.0"
   }
 }

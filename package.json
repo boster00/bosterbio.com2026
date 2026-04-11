@@ -2,6 +2,7 @@
   "name": "bosterbio",
   "private": true,
   "version": "0.0.1",
+  "packageManager": "pnpm@10.32.1",
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
@@ -12,6 +13,17 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@medusajs/telemetry",
+      "@swc/core",
+      "esbuild",
+      "msgpackr-extract",
+      "protobufjs",
+      "sharp",
+      "unrs-resolver"
+    ]
   },
   "devDependencies": {
     "turbo": "^2.0.0",
