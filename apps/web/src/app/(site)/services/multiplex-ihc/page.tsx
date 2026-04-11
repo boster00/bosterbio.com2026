@@ -1,4 +1,29 @@
 import Link from "next/link"
+import { ServicePricingCta } from "@/components/services/ServicePricingCta"
+import { ServiceWorkflow } from "@/components/services/ServiceWorkflow"
+
+const workflowSteps = [
+  {
+    title: "Panel design",
+    description: "Marker list, species, clone compatibility, and imaging modality (chromogenic vs fluorescent).",
+  },
+  {
+    title: "Protocol draft",
+    description: "Order of rounds, retrieval, blocking, and tyramide or fluor cycles on pilot slides.",
+  },
+  {
+    title: "Optimization",
+    description: "Titre titration, spectral bleed assessment, and background control strategy.",
+  },
+  {
+    title: "Validation set",
+    description: "Representative tissues scored for pattern consistency across batches.",
+  },
+  {
+    title: "Handoff",
+    description: "Written SOP, panel map, and optional training for your histology team.",
+  },
+] as const
 
 export default function MultiplexIhcServicePage() {
   return (
@@ -14,22 +39,40 @@ export default function MultiplexIhcServicePage() {
           </p>
         </div>
       </div>
-      <div className="container-content max-w-3xl py-12 md:py-16">
-        <h2 className="font-display text-title text-brand">How we help</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-ink-secondary">
-          <li>Marker selection and epitope compatibility review</li>
-          <li>Sequential staining protocol development on your FFPE or fresh-frozen samples</li>
-          <li>Imaging guidance for spectral unmixing and quantitative scoring</li>
-        </ul>
-        <h2 className="mt-10 font-display text-title text-brand">Applications</h2>
-        <p className="mt-4 text-ink-secondary">
-          Immuno-oncology panels, immune microenvironment mapping, and developmental biology studies where co-expression
-          of multiple proteins must be resolved at single-cell scale in situ.
-        </p>
-        <div className="mt-12 flex flex-wrap gap-3">
+
+      <div className="container-content max-w-4xl py-12 md:py-16">
+        <section aria-labelledby="overview-heading">
+          <h2 id="overview-heading" className="font-display text-title text-brand">
+            Service overview
+          </h2>
+          <p className="mt-4 text-ink-secondary">
+            Multiplex IHC is as much about order of operations as it is about antibody quality. We stress-test panels on
+            your FFPE or fresh-frozen material so you are not surprised when you move to cohort-scale staining.
+          </p>
+          <h3 className="mt-8 font-display text-lg font-semibold text-brand">How we help</h3>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-ink-secondary">
+            <li>Marker selection and epitope compatibility review</li>
+            <li>Sequential staining protocol development on your FFPE or fresh-frozen samples</li>
+            <li>Imaging guidance for spectral unmixing and quantitative scoring</li>
+          </ul>
+          <h3 className="mt-8 font-display text-lg font-semibold text-brand">Applications</h3>
+          <p className="mt-3 text-ink-secondary">
+            Immuno-oncology panels, immune microenvironment mapping, and developmental biology studies where co-expression
+            of multiple proteins must be resolved at single-cell scale in situ.
+          </p>
+        </section>
+
+        <ServiceWorkflow steps={[...workflowSteps]} />
+
+        <ServicePricingCta
+          serviceLabel="Multiplex IHC service projects"
+          primaryLabel="Request multiplex IHC quote"
+        />
+
+        <div className="mt-10 flex flex-wrap gap-3">
           <Link
             href="/contact"
-            className="inline-flex rounded-full bg-accent px-8 py-3 text-sm font-bold text-white shadow-md shadow-accent/25 hover:bg-accent-hover"
+            className="inline-flex rounded-full bg-brand px-8 py-3 text-sm font-bold text-white shadow-md transition hover:bg-brand-light"
           >
             Start a project
           </Link>

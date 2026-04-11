@@ -9,6 +9,9 @@ export default function ContactPage() {
             Questions about an antibody, ELISA kit, custom project, or distributor in your region? Reach us by phone or
             the form below — our team typically responds within one business day.
           </p>
+          <p className="mt-4 text-sm font-medium text-brand">
+            3942 Valley Ave, Suite B · Pleasanton, CA 94566
+          </p>
         </div>
       </div>
 

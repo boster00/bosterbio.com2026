@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "screenshots:sections": "node scripts/capture-sections.mjs"
+    "screenshots:sections": "node scripts/capture-sections.mjs",
+    "screenshots:fullpages": "node scripts/capture-sections.mjs fullpages"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.0.0",
