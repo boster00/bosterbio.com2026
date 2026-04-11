@@ -5,8 +5,8 @@ export default function ContactPage() {
         <div className="container-content py-12 md:py-16">
           <h1 className="font-display text-display-md text-ink">Contact us</h1>
           <p className="mt-4 max-w-2xl text-ink-secondary">
-            Questions about an antibody, ELISA kit, or bulk order? Our applications team typically responds within one
-            business day.
+            Questions about an antibody, ELISA kit, custom project, or distributor in your region? Reach us by phone or
+            the form below — our team typically responds within one business day.
           </p>
         </div>
       </div>
@@ -14,7 +14,7 @@ export default function ContactPage() {
       <div className="container-content grid gap-12 py-12 lg:grid-cols-2">
         <section aria-labelledby="contact-form-heading">
           <h2 id="contact-form-heading" className="font-display text-title text-ink">
-            Send a message
+            Email us
           </h2>
           <form className="mt-6 space-y-4" action="#" method="post">
             <div>
@@ -42,6 +42,18 @@ export default function ContactPage() {
               />
             </div>
             <div>
+              <label htmlFor="institution" className="block text-sm font-medium text-ink">
+                Institution (optional)
+              </label>
+              <input
+                id="institution"
+                name="institution"
+                type="text"
+                autoComplete="organization"
+                className="mt-1 h-11 w-full rounded-md border border-surface-muted px-3 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              />
+            </div>
+            <div>
               <label htmlFor="message" className="block text-sm font-medium text-ink">
                 How can we help?
               </label>
@@ -56,10 +68,10 @@ export default function ContactPage() {
               type="submit"
               className="rounded-md bg-brand px-6 py-3 text-sm font-semibold text-white hover:bg-brand-light"
             >
-              Submit
+              Send message
             </button>
             <p className="text-xs text-ink-tertiary">
-              This form is a UI placeholder; wire it to your CRM or email service when ready.
+              Form submission is a UI placeholder — connect to your CRM, help desk, or email API for production.
             </p>
           </form>
         </section>
@@ -67,9 +79,19 @@ export default function ContactPage() {
         <section aria-labelledby="contact-details" className="space-y-10">
           <div>
             <h2 id="contact-details" className="font-display text-title text-ink">
-              Direct lines
+              Visit &amp; phone
             </h2>
-            <ul className="mt-4 space-y-3 text-ink-secondary">
+            <address className="mt-4 not-italic text-ink-secondary">
+              <p className="font-medium text-ink">Boster Biological Technology</p>
+              <p className="mt-2">
+                3942 Valley Ave, Suite B
+                <br />
+                Pleasanton, CA 94566
+                <br />
+                United States
+              </p>
+            </address>
+            <ul className="mt-6 space-y-3 text-ink-secondary">
               <li>
                 <span className="font-medium text-ink">Phone: </span>
                 <a href="tel:+19256772200" className="text-brand hover:underline">
@@ -84,6 +106,23 @@ export default function ContactPage() {
               </li>
             </ul>
           </div>
+
+          <div>
+            <h3 className="font-display text-lg font-semibold text-ink">Map</h3>
+            <p className="mt-2 text-sm text-ink-tertiary">
+              Map embed placeholder — add Google Maps or Mapbox iframe when API keys are configured.
+            </p>
+            <div
+              className="mt-4 flex h-64 items-center justify-center rounded-xl border border-dashed border-surface-muted bg-surface-subtle text-center text-sm text-ink-tertiary"
+              role="img"
+              aria-label="Map placeholder for 3942 Valley Ave Suite B Pleasanton CA 94566"
+            >
+              Map: 3942 Valley Ave, Suite B
+              <br />
+              Pleasanton, CA 94566
+            </div>
+          </div>
+
           <div id="distributors" className="scroll-mt-28 rounded-xl border border-surface-muted bg-white p-6 shadow-card">
             <h3 className="font-display text-lg font-semibold text-ink">Distributors</h3>
             <p className="mt-2 text-sm text-ink-secondary">

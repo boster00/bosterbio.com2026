@@ -49,9 +49,10 @@ export default function ResourcesPage() {
       <div className="border-b border-surface-muted bg-gradient-to-br from-brand-muted to-white">
         <div className="container-content py-12 md:py-16">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand">Resources</p>
-          <h1 className="mt-2 font-display text-display-md text-ink">Protocols &amp; learning hub</h1>
+          <h1 className="mt-2 font-display text-display-md text-ink">Protocols, FAQs &amp; blog</h1>
           <p className="mt-4 max-w-2xl text-lg text-ink-secondary">
-            Practical guidance for the assays you run every week — written for working scientists, not sales decks.
+            Protocols, frequently asked questions, technical articles, and citation resources — written for working
+            scientists, not sales decks.
           </p>
         </div>
       </div>
