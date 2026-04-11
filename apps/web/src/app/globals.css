@@ -5,10 +5,30 @@
 @layer base {
   :root {
     --font-sans: "Inter", system-ui, sans-serif;
-    --font-heading: "Inter", system-ui, sans-serif;
+    --font-display: "Inter", system-ui, sans-serif;
+    --section-y: clamp(3rem, 6vw, 5rem);
+    --container-px: clamp(1rem, 4vw, 1.5rem);
   }
 
   html {
-    @apply antialiased;
+    @apply antialiased scroll-smooth;
+  }
+
+  body {
+    @apply bg-surface text-ink font-sans text-[15px] leading-relaxed;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-[var(--container-px)];
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand focus:shadow-card;
   }
 }
