@@ -4,27 +4,33 @@ import { cn } from "@/lib/cn"
 const categories = [
   {
     title: "Primary Antibodies",
-    description: "Rabbit & mouse monoclonals, polyclonals, and phospho-specific.",
-    href: "/products?category=primary-antibodies",
-    icon: "Ab",
+    description: "Rabbit and mouse monoclonals, polyclonals, and phospho-specific primaries for WB, IHC, ICC, and flow.",
+    href: "/products?category=primary",
+    icon: "1°",
+  },
+  {
+    title: "Secondary Antibodies",
+    description: "HRP, AP, FITC, and Alexa Fluor®-conjugated secondaries with minimal cross-reactivity.",
+    href: "/products?category=secondary",
+    icon: "2°",
   },
   {
     title: "ELISA Kits",
-    description: "Picokine® sensitivity with ready-to-use standards & controls.",
+    description: "Picokine® sandwich ELISAs with pre-coated plates, standards, and ready-to-use detection.",
     href: "/products?category=elisa",
     icon: "ELISA",
   },
   {
-    title: "Recombinant Proteins",
-    description: "Human, mouse, and rat proteins for functional assays.",
-    href: "/products?category=proteins",
-    icon: "Prot",
+    title: "Conjugation Kits",
+    description: "Label your own antibodies with biotin, fluorophores, and enzymes using optimized kits.",
+    href: "/products?category=conjugation",
+    icon: "conj",
   },
   {
-    title: "Reagents",
-    description: "Buffers, substrates, and Western blot workflow essentials.",
-    href: "/products?category=reagents",
-    icon: "Reag",
+    title: "Custom Services",
+    description: "Custom antibody development, ELISA assay development, and conjugation — from antigen to validation.",
+    href: "/contact",
+    icon: "Custom",
   },
 ] as const
 
@@ -41,10 +47,10 @@ export function CategoryGridSection() {
             Shop by product type
           </h2>
           <p className="mt-3 text-ink-secondary">
-            Everything you need from discovery through publication — organized the way your lab thinks about experiments.
+            From off-the-shelf catalog products to fully custom projects — everything your lab needs in one place.
           </p>
         </div>
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {categories.map((cat) => (
             <li key={cat.href}>
               <Link
@@ -55,7 +61,7 @@ export function CategoryGridSection() {
                 )}
               >
                 <span
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-brand-muted text-sm font-bold text-brand"
+                  className="inline-flex h-12 min-w-[3rem] items-center justify-center rounded-lg bg-brand-muted px-2 text-xs font-bold text-brand sm:text-sm"
                   aria-hidden
                 >
                   {cat.icon}

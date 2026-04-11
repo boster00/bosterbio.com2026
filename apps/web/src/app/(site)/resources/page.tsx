@@ -2,6 +2,16 @@ import Link from "next/link"
 
 const sections = [
   {
+    id: "protocols",
+    title: "Protocols",
+    body: "Western blot, IHC, ICC, ELISA, flow cytometry, and more — step-by-step methods and troubleshooting from our applications team.",
+  },
+  {
+    id: "faq",
+    title: "FAQs",
+    body: "Storage, dilutions, species cross-reactivity, and secondary selection — answers to common antibody and kit questions.",
+  },
+  {
     id: "western-blot",
     title: "Western blot",
     body: "Primary and secondary antibody selection, blocking buffers, and troubleshooting high background or weak signal.",

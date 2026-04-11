@@ -3,12 +3,12 @@ import { MobileNav } from "./MobileNav"
 import { cn } from "@/lib/cn"
 
 const navItems = [
-  { label: "Primary Antibodies", href: "/products?category=primary-antibodies" },
+  { label: "Primary Antibodies", href: "/products?category=primary" },
+  { label: "Secondary Antibodies", href: "/products?category=secondary" },
   { label: "ELISA Kits", href: "/products?category=elisa" },
-  { label: "Recombinant Proteins", href: "/products?category=proteins" },
-  { label: "Reagents", href: "/products?category=reagents" },
+  { label: "Services", href: "/contact" },
   { label: "Resources", href: "/resources" },
-  { label: "Support", href: "/contact" },
+  { label: "Contact", href: "/contact" },
 ] as const
 
 export function SiteHeader() {
@@ -17,9 +17,9 @@ export function SiteHeader() {
       <div className="bg-brand-dark text-white">
         <div className="container-content flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2 text-center text-xs sm:justify-between sm:text-left">
           <p className="font-medium">
-            Free antibody validation on qualifying orders —{" "}
+            Same-day shipping on in-stock orders —{" "}
             <Link href="/contact" className="underline decoration-white/60 underline-offset-2 hover:decoration-white">
-              Learn more
+              Contact us for details
             </Link>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-white/90">

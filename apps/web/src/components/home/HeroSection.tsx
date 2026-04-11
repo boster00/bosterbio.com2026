@@ -28,8 +28,8 @@ function HeroVisual() {
       </div>
       <div className="absolute inset-0 flex items-end p-6 md:p-8">
         <p className="max-w-xs text-sm font-medium leading-snug text-white/95">
-          <span className="block text-xs font-semibold uppercase tracking-widest text-white/70">Lab-ready</span>
-          Protocols, COAs, and validation data aligned to your application.
+          <span className="block text-xs font-semibold uppercase tracking-widest text-white/70">Zebrafish to human</span>
+          Over 600 zebrafish antibodies — plus mammalian reagents for every major pathway.
         </p>
       </div>
     </div>
@@ -51,48 +51,50 @@ export function HeroSection() {
       />
       <div className="container-content relative grid gap-10 py-[var(--section-y)] lg:grid-cols-2 lg:items-center lg:gap-12">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-white/80">Life science research</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-white/80">Boster Biological Technology</p>
           <h1 className="mt-3 font-display text-display-lg text-white md:text-[3.25rem]">
-            Antibodies &amp; kits built for reproducible science
+            Trusted Antibodies for Life Science Research
           </h1>
           <p className="mt-5 max-w-xl text-lg text-white/90">
-            16,000+ validated products with published citations, transparent protocols, and expert technical support.
+            Primary and secondary antibodies, ELISA kits, and custom services — validated data, expert support, and
+            same-day shipping on in-stock orders placed before cutoff.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/products"
               className="inline-flex items-center justify-center rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-black/10 transition hover:bg-accent-hover"
             >
-              Browse catalog
+              Browse antibodies
             </Link>
             <Link
-              href="/resources"
+              href="/resources#protocols"
               className="inline-flex items-center justify-center rounded-md border-2 border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
             >
-              View resources
+              Protocols &amp; FAQs
             </Link>
           </div>
-          <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-white/20 pt-8 sm:max-w-lg">
+          <dl className="mt-10 grid grid-cols-1 gap-4 border-t border-white/20 pt-8 sm:grid-cols-3 sm:max-w-2xl">
             <div>
-              <dt className="text-xs font-medium uppercase tracking-wide text-white/60">Products</dt>
-              <dd className="mt-1 font-display text-2xl font-bold tabular-nums">16k+</dd>
+              <dt className="text-xs font-medium uppercase tracking-wide text-white/60">Catalog antibodies</dt>
+              <dd className="mt-1 font-display text-2xl font-bold tabular-nums">15,000+</dd>
             </div>
             <div>
-              <dt className="text-xs font-medium uppercase tracking-wide text-white/60">Citations</dt>
-              <dd className="mt-1 font-display text-2xl font-bold tabular-nums">60k+</dd>
+              <dt className="text-xs font-medium uppercase tracking-wide text-white/60">Zebrafish antibodies</dt>
+              <dd className="mt-1 font-display text-2xl font-bold tabular-nums">600+</dd>
             </div>
             <div>
-              <dt className="text-xs font-medium uppercase tracking-wide text-white/60">Support</dt>
-              <dd className="mt-1 font-display text-2xl font-bold">24/7</dd>
+              <dt className="text-xs font-medium uppercase tracking-wide text-white/60">Fulfillment</dt>
+              <dd className="mt-1 font-display text-xl font-bold leading-tight sm:text-2xl">Same-day shipping</dd>
+              <dd className="text-xs text-white/70">In-stock orders — see product pages for cutoff times</dd>
             </div>
           </dl>
         </div>
         <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
           <HeroVisual />
           <div className="absolute -bottom-4 -left-4 hidden max-w-xs rounded-lg border border-white/20 bg-white/95 p-4 text-ink shadow-card sm:block md:-left-6">
-            <p className="text-xs font-semibold uppercase tracking-wide text-brand">Validation first</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-brand">Pleasanton, California</p>
             <p className="mt-1 text-sm text-ink-secondary">
-              WB, IHC, ICC, FC — application-specific data on every product page.
+              Founded in the Bay Area — shipping reagents to labs worldwide since 1993.
             </p>
           </div>
         </div>
