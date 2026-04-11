@@ -13,23 +13,23 @@ const navItems = [
 
 export function SiteHeader() {
   return (
-    <header className="relative sticky top-0 z-50 bg-surface shadow-nav">
-      <div className="bg-brand-dark text-white">
-        <div className="container-content flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2 text-center text-xs sm:justify-between sm:text-left">
-          <p className="font-medium">
+    <header className="relative sticky top-0 z-50 border-b border-brand/10 bg-white shadow-nav">
+      <div className="bg-brand-deep text-white">
+        <div className="container-content flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2.5 text-center text-xs sm:justify-between sm:text-left">
+          <p className="font-medium text-white/95">
             Same-day shipping on in-stock orders —{" "}
-            <Link href="/contact" className="underline decoration-white/60 underline-offset-2 hover:decoration-white">
+            <Link href="/contact" className="font-semibold text-accent underline decoration-accent/50 underline-offset-2 hover:decoration-accent">
               Contact us for details
             </Link>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-white/90">
-            <a href="tel:+19256772200" className="hover:text-white">
+            <a href="tel:+19256772200" className="hover:text-accent">
               +1 (925) 677-2200
             </a>
-            <span className="hidden sm:inline" aria-hidden>
+            <span className="hidden text-white/40 sm:inline" aria-hidden>
               |
             </span>
-            <Link href="/contact" className="hover:text-white">
+            <Link href="/contact" className="hover:text-accent">
               Contact
             </Link>
           </div>
@@ -59,11 +59,11 @@ export function SiteHeader() {
             name="q"
             type="search"
             placeholder="Search by gene, catalog #, or application…"
-            className="h-11 w-full min-w-0 rounded-l-md border border-surface-muted border-r-0 bg-surface-subtle px-4 text-sm text-ink placeholder:text-ink-tertiary focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+            className="h-11 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-5 text-sm text-ink placeholder:text-ink-tertiary focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
           />
           <button
             type="submit"
-            className="shrink-0 rounded-r-md bg-brand px-5 text-sm font-semibold text-white transition hover:bg-brand-light"
+            className="shrink-0 rounded-r-full bg-accent px-6 text-sm font-bold text-white transition hover:bg-accent-hover"
           >
             Search
           </button>
@@ -73,17 +73,17 @@ export function SiteHeader() {
           <Link
             href="/account"
             className={cn(
-              "hidden rounded-md px-3 py-2 text-sm font-medium text-ink-secondary hover:bg-surface-subtle sm:inline-block",
+              "hidden rounded-full px-3 py-2 text-sm font-medium text-ink-secondary hover:bg-brand-tint sm:inline-block",
             )}
           >
             Sign in
           </Link>
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 rounded-md border border-surface-muted bg-surface px-3 py-2 text-sm font-semibold text-ink hover:border-brand/30"
+            className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand-tint px-3 py-2 text-sm font-semibold text-brand hover:border-accent/40"
           >
             <span aria-hidden>Cart</span>
-            <span className="rounded-full bg-brand-muted px-2 py-0.5 text-xs font-bold text-brand">0</span>
+            <span className="rounded-full bg-accent px-2 py-0.5 text-xs font-bold text-white">0</span>
           </Link>
           <div className="relative flex items-center md:static">
             <MobileNav items={navItems} />
@@ -101,28 +101,25 @@ export function SiteHeader() {
             name="q"
             type="search"
             placeholder="Search catalog…"
-            className="h-10 w-full min-w-0 rounded-l-md border border-surface-muted border-r-0 bg-surface-subtle px-3 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+            className="h-10 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-4 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
           />
           <button
             type="submit"
-            className="shrink-0 rounded-r-md bg-brand px-4 text-sm font-semibold text-white"
+            className="shrink-0 rounded-r-full bg-accent px-5 text-sm font-bold text-white"
           >
             Search
           </button>
         </form>
       </div>
 
-      <nav
-        className="border-t border-surface-muted bg-surface-subtle/80 backdrop-blur-sm"
-        aria-label="Primary"
-      >
+      <nav className="border-t border-brand/10 bg-brand-tint/90 backdrop-blur-sm" aria-label="Primary">
         <div className="container-content hidden md:block">
-          <ul className="flex flex-wrap items-center gap-1 py-0">
+          <ul className="flex flex-wrap items-center gap-0.5 py-0">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block px-3 py-3 text-sm font-medium text-ink-secondary transition hover:bg-white hover:text-brand"
+                  className="block rounded-t-lg px-3 py-3.5 text-sm font-semibold text-brand/85 transition hover:bg-white hover:text-accent"
                 >
                   {item.label}
                 </Link>

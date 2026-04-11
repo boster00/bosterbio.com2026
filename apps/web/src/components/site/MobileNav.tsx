@@ -13,7 +13,7 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
     <>
       <button
         type="button"
-        className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-surface-muted text-ink hover:bg-surface-subtle md:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand/15 text-brand hover:bg-brand-tint md:hidden"
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen((o) => !o)}
@@ -34,15 +34,15 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
         aria-modal="true"
         aria-label="Site navigation"
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-[min(100%,20rem)] flex-col border-l border-surface-muted bg-surface shadow-card transition-transform duration-200 ease-out md:hidden",
+          "fixed inset-y-0 right-0 z-50 flex w-[min(100%,20rem)] flex-col border-l border-brand/10 bg-white shadow-card transition-transform duration-200 ease-out md:hidden",
           open ? "translate-x-0" : "translate-x-full pointer-events-none",
         )}
       >
-        <div className="flex items-center justify-between border-b border-surface-muted px-4 py-3">
+        <div className="flex items-center justify-between border-b border-brand/10 bg-brand-tint/50 px-4 py-3">
           <span className="font-display text-lg font-bold text-brand">Menu</span>
           <button
             type="button"
-            className="rounded-md p-2 text-ink-secondary hover:bg-surface-subtle"
+            className="rounded-full p-2 text-brand hover:bg-white"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
           >
@@ -51,12 +51,12 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
             </svg>
           </button>
         </div>
-        <ul className="flex-1 divide-y divide-surface-muted overflow-y-auto py-2">
+        <ul className="flex-1 divide-y divide-brand/10 overflow-y-auto py-2">
           {items.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="block px-4 py-3 text-sm font-medium text-ink hover:bg-surface-subtle"
+                className="block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80 hover:text-accent"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -66,7 +66,7 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
           <li>
             <Link
               href="/account"
-              className="block px-4 py-3 text-sm font-medium text-ink hover:bg-surface-subtle"
+              className="block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80"
               onClick={() => setOpen(false)}
             >
               Sign in
@@ -78,7 +78,7 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
       {open ? (
         <button
           type="button"
-          className="fixed inset-0 z-40 bg-ink/40 md:hidden"
+          className="fixed inset-0 z-40 bg-brand-deep/40 md:hidden"
           aria-label="Close menu"
           onClick={() => setOpen(false)}
         />
