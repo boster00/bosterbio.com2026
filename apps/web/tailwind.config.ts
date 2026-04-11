@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss"
 
+/** Brand from Figma asset library: deep blue primary, warm orange accent */
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,24 +11,29 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#0057A8",
-          light: "#1A6BB8",
-          dark: "#003D7A",
-          muted: "#E8F1F9",
+          DEFAULT: "#1a365d",
+          deep: "#152a4a",
+          /** Top bar / footer — maps legacy `brand-dark` */
+          dark: "#152a4a",
+          /** Hover / mid blue — maps legacy `brand-light` */
+          light: "#2c5282",
+          muted: "#e8eef6",
+          tint: "#f0f5fb",
         },
         accent: {
-          DEFAULT: "#E8720C",
-          hover: "#C75F09",
+          DEFAULT: "#f97316",
+          hover: "#ea580c",
+          soft: "#fff7ed",
         },
         surface: {
-          DEFAULT: "#FFFFFF",
-          subtle: "#F5F7FA",
-          muted: "#E9EEF4",
+          DEFAULT: "#ffffff",
+          subtle: "#f4f8fc",
+          muted: "#e2eaf3",
         },
         ink: {
-          DEFAULT: "#1A2332",
-          secondary: "#4A5568",
-          tertiary: "#718096",
+          DEFAULT: "#1e293b",
+          secondary: "#475569",
+          tertiary: "#64748b",
         },
       },
       fontFamily: {
@@ -37,11 +43,11 @@ const config: Config = {
       fontSize: {
         "display-lg": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
         "display-md": ["2.25rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "title": ["1.25rem", { lineHeight: "1.35", fontWeight: "600" }],
+        title: ["1.25rem", { lineHeight: "1.35", fontWeight: "600" }],
       },
       boxShadow: {
-        card: "0 1px 3px rgba(26, 35, 50, 0.06), 0 8px 24px rgba(26, 35, 50, 0.06)",
-        nav: "0 1px 0 rgba(26, 35, 50, 0.08)",
+        card: "0 1px 3px rgba(26, 54, 93, 0.06), 0 10px 28px rgba(26, 54, 93, 0.08)",
+        nav: "0 1px 0 rgba(26, 54, 93, 0.08)",
       },
       maxWidth: {
         content: "1200px",

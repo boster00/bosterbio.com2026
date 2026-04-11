@@ -8,6 +8,8 @@
     --font-display: "Inter", system-ui, sans-serif;
     --section-y: clamp(3rem, 6vw, 5rem);
     --container-px: clamp(1rem, 4vw, 1.5rem);
+    --brand-deep: #1a365d;
+    --accent: #f97316;
   }
 
   html {
@@ -15,7 +17,7 @@
   }
 
   body {
-    @apply bg-surface text-ink font-sans text-[15px] leading-relaxed;
+    @apply bg-brand-tint text-ink font-sans text-[15px] leading-relaxed;
   }
 
   :focus-visible {
@@ -30,5 +32,9 @@
 
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand focus:shadow-card;
+  }
+
+  .page-hero-bar {
+    @apply border-b border-surface-muted bg-gradient-to-br from-brand-tint via-white to-accent-soft/40;
   }
 }
