@@ -29,7 +29,7 @@ const categories = [
   {
     title: "Custom Services",
     description: "Custom antibody development, ELISA assay development, and conjugation — from antigen to validation.",
-    href: "/contact",
+    href: "/services/custom-antibody",
     icon: "Custom",
   },
 ] as const

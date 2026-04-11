@@ -6,7 +6,7 @@ const navItems = [
   { label: "Primary Antibodies", href: "/products?category=primary" },
   { label: "Secondary Antibodies", href: "/products?category=secondary" },
   { label: "ELISA Kits", href: "/products?category=elisa" },
-  { label: "Services", href: "/contact" },
+  { label: "Services", href: "/services" },
   { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
 ] as const

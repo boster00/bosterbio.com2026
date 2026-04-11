@@ -8,7 +8,16 @@ const footerColumns = [
       { label: "Secondary Antibodies", href: "/products?category=secondary" },
       { label: "ELISA Kits", href: "/products?category=elisa" },
       { label: "Conjugation Kits", href: "/products?category=conjugation" },
-      { label: "Custom Services", href: "/contact" },
+      { label: "Custom Services", href: "/services" },
+    ],
+  },
+  {
+    title: "Services",
+    links: [
+      { label: "Custom antibody", href: "/services/custom-antibody" },
+      { label: "ELISA development", href: "/services/elisa-development" },
+      { label: "Conjugation", href: "/services/conjugation" },
+      { label: "Multiplex IHC", href: "/services/multiplex-ihc" },
     ],
   },
   {
@@ -34,7 +43,7 @@ export function SiteFooter() {
   return (
     <footer id="footer" className="border-t border-surface-muted bg-ink text-white">
       <div className="container-content py-12 md:py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-6">
           <div className="lg:col-span-1">
             <Link href="/" className="font-display text-2xl font-bold tracking-tight">
               Boster<span className="text-accent">Bio</span>
