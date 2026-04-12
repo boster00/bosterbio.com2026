@@ -12,7 +12,7 @@ const reactivities = uniqueSorted(MOCK_ANTIBODIES.flatMap((a) => a.reactivity))
 
 function ProductCard({ product }: { product: MockAntibody }) {
   return (
-    <article className="card-hover-lift group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card hover:border-accent/40">
+    <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
         <ProductPlaceholderThumb />
         <div className="min-w-0 flex-1">
@@ -46,7 +46,7 @@ function ProductCard({ product }: { product: MockAntibody }) {
           <p className="text-sm font-bold text-ink">{product.priceLabel}</p>
           <Link
             href={`/contact?product=${encodeURIComponent(product.catalog)}`}
-            className="rounded-full bg-brand px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent hover:shadow-md active:scale-[0.98]"
+            className="rounded-full bg-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-md active:scale-[0.98]"
           >
             Request quote
           </Link>

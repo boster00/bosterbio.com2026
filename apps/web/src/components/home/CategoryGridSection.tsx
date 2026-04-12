@@ -51,20 +51,24 @@ export function CategoryGridSection() {
             From off-the-shelf catalog products to fully custom projects — everything your lab needs in one place.
           </p>
         </div>
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
           {categories.map((cat) => (
             <li key={cat.href}>
               <Link
                 href={cat.href}
                 className={cn(
-                  "card-hover-lift group flex min-w-0 flex-col rounded-2xl border border-surface-muted bg-surface-subtle/80 p-6 shadow-card",
+                  "card-hover-lift group flex min-h-full min-w-0 flex-col items-center rounded-2xl border border-surface-muted bg-surface-subtle/80 px-5 pb-6 pt-8 text-center shadow-card",
                   "hover:border-accent/40 hover:bg-white",
                 )}
               >
-                <CategoryBadgeIcon variant={cat.badge} size="lg" className="shadow-accent/30" />
-                <h3 className="mt-4 font-display text-title text-brand group-hover:text-accent">{cat.title}</h3>
-                <p className="mt-2 flex-1 text-sm text-ink-secondary">{cat.description}</p>
-                <span className="mt-4 text-sm font-bold text-accent">
+                <CategoryBadgeIcon variant={cat.badge} size="xl" className="shadow-lg shadow-accent/30" />
+                <h3 className="mt-5 font-display text-lg font-semibold leading-snug text-brand group-hover:text-accent">
+                  {cat.title}
+                </h3>
+                <p className="mt-3 line-clamp-2 min-h-[2.75rem] text-sm leading-relaxed text-ink-secondary">
+                  {cat.description}
+                </p>
+                <span className="mt-5 text-sm font-bold text-accent">
                   Shop now
                   <span className="ml-1 inline-block transition group-hover:translate-x-0.5" aria-hidden>
                     →

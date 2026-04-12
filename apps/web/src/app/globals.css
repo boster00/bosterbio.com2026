@@ -63,4 +63,20 @@
       transform: translateY(-2px) scale(1.01);
     }
   }
+
+  /** Product PLP cards — scale + shadow on hover */
+  .product-card-hover {
+    @apply transition duration-200 ease-out will-change-transform;
+  }
+  .product-card-hover:hover {
+    @apply scale-[1.02] shadow-lg;
+  }
+
+  /** Primary nav + footer links — animated underline */
+  .nav-link-animate {
+    @apply underline decoration-transparent decoration-2 underline-offset-[6px] transition-[text-decoration-color,decoration-color] duration-200;
+  }
+  .nav-link-animate:hover {
+    @apply decoration-current;
+  }
 }

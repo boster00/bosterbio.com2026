@@ -1,38 +1,53 @@
 import Link from "next/link"
 
-/** High-visibility promo strip — strong orange accent per brand library */
+/** Compact mascot for promo strip (right side) */
+function PromoMascot() {
+  return (
+    <div className="hidden shrink-0 sm:block" aria-hidden>
+      <svg viewBox="0 0 72 72" className="h-14 w-14 text-white drop-shadow-md md:h-16 md:w-16">
+        <circle cx="36" cy="28" r="18" fill="rgba(255,255,255,0.2)" stroke="white" strokeWidth="1.5" />
+        <circle cx="36" cy="26" r="14" fill="#1a365d" stroke="white" strokeWidth="1.2" />
+        <circle cx="31" cy="24" r="2.5" fill="white" />
+        <circle cx="41" cy="24" r="2.5" fill="white" />
+        <path d="M30 32 Q36 36 42 32" stroke="white" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+        <line x1="36" y1="10" x2="36" y2="4" stroke="#f97316" strokeWidth="2.5" strokeLinecap="round" />
+        <circle cx="36" cy="2" r="3" fill="#f97316" />
+        <rect x="28" y="44" width="20" height="22" rx="5" fill="rgba(255,255,255,0.25)" stroke="white" strokeWidth="1" />
+        <circle cx="36" cy="54" r="6" fill="#f97316" />
+        <text x="36" y="57.5" textAnchor="middle" fill="white" fontSize="9" fontWeight="800" fontFamily="system-ui">
+          Y
+        </text>
+      </svg>
+    </div>
+  )
+}
+
 export function PromoStripSection() {
   return (
     <section
-      className="relative overflow-x-clip border-b-2 border-accent/40 bg-gradient-to-r from-accent via-orange-400 to-accent py-4 shadow-md shadow-accent/20"
+      className="relative overflow-x-clip border-b border-teal-600/30 bg-gradient-to-r from-brand via-brand-light to-teal-500 py-5 shadow-lg shadow-black/15 md:py-6"
       aria-label="Promotions"
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/25 to-transparent"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/15 to-transparent"
         aria-hidden
       />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.12]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='36' fill='none' stroke='%23ffffff' stroke-width='2' stroke-dasharray='8 6'/%3E%3C/svg%3E")`,
-          backgroundSize: "80px 80px",
-        }}
-        aria-hidden
-      />
-      <div className="container-content relative flex min-w-0 flex-col items-stretch justify-between gap-3 text-center sm:flex-row sm:items-center sm:text-left">
-        <p className="min-w-0 text-sm font-bold leading-snug text-white drop-shadow-sm sm:text-base">
-          <span className="rounded-md bg-white/20 px-1.5 py-0.5 text-white">Dive into savings</span>
-          <span className="mt-1 block text-white/95 sm:mt-0 sm:inline sm:pl-1">
-            {" "}
-            — bundle pricing on antibodies &amp; ELISA kits for your lab.
+      <div className="container-content relative flex min-w-0 flex-col items-center gap-4 sm:flex-row sm:justify-between sm:gap-6">
+        <p className="min-w-0 flex-1 text-center text-base font-bold leading-snug text-white drop-shadow-sm sm:text-left md:text-lg lg:text-xl">
+          <span className="rounded-md bg-white/20 px-2 py-1 text-white backdrop-blur-sm">Dive into savings</span>
+          <span className="mt-2 block font-semibold text-white/95 sm:mt-0 sm:inline sm:pl-2">
+            Bundle pricing on antibodies &amp; ELISA kits for your lab.
           </span>
         </p>
-        <Link
-          href="/contact"
-          className="cta-promo shrink-0 rounded-full bg-brand-deep px-6 py-2.5 text-center text-xs font-bold uppercase tracking-wide text-white shadow-lg transition duration-200 hover:scale-[1.03] hover:bg-brand hover:shadow-xl active:scale-[0.98] sm:py-2"
-        >
-          Get a quote
-        </Link>
+        <div className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <PromoMascot />
+          <Link
+            href="/contact"
+            className="w-full shrink-0 rounded-full bg-white px-7 py-3 text-center text-sm font-bold uppercase tracking-wide text-brand shadow-lg transition duration-200 hover:scale-[1.03] hover:bg-accent-soft hover:shadow-xl active:scale-[0.98] sm:w-auto"
+          >
+            Get a quote
+          </Link>
+        </div>
       </div>
     </section>
   )

@@ -92,15 +92,16 @@ const icons: Record<Variant, (props: { className?: string }) => ReactNode> = {
 
 type Props = {
   variant: Variant
-  size?: "sm" | "md" | "lg"
+  size?: "sm" | "md" | "lg" | "xl"
   className?: string
 }
 
-/** Outer circle max 48px (md/lg); sm for compact rows */
 const sizeClasses: Record<NonNullable<Props["size"]>, { outer: string; inner: string }> = {
   sm: { outer: "h-10 w-10 min-h-10 min-w-10", inner: "h-4 w-4 shrink-0" },
   md: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-6 w-6 shrink-0" },
   lg: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-6 w-6 shrink-0" },
+  /** Category tiles — 64px orange circle per brand spec */
+  xl: { outer: "h-16 w-16 min-h-16 min-w-16", inner: "h-8 w-8 shrink-0" },
 }
 
 export function CategoryBadgeIcon({ variant, size = "md", className }: Props) {

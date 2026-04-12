@@ -1,5 +1,32 @@
 import { CategoryBadgeIcon } from "@/components/ui/CategoryBadgeIcon"
 
+function TeamPlaceholder() {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-full border-2 border-accent/40 bg-gradient-to-b from-accent-soft to-orange-100/90 p-1 shadow-md aspect-square w-[min(100%,11rem)] mx-auto">
+      <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-gradient-to-b from-orange-200/80 to-accent/30">
+        <svg
+          viewBox="0 0 48 48"
+          className="h-14 w-14 text-brand/70"
+          fill="currentColor"
+          aria-hidden
+        >
+          <circle cx="24" cy="16" r="8" opacity="0.9" />
+          <path
+            d="M8 42c0-8.8 7.2-16 16-16s16 7.2 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            opacity="0.85"
+          />
+        </svg>
+        <span className="mt-2 px-2 text-center text-xs font-semibold text-brand">Team member</span>
+        <span className="mt-0.5 px-2 text-center text-[10px] text-brand/70">Bio coming soon</span>
+      </div>
+    </div>
+  )
+}
+
 export default function AboutPage() {
   return (
     <main id="main-content">
@@ -18,14 +45,14 @@ export default function AboutPage() {
 
       <div className="container-content py-12 md:py-16">
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="flex gap-4 rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
+          <div className="flex gap-4 rounded-2xl border-x border-b border-brand/10 border-t-2 border-t-accent bg-white p-6 shadow-card">
             <CategoryBadgeIcon variant="antibodies" size="sm" />
             <div>
               <p className="font-display text-3xl font-bold tabular-nums text-accent">15,000+</p>
               <p className="mt-1 text-sm font-medium text-ink-secondary">Catalog antibodies &amp; growing</p>
             </div>
           </div>
-          <div className="flex gap-4 rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
+          <div className="flex gap-4 rounded-2xl border-x border-b border-brand/10 border-t-2 border-t-accent bg-white p-6 shadow-card">
             <CategoryBadgeIcon variant="custom" size="sm" />
             <div>
               <p className="font-display text-2xl font-bold text-brand">Custom</p>
@@ -34,7 +61,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="flex gap-4 rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
+          <div className="flex gap-4 rounded-2xl border-x border-b border-brand/10 border-t-2 border-t-accent bg-white p-6 shadow-card">
             <CategoryBadgeIcon variant="elisa" size="sm" />
             <div>
               <p className="font-display text-2xl font-bold text-brand">ELISA</p>
@@ -78,14 +105,10 @@ export default function AboutPage() {
             Team photos and leadership bios will be added here. BosterBio brings together immunologists, assay
             developers, and manufacturing specialists under one roof in Pleasanton.
           </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-6 lg:grid-cols-4">
             {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="flex aspect-[4/5] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-brand/20 bg-brand-tint/60 text-center"
-              >
-                <span className="text-sm font-semibold text-brand">Team member</span>
-                <span className="mt-1 text-xs text-ink-tertiary">Photo &amp; bio coming soon</span>
+              <div key={i} className="flex justify-center py-2">
+                <TeamPlaceholder />
               </div>
             ))}
           </div>

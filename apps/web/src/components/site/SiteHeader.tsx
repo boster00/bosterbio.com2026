@@ -18,18 +18,21 @@ export function SiteHeader() {
         <div className="container-content flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2.5 text-center text-xs sm:justify-between sm:text-left">
           <p className="font-medium text-white/95">
             Same-day shipping on in-stock orders —{" "}
-            <Link href="/contact" className="font-semibold text-accent underline decoration-accent/50 underline-offset-2 hover:decoration-accent">
+            <Link
+              href="/contact"
+              className="nav-link-animate font-semibold text-accent underline decoration-accent/50 underline-offset-2 hover:decoration-accent"
+            >
               Contact us for details
             </Link>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-white/90">
-            <a href="tel:+19256772200" className="hover:text-accent">
+            <a href="tel:+19256772200" className="nav-link-animate hover:text-accent">
               +1 (925) 677-2200
             </a>
             <span className="hidden text-white/40 sm:inline" aria-hidden>
               |
             </span>
-            <Link href="/contact" className="hover:text-accent">
+            <Link href="/contact" className="nav-link-animate hover:text-accent">
               Contact
             </Link>
           </div>
@@ -73,7 +76,7 @@ export function SiteHeader() {
           <Link
             href="/account"
             className={cn(
-              "hidden rounded-full px-3 py-2 text-sm font-medium text-ink-secondary hover:bg-brand-tint sm:inline-block",
+              "nav-link-animate hidden rounded-full px-3 py-2 text-sm font-medium text-ink-secondary hover:bg-brand-tint sm:inline-block",
             )}
           >
             Sign in
@@ -119,7 +122,7 @@ export function SiteHeader() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block rounded-t-lg px-3 py-3.5 text-sm font-semibold text-brand/85 transition hover:bg-white hover:text-accent"
+                  className="nav-link-animate block rounded-t-lg px-3 py-3.5 text-sm font-semibold text-brand/85 transition hover:bg-white hover:text-accent"
                 >
                   {item.label}
                 </Link>

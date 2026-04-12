@@ -16,12 +16,12 @@ export function ServiceWorkflow({ steps }: { steps: WorkflowStep[] }) {
         {steps.map((step, i) => (
           <li
             key={step.title}
-            className="relative flex flex-col rounded-2xl border border-brand/10 bg-white p-5 shadow-card"
+            className="relative flex flex-col rounded-2xl border border-brand/10 bg-white p-5 pt-6 shadow-card"
           >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
+            <span className="absolute -top-3 left-5 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-white shadow-md shadow-accent/30">
               {i + 1}
             </span>
-            <h3 className="mt-3 font-display text-base font-semibold text-brand">{step.title}</h3>
+            <h3 className="mt-4 font-display text-base font-semibold text-brand">{step.title}</h3>
             <p className="mt-2 flex-1 text-sm text-ink-secondary">{step.description}</p>
           </li>
         ))}

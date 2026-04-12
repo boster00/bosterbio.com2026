@@ -56,7 +56,7 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80 hover:text-accent"
+                className="nav-link-animate block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80 hover:text-accent"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -66,7 +66,7 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
           <li>
             <Link
               href="/account"
-              className="block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80"
+              className="nav-link-animate block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80"
               onClick={() => setOpen(false)}
             >
               Sign in

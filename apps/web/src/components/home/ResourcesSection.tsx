@@ -54,13 +54,11 @@ export function ResourcesSection() {
             <li key={t.href}>
               <Link
                 href={t.href}
-                className="card-hover-lift flex min-w-0 gap-4 rounded-2xl border border-surface-muted bg-brand-tint/50 p-5 hover:border-accent/35 hover:bg-white"
+                className="card-hover-lift flex min-h-full min-w-0 flex-col items-center rounded-2xl border border-surface-muted bg-brand-tint/50 px-5 pb-6 pt-8 text-center hover:border-accent/35 hover:bg-white"
               >
-                <CategoryBadgeIcon variant={t.badge} size="sm" />
-                <div className="min-w-0">
-                  <h3 className="font-display text-lg font-semibold text-brand">{t.title}</h3>
-                  <p className="mt-1 text-sm text-ink-secondary">{t.desc}</p>
-                </div>
+                <CategoryBadgeIcon variant={t.badge} size="xl" className="shadow-lg shadow-accent/25" />
+                <h3 className="mt-5 font-display text-lg font-semibold text-brand">{t.title}</h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-secondary">{t.desc}</p>
               </Link>
             </li>
           ))}
