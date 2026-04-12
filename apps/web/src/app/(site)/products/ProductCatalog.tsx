@@ -12,7 +12,7 @@ const reactivities = uniqueSorted(MOCK_ANTIBODIES.flatMap((a) => a.reactivity))
 
 function ProductCard({ product }: { product: MockAntibody }) {
   return (
-    <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card hover:border-accent/40">
+    <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 border-l-4 border-l-accent bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
         <ProductPlaceholderThumb />
         <div className="min-w-0 flex-1">
@@ -35,7 +35,7 @@ function ProductCard({ product }: { product: MockAntibody }) {
           {product.applications.map((app) => (
             <span
               key={app}
-              className="rounded-full border border-brand/15 bg-brand-muted/50 px-2.5 py-0.5 text-xs font-bold text-brand"
+              className="rounded-full border border-blue-100 bg-[#eff6ff] px-2.5 py-0.5 text-xs font-bold text-brand"
             >
               {app}
             </span>

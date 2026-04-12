@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ServicePricingCta } from "@/components/services/ServicePricingCta"
+import { ServiceTitleIcon } from "@/components/services/ServiceTitleIcon"
 import { ServiceWorkflow } from "@/components/services/ServiceWorkflow"
 
 const workflowSteps = [
@@ -31,7 +32,10 @@ export default function ElisaDevelopmentServicePage() {
       <div className="page-hero-bar border-b border-brand/10">
         <div className="container-content py-12 md:py-16">
           <p className="text-xs font-bold uppercase tracking-widest text-accent">Services</p>
-          <h1 className="mt-2 font-display text-display-md text-brand">ELISA assay development</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-4">
+            <ServiceTitleIcon variant="tube" />
+            <h1 className="font-display text-display-md text-brand">ELISA assay development</h1>
+          </div>
           <p className="mt-4 max-w-3xl text-lg text-ink-secondary">
             Sandwich and competitive ELISA development for your analyte — from antibody pairing and standard curve design
             through plate coating, buffer optimization, and lot-to-lot consistency.

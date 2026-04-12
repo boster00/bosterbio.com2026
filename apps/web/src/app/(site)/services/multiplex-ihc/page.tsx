@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ServicePricingCta } from "@/components/services/ServicePricingCta"
+import { ServiceTitleIcon } from "@/components/services/ServiceTitleIcon"
 import { ServiceWorkflow } from "@/components/services/ServiceWorkflow"
 
 const workflowSteps = [
@@ -31,7 +32,10 @@ export default function MultiplexIhcServicePage() {
       <div className="page-hero-bar border-b border-brand/10">
         <div className="container-content py-12 md:py-16">
           <p className="text-xs font-bold uppercase tracking-widest text-accent">Services</p>
-          <h1 className="mt-2 font-display text-display-md text-brand">Multiplex IHC services</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-4">
+            <ServiceTitleIcon variant="grid" />
+            <h1 className="font-display text-display-md text-brand">Multiplex IHC services</h1>
+          </div>
           <p className="mt-4 max-w-3xl text-lg text-ink-secondary">
             Multiplex immunohistochemistry combines multiple markers in a single tissue section — enabling spatial
             biology insights without serial staining rounds. We help design panels, select clones, and optimize tyramide

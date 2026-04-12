@@ -1,3 +1,4 @@
+import { AntibodyRobotMascot } from "@/components/home/AntibodyRobotMascot"
 import { CategoryBadgeIcon } from "@/components/ui/CategoryBadgeIcon"
 
 function TeamPlaceholder() {
@@ -30,18 +31,33 @@ function TeamPlaceholder() {
 export default function AboutPage() {
   return (
     <main id="main-content">
-      <div className="page-hero-bar border-b border-brand/10">
-        <div className="container-content py-12 md:py-16">
-          <p className="text-xs font-bold uppercase tracking-widest text-accent">Our story</p>
-          <h1 className="mt-2 font-display text-display-md text-brand">About BosterBio</h1>
-          <p className="mt-4 max-w-3xl text-lg text-ink-secondary">
-            Boster Biological Technology was founded in{" "}
-            <strong className="font-semibold text-brand">Pleasanton, California</strong> — in the heart of the Bay Area
-            life science community. For more than three decades we have supplied researchers with antibodies, ELISA
-            kits, and custom services backed by validation data you can use in your own lab.
-          </p>
+      <section className="relative overflow-hidden border-b border-white/10 bg-brand text-white">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-20"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 50% at 80% 20%, #f97316 0%, transparent 50%), radial-gradient(ellipse 60% 40% at 0% 100%, #38bdf8 0%, transparent 45%)",
+          }}
+          aria-hidden
+        />
+        <div className="container-content relative grid gap-10 py-12 md:grid-cols-2 md:items-center md:gap-12 md:py-16">
+          <div className="min-w-0">
+            <p className="text-xs font-bold uppercase tracking-widest text-accent">Our story</p>
+            <h1 className="mt-2 font-display text-display-md text-white md:text-[2.5rem]">About BosterBio</h1>
+            <p className="mt-4 max-w-3xl text-lg text-white/88">
+              Boster Biological Technology was founded in{" "}
+              <strong className="font-semibold text-accent">Pleasanton, California</strong> — in the heart of the Bay
+              Area life science community. For more than three decades we have supplied researchers with antibodies,
+              ELISA kits, and custom services backed by validation data you can use in your own lab.
+            </p>
+          </div>
+          <div className="relative flex justify-center md:justify-end" aria-hidden>
+            <div className="max-w-[min(100%,16rem)] rounded-2xl border border-white/20 bg-white/10 p-6 shadow-2xl backdrop-blur-sm drop-shadow-[0_0_24px_rgba(249,115,22,0.3)] sm:max-w-xs">
+              <AntibodyRobotMascot className="mx-auto h-[180px] w-auto sm:h-[200px]" />
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       <div className="container-content py-12 md:py-16">
         <div className="grid gap-6 md:grid-cols-3">

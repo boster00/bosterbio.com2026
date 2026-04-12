@@ -70,8 +70,8 @@ export function SiteFooter() {
               <p>
                 <span className="font-semibold text-accent">Headquarters</span>
               </p>
-              <p className="flex gap-2 leading-relaxed">
-                <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+              <p className="flex items-start gap-2 leading-relaxed">
+                <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
                 <span>
                   3942 Valley Ave, Suite B
                   <br />

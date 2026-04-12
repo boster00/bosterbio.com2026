@@ -62,18 +62,22 @@ const fullPageRoutes = [
   { path: "/terms", file: "terms" },
 ]
 
+/** All primary storefront routes — desktop + mobile PNGs in docs/screenshots/routes/ */
 const routesForRepo = [
   { path: "/", file: "route-home" },
   { path: "/products", file: "route-products" },
   { path: "/about", file: "route-about" },
+  { path: "/resources", file: "route-resources" },
   { path: "/contact", file: "route-contact" },
+  { path: "/services", file: "route-services" },
   { path: "/services/custom-antibody", file: "route-services-custom-antibody" },
   { path: "/services/elisa-development", file: "route-services-elisa-development" },
   { path: "/services/conjugation", file: "route-services-conjugation" },
   { path: "/services/multiplex-ihc", file: "route-services-multiplex-ihc" },
-  { path: "/resources", file: "route-resources" },
   { path: "/account", file: "route-account" },
   { path: "/cart", file: "route-cart" },
+  { path: "/privacy", file: "route-privacy" },
+  { path: "/terms", file: "route-terms" },
 ]
 
 async function waitForStyledPage(page) {

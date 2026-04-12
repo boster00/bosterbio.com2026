@@ -1,4 +1,5 @@
 import { CategoryGridSection } from "@/components/home/CategoryGridSection"
+import { CitationBannerSection } from "@/components/home/CitationBannerSection"
 import { CtaSection } from "@/components/home/CtaSection"
 import { HeroSection } from "@/components/home/HeroSection"
 import { PromoStripSection } from "@/components/home/PromoStripSection"
@@ -12,6 +13,7 @@ export default function HomePage() {
       <PromoStripSection />
       <CategoryGridSection />
       <TrustSection />
+      <CitationBannerSection />
       <ResourcesSection />
       <CtaSection />
     </main>

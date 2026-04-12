@@ -4,13 +4,15 @@ import { AntibodyRobotMascot } from "./AntibodyRobotMascot"
 function MascotPanel() {
   return (
     <div
-      className="relative mx-auto w-full max-w-[min(100%,22rem)] overflow-hidden rounded-2xl border border-white/25 bg-gradient-to-b from-brand-light/30 to-brand-deep shadow-2xl sm:max-w-md lg:max-w-none"
+      className="relative mx-auto w-full max-w-[min(100%,22rem)] overflow-visible rounded-2xl border border-white/25 bg-gradient-to-b from-brand-light/30 to-brand-deep shadow-2xl sm:max-w-md lg:max-w-none"
       aria-hidden
     >
       <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-accent/25 blur-2xl" />
       <div className="absolute -bottom-10 -left-10 h-36 w-36 rounded-full bg-white/10 blur-2xl" />
-      <div className="relative px-4 pt-6 sm:px-6 sm:pt-8">
-        <AntibodyRobotMascot className="mx-auto h-auto w-full max-h-[min(52vw,280px)] sm:max-h-[300px]" />
+      <div className="relative flex justify-center px-4 pt-6 sm:px-6 sm:pt-8">
+        <div className="drop-shadow-[0_12px_32px_rgba(0,0,0,0.35),0_0_28px_rgba(249,115,22,0.35)]">
+          <AntibodyRobotMascot className="mx-auto h-[200px] w-auto max-w-full sm:h-[220px] md:h-[240px]" />
+        </div>
       </div>
       <p className="relative px-4 pb-5 text-center text-xs font-medium text-white/90 sm:px-6 sm:pb-6 sm:text-sm">
         <span className="text-accent">Science</span> with a smile — reagents you can trust in every experiment.

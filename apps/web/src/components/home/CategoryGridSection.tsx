@@ -58,7 +58,7 @@ export function CategoryGridSection() {
                 href={cat.href}
                 className={cn(
                   "card-hover-lift group flex min-h-full min-w-0 flex-col items-center rounded-2xl border border-surface-muted bg-surface-subtle/80 px-5 pb-6 pt-8 text-center shadow-card",
-                  "hover:border-accent/40 hover:bg-white",
+                  "hover:border-accent/40 hover:bg-[#fff7ed]",
                 )}
               >
                 <CategoryBadgeIcon variant={cat.badge} size="xl" className="shadow-lg shadow-accent/30" />
