@@ -36,3 +36,6 @@ uploads/
 
 # TypeScript
 *.tsbuildinfo
+
+# Playwright — shared browser auth (cookies); never commit
+playwright/.auth/

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="uw-deep" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0c4a6e" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#0369a1" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#14b8a6" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="120" fill="url(#uw-deep)"/>
+  <g fill="none" stroke="#fff" stroke-width="1.2" opacity="0.35">
+    <circle cx="80" cy="70" r="6"/>
+    <circle cx="95" cy="65" r="3"/>
+    <circle cx="108" cy="72" r="4"/>
+    <path d="M200 85c20-8 40-8 60 0s40 8 60 0"/>
+    <ellipse cx="920" cy="55" rx="28" ry="12" opacity="0.5"/>
+    <path d="M900 50q10-15 25-8t20 12"/>
+    <path d="M1050 75c15 0 28-12 40-8s25 18 40 20"/>
+  </g>
+  <g fill="#fff" opacity="0.2">
+    <circle cx="340" cy="30" r="4"/>
+    <circle cx="520" cy="55" r="3"/>
+    <circle cx="680" cy="25" r="5"/>
+    <circle cx="780" cy="70" r="3"/>
+    <circle cx="440" cy="85" r="2.5"/>
+  </g>
+  <path fill="#fff" opacity="0.12" d="M0 95c100 12 200-8 300 4s250 20 400 8 300-24 500-6v19H0z"/>
+</svg>

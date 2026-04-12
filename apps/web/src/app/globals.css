@@ -5,10 +5,78 @@
 @layer base {
   :root {
     --font-sans: "Inter", system-ui, sans-serif;
-    --font-heading: "Inter", system-ui, sans-serif;
+    --font-display: "Inter", system-ui, sans-serif;
+    --section-y: clamp(3rem, 6vw, 5rem);
+    --container-px: clamp(1rem, 4vw, 1.5rem);
+    --brand-deep: #1a365d;
+    --accent: #f97316;
   }
 
   html {
-    @apply antialiased;
+    @apply antialiased scroll-smooth;
+  }
+
+  body {
+    @apply overflow-x-hidden bg-brand-tint text-ink font-sans text-[15px] leading-relaxed;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-[var(--container-px)];
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand focus:shadow-card;
+  }
+
+  .page-hero-bar {
+    @apply border-b border-surface-muted bg-gradient-to-br from-brand-tint via-white to-accent-soft/40;
+  }
+
+  /* Subtle lift on interactive CTAs (used with hover:scale in className) */
+  .cta-pill-primary,
+  .cta-pill-secondary {
+    @apply transition-transform duration-200 ease-out will-change-transform;
+  }
+  .cta-pill-primary:hover,
+  .cta-pill-secondary:hover {
+    @apply scale-[1.02] shadow-xl;
+  }
+  .cta-pill-primary:active,
+  .cta-pill-secondary:active {
+    @apply scale-[0.98];
+  }
+
+  .card-hover-lift {
+    @apply transition duration-200 ease-out will-change-transform;
+  }
+  .card-hover-lift:hover {
+    @apply -translate-y-0.5 shadow-xl;
+  }
+  @media (min-width: 640px) {
+    .card-hover-lift:hover {
+      transform: translateY(-2px) scale(1.01);
+    }
+  }
+
+  /** Product PLP cards — scale + shadow on hover */
+  .product-card-hover {
+    @apply transition duration-200 ease-out will-change-transform;
+  }
+  .product-card-hover:hover {
+    @apply scale-[1.02] shadow-lg;
+  }
+
+  /** Primary nav + footer links — animated underline */
+  .nav-link-animate {
+    @apply underline decoration-transparent decoration-2 underline-offset-[6px] transition-[text-decoration-color,decoration-color] duration-200;
+  }
+  .nav-link-animate:hover {
+    @apply decoration-current;
   }
 }
