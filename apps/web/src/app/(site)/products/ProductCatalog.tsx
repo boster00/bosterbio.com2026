@@ -12,7 +12,7 @@ const reactivities = uniqueSorted(MOCK_ANTIBODIES.flatMap((a) => a.reactivity))
 
 function ProductCard({ product }: { product: MockAntibody }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card transition hover:border-accent/35 hover:shadow-lg">
+    <article className="card-hover-lift group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
         <CategoryBadgeIcon variant="antibodies" size="sm" className="shadow-md" />
         <div className="min-w-0 flex-1">
@@ -46,7 +46,7 @@ function ProductCard({ product }: { product: MockAntibody }) {
           <p className="text-sm font-bold text-ink">{product.priceLabel}</p>
           <Link
             href={`/contact?product=${encodeURIComponent(product.catalog)}`}
-            className="rounded-full bg-brand px-4 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-accent"
+            className="rounded-full bg-brand px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent hover:shadow-md active:scale-[0.98]"
           >
             Request quote
           </Link>
@@ -81,8 +81,8 @@ export function ProductCatalog({ initialQuery = "" }: { initialQuery?: string })
   return (
     <>
       <div className="page-hero-bar border-b border-brand/10">
-        <div className="container-content flex flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:py-14">
-          <div className="max-w-xl">
+        <div className="container-content flex min-w-0 flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:py-14">
+          <div className="min-w-0 max-w-xl">
             <p className="text-xs font-bold uppercase tracking-widest text-accent">Catalog</p>
             <h1 className="mt-2 font-display text-display-md text-brand">Antibodies &amp; reagents</h1>
             <p className="mt-3 text-ink-secondary">
@@ -91,7 +91,7 @@ export function ProductCatalog({ initialQuery = "" }: { initialQuery?: string })
             </p>
           </div>
           <form
-            className="flex w-full max-w-md flex-col gap-2 sm:flex-row"
+            className="flex w-full min-w-0 max-w-md flex-col gap-2 sm:flex-row"
             role="search"
             onSubmit={(e) => e.preventDefault()}
           >
@@ -109,7 +109,7 @@ export function ProductCatalog({ initialQuery = "" }: { initialQuery?: string })
             />
             <button
               type="submit"
-              className="h-12 shrink-0 rounded-full bg-accent px-8 text-sm font-bold text-white shadow-md shadow-accent/25 hover:bg-accent-hover"
+              className="h-12 shrink-0 rounded-full bg-accent px-8 text-sm font-bold text-white shadow-md shadow-accent/25 transition duration-200 hover:scale-[1.02] hover:bg-accent-hover hover:shadow-lg active:scale-[0.98]"
             >
               Search
             </button>

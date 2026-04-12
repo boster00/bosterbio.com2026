@@ -23,13 +23,13 @@ export function CtaSection() {
           <div className="relative mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-accent-hover"
+              className="inline-flex min-h-[44px] min-w-[10rem] items-center justify-center rounded-full bg-accent px-7 py-3 text-sm font-bold text-white shadow-lg transition duration-200 hover:scale-[1.03] hover:bg-accent-hover hover:shadow-xl active:scale-[0.98]"
             >
               Talk to support
             </Link>
             <Link
               href="/products"
-              className="inline-flex items-center justify-center rounded-full border-2 border-white/55 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+              className="inline-flex min-h-[44px] min-w-[10rem] items-center justify-center rounded-full border-2 border-white/55 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition duration-200 hover:scale-[1.03] hover:bg-white/25 hover:shadow-lg active:scale-[0.98]"
             >
               Browse products
             </Link>

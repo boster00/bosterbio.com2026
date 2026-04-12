@@ -29,7 +29,7 @@ export function TrustSection() {
 
         <div className="mt-10">
           <p className="text-sm font-bold uppercase tracking-wider text-brand/70">Institutions &amp; centers</p>
-          <ul className="mt-4 flex flex-wrap gap-3" aria-label="Example institutions using BosterBio products">
+          <ul className="mt-4 flex min-w-0 flex-wrap gap-3" aria-label="Example institutions using BosterBio products">
             {institutions.map((name) => (
               <li
                 key={name}

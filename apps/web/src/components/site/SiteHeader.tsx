@@ -13,7 +13,7 @@ const navItems = [
 
 export function SiteHeader() {
   return (
-    <header className="relative sticky top-0 z-50 border-b border-brand/10 bg-white shadow-nav">
+    <header className="relative sticky top-0 z-50 max-w-[100vw] border-b border-brand/10 bg-white shadow-nav">
       <div className="bg-brand-deep text-white">
         <div className="container-content flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2.5 text-center text-xs sm:justify-between sm:text-left">
           <p className="font-medium text-white/95">
@@ -36,10 +36,10 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className="container-content flex items-center gap-4 py-3 md:py-4">
+      <div className="container-content flex min-w-0 items-center gap-2 py-3 sm:gap-4 md:py-4">
         <Link
           href="/"
-          className="font-display text-xl font-bold tracking-tight text-brand md:text-2xl"
+          className="min-w-0 shrink font-display text-lg font-bold tracking-tight text-brand sm:text-xl md:text-2xl"
           aria-label="BosterBio home"
         >
           Boster<span className="text-accent">Bio</span>

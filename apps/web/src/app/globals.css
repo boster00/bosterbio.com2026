@@ -17,7 +17,7 @@
   }
 
   body {
-    @apply bg-brand-tint text-ink font-sans text-[15px] leading-relaxed;
+    @apply overflow-x-hidden bg-brand-tint text-ink font-sans text-[15px] leading-relaxed;
   }
 
   :focus-visible {
@@ -36,5 +36,31 @@
 
   .page-hero-bar {
     @apply border-b border-surface-muted bg-gradient-to-br from-brand-tint via-white to-accent-soft/40;
+  }
+
+  /* Subtle lift on interactive CTAs (used with hover:scale in className) */
+  .cta-pill-primary,
+  .cta-pill-secondary {
+    @apply transition-transform duration-200 ease-out will-change-transform;
+  }
+  .cta-pill-primary:hover,
+  .cta-pill-secondary:hover {
+    @apply scale-[1.02] shadow-xl;
+  }
+  .cta-pill-primary:active,
+  .cta-pill-secondary:active {
+    @apply scale-[0.98];
+  }
+
+  .card-hover-lift {
+    @apply transition duration-200 ease-out will-change-transform;
+  }
+  .card-hover-lift:hover {
+    @apply -translate-y-0.5 shadow-xl;
+  }
+  @media (min-width: 640px) {
+    .card-hover-lift:hover {
+      transform: translateY(-2px) scale(1.01);
+    }
   }
 }

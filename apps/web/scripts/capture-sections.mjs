@@ -2,7 +2,7 @@
  * Capture screenshots for design review.
  * Usage: BASE_URL=http://127.0.0.1:3000 node scripts/capture-sections.mjs [home|products|...|fullpages|routes|all]
  *
- * `routes` — full-page PNGs for the review set → apps/web/docs/screenshots/routes/ (committed to repo)
+ * `routes` — 1280px + 375px full-page PNGs → apps/web/docs/screenshots/routes/
  * `all` — homepage section clips + page-*.png + fullpage-*.png (default OUT_DIR)
  */
 import fs from "node:fs/promises"
@@ -17,7 +17,6 @@ const OUT_DIR = process.env.SCREENSHOT_DIR ?? "/opt/cursor/artifacts/screenshots
 const BASE = process.env.BASE_URL ?? "http://127.0.0.1:3000"
 const EXECUTABLE =
   process.env.PUPPETEER_EXECUTABLE_PATH ?? "/usr/local/bin/google-chrome"
-/** Use `load` for Next dev (networkidle never settles); default `networkidle0` for production */
 const WAIT = process.env.PUPPETEER_WAIT ?? "networkidle0"
 const SETTLE_MS = Number(process.env.PUPPETEER_SETTLE_MS ?? "0")
 
@@ -32,7 +31,6 @@ const homeSections = [
   { id: "footer", name: "home-06-footer" },
 ]
 
-/** Legacy/alternate filenames (full-page captures) */
 const pageRoutes = [
   { path: "/products", file: "page-products" },
   { path: "/about", file: "page-about" },
@@ -45,7 +43,6 @@ const pageRoutes = [
   { path: "/services/multiplex-ihc", file: "page-service-multiplex-ihc" },
 ]
 
-/** Every storefront route — fullpage-{file}.png */
 const fullPageRoutes = [
   { path: "/", file: "home" },
   { path: "/products", file: "products" },
@@ -63,7 +60,6 @@ const fullPageRoutes = [
   { path: "/terms", file: "terms" },
 ]
 
-/** Routes requested for repo screenshots (order preserved) */
 const routesForRepo = [
   { path: "/", file: "route-home" },
   { path: "/products", file: "route-products" },
@@ -112,8 +108,8 @@ async function captureHome(page) {
   console.log("Wrote", fullPath)
 }
 
-async function capturePageFull(page, route, fileBase, outputDir = OUT_DIR) {
-  await page.setViewport({ width: 1280, height: 900, deviceScaleFactor: 1 })
+async function capturePageFull(page, route, fileBase, outputDir = OUT_DIR, viewportWidth = 1280) {
+  await page.setViewport({ width: viewportWidth, height: 900, deviceScaleFactor: 1 })
   await page.goto(`${BASE}${route}`, { waitUntil: WAIT, timeout: 90000 })
   if (SETTLE_MS) await new Promise((r) => setTimeout(r, SETTLE_MS))
   const fp = path.join(outputDir, `${fileBase}.png`)
@@ -136,7 +132,8 @@ async function main() {
 
     if (mode === "routes") {
       for (const r of routesForRepo) {
-        await capturePageFull(page, r.path, r.file, REPO_ROUTES_DIR)
+        await capturePageFull(page, r.path, r.file, REPO_ROUTES_DIR, 1280)
+        await capturePageFull(page, r.path, `${r.file}-375`, REPO_ROUTES_DIR, 375)
       }
       return
     }

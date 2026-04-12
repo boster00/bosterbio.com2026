@@ -44,7 +44,7 @@ export function ResourcesSection() {
           </div>
           <Link
             href="/resources"
-            className="shrink-0 rounded-full border-2 border-accent bg-accent-soft px-5 py-2 text-sm font-bold text-accent hover:bg-accent hover:text-white md:mb-1"
+            className="shrink-0 rounded-full border-2 border-accent bg-accent-soft px-5 py-2 text-sm font-bold text-accent transition duration-200 hover:scale-[1.03] hover:bg-accent hover:text-white hover:shadow-md active:scale-[0.98] md:mb-1"
           >
             View all resources →
           </Link>
@@ -54,7 +54,7 @@ export function ResourcesSection() {
             <li key={t.href}>
               <Link
                 href={t.href}
-                className="flex h-full gap-4 rounded-2xl border border-surface-muted bg-brand-tint/50 p-5 transition hover:border-accent/35 hover:bg-white hover:shadow-card"
+                className="card-hover-lift flex min-w-0 gap-4 rounded-2xl border border-surface-muted bg-brand-tint/50 p-5 hover:border-accent/35 hover:bg-white"
               >
                 <CategoryBadgeIcon variant={t.badge} size="sm" />
                 <div className="min-w-0">
