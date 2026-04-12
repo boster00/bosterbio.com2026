@@ -12,7 +12,8 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean && rm -rf node_modules",
-    "playwright:verify-auth": "node playwright/verify-auth.mjs"
+    "playwright:verify-auth": "node playwright/verify-auth.mjs",
+    "playwright:gmail-visible": "node playwright/gmail-test.cjs"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
