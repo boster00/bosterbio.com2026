@@ -1,9 +1,9 @@
 /**
  * Capture screenshots for design review.
- * Usage: BASE_URL=http://127.0.0.1:3000 node scripts/capture-sections.mjs [home|products|...|fullpages|routes|all]
+ * Usage: BASE_URL=http://localhost:3000 node scripts/capture-sections.mjs [home|...|routes|all]
  *
- * `routes` — 1280px + 375px full-page PNGs → apps/web/docs/screenshots/routes/
- * `all` — homepage section clips + page-*.png + fullpage-*.png (default OUT_DIR)
+ * Default BASE is localhost (matches Next dev; avoids 127.0.0.1 /_next cross-origin issues).
+ * `routes` — desktop + mobile PNGs → apps/web/docs/screenshots/routes/
  */
 import fs from "node:fs/promises"
 import path from "node:path"
@@ -14,11 +14,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const REPO_ROUTES_DIR = path.join(__dirname, "../docs/screenshots/routes")
 
 const OUT_DIR = process.env.SCREENSHOT_DIR ?? "/opt/cursor/artifacts/screenshots"
-const BASE = process.env.BASE_URL ?? "http://127.0.0.1:3000"
+const BASE = process.env.BASE_URL ?? "http://localhost:3000"
 const EXECUTABLE =
   process.env.PUPPETEER_EXECUTABLE_PATH ?? "/usr/local/bin/google-chrome"
 const WAIT = process.env.PUPPETEER_WAIT ?? "networkidle0"
 const SETTLE_MS = Number(process.env.PUPPETEER_SETTLE_MS ?? "0")
+/** Extra wait after load so Tailwind CSS is applied before screenshot */
+const POST_LOAD_MS = Number(process.env.PUPPETEER_POST_LOAD_MS ?? "0")
 
 const mode = (process.argv[2] ?? "all").toLowerCase()
 
@@ -74,10 +76,21 @@ const routesForRepo = [
   { path: "/cart", file: "route-cart" },
 ]
 
+async function waitForStyledPage(page) {
+  await page.waitForSelector("body", { timeout: 30000 })
+  try {
+    await page.waitForSelector("link[rel='stylesheet']", { timeout: 5000 })
+  } catch {
+    /* dev may inline; still wait below */
+  }
+  const settle = SETTLE_MS + POST_LOAD_MS
+  if (settle) await new Promise((r) => setTimeout(r, settle))
+}
+
 async function captureHome(page) {
   await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 })
   await page.goto(`${BASE}/`, { waitUntil: WAIT, timeout: 90000 })
-  if (SETTLE_MS) await new Promise((r) => setTimeout(r, SETTLE_MS))
+  await waitForStyledPage(page)
 
   for (const { id, name } of homeSections) {
     const el = await page.$(`#${id}`)
@@ -102,7 +115,7 @@ async function captureHome(page) {
 
   await page.setViewport({ width: 1280, height: 4800, deviceScaleFactor: 1 })
   await page.goto(`${BASE}/`, { waitUntil: WAIT, timeout: 90000 })
-  if (SETTLE_MS) await new Promise((r) => setTimeout(r, SETTLE_MS))
+  await waitForStyledPage(page)
   const fullPath = path.join(OUT_DIR, "home-full-page.png")
   await page.screenshot({ path: fullPath, fullPage: true })
   console.log("Wrote", fullPath)
@@ -111,7 +124,7 @@ async function captureHome(page) {
 async function capturePageFull(page, route, fileBase, outputDir = OUT_DIR, viewportWidth = 1280) {
   await page.setViewport({ width: viewportWidth, height: 900, deviceScaleFactor: 1 })
   await page.goto(`${BASE}${route}`, { waitUntil: WAIT, timeout: 90000 })
-  if (SETTLE_MS) await new Promise((r) => setTimeout(r, SETTLE_MS))
+  await waitForStyledPage(page)
   const fp = path.join(outputDir, `${fileBase}.png`)
   await page.screenshot({ path: fp, fullPage: true })
   console.log("Wrote", fp)

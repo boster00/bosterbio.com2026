@@ -49,7 +49,7 @@ export default function ServicesPage() {
                 href={s.href}
                 className="flex h-full gap-5 rounded-2xl border border-brand/10 bg-white p-8 shadow-card transition hover:border-accent/40 hover:shadow-lg"
               >
-                <CategoryBadgeIcon variant={s.badge} size="lg" />
+                <CategoryBadgeIcon variant={s.badge} size="md" />
                 <div className="min-w-0 flex-1">
                   <h2 className="font-display text-title text-brand">{s.title}</h2>
                   <p className="mt-3 text-sm text-ink-secondary">{s.desc}</p>

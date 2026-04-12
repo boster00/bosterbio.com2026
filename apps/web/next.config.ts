@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
 
   transpilePackages: ["@bosterbio/types"],
 
+  /**
+   * Puppeteer and some tools use http://127.0.0.1:3000 while the browser may
+   * treat that as cross-origin vs localhost for /_next/* assets in dev.
+   * Without this, CSS/JS chunks can be blocked and inner routes look unstyled.
+   */
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
+
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**.medusajs.com" },

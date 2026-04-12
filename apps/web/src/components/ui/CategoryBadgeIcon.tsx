@@ -3,6 +3,7 @@ import { cn } from "@/lib/cn"
 
 type Variant = "antibodies" | "elisa" | "proteins" | "custom" | "secondary" | "conjugation" | "protocols" | "resources"
 
+/** Fixed inner SVG size so icons never expand to full viewport (Tailwind [&_svg] was ineffective). */
 const icons: Record<Variant, (props: { className?: string }) => ReactNode> = {
   antibodies: ({ className }) => (
     <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden>
@@ -29,7 +30,12 @@ const icons: Record<Variant, (props: { className?: string }) => ReactNode> = {
   elisa: ({ className }) => (
     <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden>
       <rect x="6" y="8" width="20" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
-      <path d="M10 14h4M18 14h4M10 18h4M18 18h4M10 22h4M18 22h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="M10 14h4M18 14h4M10 18h4M18 18h4M10 22h4M18 22h4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   ),
   proteins: ({ className }) => (
@@ -74,7 +80,12 @@ const icons: Record<Variant, (props: { className?: string }) => ReactNode> = {
   ),
   resources: ({ className }) => (
     <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden>
-      <path d="M8 8h8v16H8V8zM18 10h6v4h-6M18 18h6v6h-6" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+      <path
+        d="M8 8h8v16H8V8zM18 10h6v4h-6M18 18h6v6h-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
     </svg>
   ),
 }
@@ -85,24 +96,26 @@ type Props = {
   className?: string
 }
 
-const sizeClasses = {
-  sm: "h-10 w-10 [&_svg]:h-5 [&_svg]:w-5",
-  md: "h-14 w-14 [&_svg]:h-7 [&_svg]:w-7",
-  lg: "h-16 w-16 [&_svg]:h-8 [&_svg]:w-8",
+/** Outer circle max 48px (md/lg); sm for compact rows */
+const sizeClasses: Record<NonNullable<Props["size"]>, { outer: string; inner: string }> = {
+  sm: { outer: "h-10 w-10 min-h-10 min-w-10", inner: "h-4 w-4 shrink-0" },
+  md: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-6 w-6 shrink-0" },
+  lg: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-6 w-6 shrink-0" },
 }
 
 export function CategoryBadgeIcon({ variant, size = "md", className }: Props) {
   const Icon = icons[variant]
+  const { outer, inner } = sizeClasses[size]
   return (
     <span
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-full bg-accent text-white shadow-md shadow-accent/25",
-        sizeClasses[size],
+        outer,
         className,
       )}
       aria-hidden
     >
-      <Icon className="text-white" />
+      <Icon className={cn(inner, "text-white")} />
     </span>
   )
 }

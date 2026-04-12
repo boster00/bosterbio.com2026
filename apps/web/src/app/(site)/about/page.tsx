@@ -19,14 +19,14 @@ export default function AboutPage() {
       <div className="container-content py-12 md:py-16">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="flex gap-4 rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
-            <CategoryBadgeIcon variant="antibodies" size="md" />
+            <CategoryBadgeIcon variant="antibodies" size="sm" />
             <div>
               <p className="font-display text-3xl font-bold tabular-nums text-accent">15,000+</p>
               <p className="mt-1 text-sm font-medium text-ink-secondary">Catalog antibodies &amp; growing</p>
             </div>
           </div>
           <div className="flex gap-4 rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
-            <CategoryBadgeIcon variant="custom" size="md" />
+            <CategoryBadgeIcon variant="custom" size="sm" />
             <div>
               <p className="font-display text-2xl font-bold text-brand">Custom</p>
               <p className="mt-1 text-sm font-medium text-ink-secondary">
@@ -35,7 +35,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="flex gap-4 rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
-            <CategoryBadgeIcon variant="elisa" size="md" />
+            <CategoryBadgeIcon variant="elisa" size="sm" />
             <div>
               <p className="font-display text-2xl font-bold text-brand">ELISA</p>
               <p className="mt-1 text-sm font-medium text-ink-secondary">

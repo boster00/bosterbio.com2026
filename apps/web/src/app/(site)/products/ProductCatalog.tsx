@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useMemo, useState } from "react"
-import { CategoryBadgeIcon } from "@/components/ui/CategoryBadgeIcon"
+import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
 import { MOCK_ANTIBODIES, uniqueSorted, type MockAntibody } from "@/data/mock-antibodies"
 
 const hosts = uniqueSorted(MOCK_ANTIBODIES.map((a) => a.host))
@@ -14,7 +14,7 @@ function ProductCard({ product }: { product: MockAntibody }) {
   return (
     <article className="card-hover-lift group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
-        <CategoryBadgeIcon variant="antibodies" size="sm" className="shadow-md" />
+        <ProductPlaceholderThumb />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <h2 className="font-display text-base font-semibold leading-snug text-brand group-hover:text-accent">
