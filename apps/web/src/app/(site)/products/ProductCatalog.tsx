@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useMemo, useState } from "react"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
@@ -10,11 +11,28 @@ const targets = uniqueSorted(MOCK_ANTIBODIES.map((a) => a.target))
 const applications = uniqueSorted(MOCK_ANTIBODIES.flatMap((a) => a.applications))
 const reactivities = uniqueSorted(MOCK_ANTIBODIES.flatMap((a) => a.reactivity))
 
+function ProductThumb({ product }: { product: MockAntibody }) {
+  if (product.imageFile) {
+    return (
+      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200">
+        <Image
+          src={`/images/products/${product.imageFile}`}
+          alt={`${product.name} packaging`}
+          fill
+          className="object-contain p-1"
+          sizes="80px"
+        />
+      </div>
+    )
+  }
+  return <ProductPlaceholderThumb />
+}
+
 function ProductCard({ product }: { product: MockAntibody }) {
   return (
     <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 border-l-4 border-l-accent bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
-        <ProductPlaceholderThumb />
+        <ProductThumb product={product} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <h2 className="font-display text-base font-semibold leading-snug text-brand group-hover:text-accent">

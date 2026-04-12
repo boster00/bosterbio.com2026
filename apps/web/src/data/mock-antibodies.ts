@@ -8,6 +8,8 @@ export type MockAntibody = {
   reactivity: string[]
   /** Display-only until Medusa pricing is connected */
   priceLabel: string
+  /** Local file in `public/images/products/` from bosterbio.com catalog cache */
+  imageFile?: string
 }
 
 export const MOCK_ANTIBODIES: MockAntibody[] = [
@@ -20,6 +22,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     applications: ["WB", "IHC", "ICC"],
     reactivity: ["Human", "Mouse", "Rat"],
     priceLabel: "Contact for price",
+    imageFile: "bm1626.jpg",
   },
   {
     id: "2",
@@ -30,6 +33,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     applications: ["WB", "IHC-P"],
     reactivity: ["Human", "Mouse", "Rat", "Zebrafish"],
     priceLabel: "Contact for price",
+    imageFile: "a01066.jpg",
   },
   {
     id: "3",
@@ -40,6 +44,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     applications: ["WB", "IHC", "FC"],
     reactivity: ["Human", "Mouse"],
     priceLabel: "Contact for price",
+    imageFile: "m00269-1.jpg",
   },
   {
     id: "4",
@@ -60,6 +65,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     applications: ["WB", "ICC", "IP"],
     reactivity: ["Recombinant tag"],
     priceLabel: "Contact for price",
+    imageFile: "pb1005.jpg",
   },
   {
     id: "6",

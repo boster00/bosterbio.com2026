@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 300" role="img" aria-labelledby="title">
+  <title id="title">BosterBio antibody robot mascot</title>
+  <defs>
+    <linearGradient id="mr-body" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c5282"/>
+      <stop offset="100%" stop-color="#1a365d"/>
+    </linearGradient>
+    <linearGradient id="mr-metal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e2eaf3"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+    <filter id="mr-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="140" cy="278" rx="100" ry="14" fill="rgba(255,255,255,0.15)"/>
+  <rect x="108" y="210" width="22" height="56" rx="8" fill="url(#mr-metal)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+  <rect x="150" y="210" width="22" height="56" rx="8" fill="url(#mr-metal)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+  <ellipse cx="119" cy="268" rx="18" ry="8" fill="#1e293b" opacity="0.35"/>
+  <ellipse cx="161" cy="268" rx="18" ry="8" fill="#1e293b" opacity="0.35"/>
+  <rect x="88" y="128" width="104" height="92" rx="22" fill="url(#mr-body)" stroke="rgba(255,255,255,0.45)" stroke-width="2.5"/>
+  <rect x="108" y="148" width="64" height="52" rx="12" fill="rgba(15,23,42,0.25)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+  <g filter="url(#mr-glow)">
+    <circle cx="140" cy="168" r="20" fill="#f97316" stroke="#fff" stroke-width="2" opacity="0.95"/>
+    <text x="140" y="175" text-anchor="middle" fill="#fff" font-size="16" font-weight="800" font-family="system-ui,sans-serif">Y</text>
+    <path d="M140 188v22" stroke="#f97316" stroke-width="5" stroke-linecap="round"/>
+    <path d="m140 200-22 22m22-22 22 22" stroke="#f97316" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <circle cx="98" cy="168" r="5" fill="#64748b" stroke="#fff" stroke-width="1"/>
+  <circle cx="182" cy="168" r="5" fill="#64748b" stroke="#fff" stroke-width="1"/>
+  <path d="m88 148-36-30m0 50-40 0" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m192 148 36-30m0 50 40 0" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="48" cy="112" r="10" fill="url(#mr-metal)" stroke="#fff" stroke-width="1.5"/>
+  <circle cx="232" cy="112" r="10" fill="url(#mr-metal)" stroke="#fff" stroke-width="1.5"/>
+  <circle cx="140" cy="88" r="46" fill="#1a365d" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
+  <rect x="96" y="72" width="88" height="36" rx="14" fill="rgba(15,23,42,0.45)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+  <circle cx="118" cy="90" r="9" fill="#e0f2fe"/>
+  <circle cx="162" cy="90" r="9" fill="#e0f2fe"/>
+  <circle cx="120" cy="92" r="4" fill="#1a365d"/>
+  <circle cx="164" cy="92" r="4" fill="#1a365d"/>
+  <path d="M118 108q22 14 44 0" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <line x1="140" y1="42" x2="140" y2="22" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="140" cy="14" r="8" fill="#f97316" stroke="#fff" stroke-width="2"/>
+  <rect x="78" y="78" width="14" height="24" rx="4" fill="#2c5282" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <rect x="188" y="78" width="14" height="24" rx="4" fill="#2c5282" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+</svg>

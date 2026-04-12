@@ -28,6 +28,12 @@ export function PromoStripSection() {
       className="relative overflow-x-clip border-b border-teal-600/30 bg-gradient-to-r from-brand via-brand-light to-teal-500 py-5 shadow-lg shadow-black/15 md:py-6"
       aria-label="Promotions"
     >
+      <img
+        src="/images/promo-underwater-banner.svg"
+        alt=""
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-40 mix-blend-soft-light"
+        aria-hidden
+      />
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/15 to-transparent"
         aria-hidden
