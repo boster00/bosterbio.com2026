@@ -20,12 +20,13 @@ type Props = {
   className?: string
 }
 
+/** Inner icon ~60% of outer circle diameter for category tiles; proportionally larger at sm/md. */
 const sizeClasses: Record<NonNullable<Props["size"]>, { outer: string; inner: string }> = {
-  sm: { outer: "h-10 w-10 min-h-10 min-w-10", inner: "h-4 w-4 shrink-0" },
-  md: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-6 w-6 shrink-0" },
-  lg: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-6 w-6 shrink-0" },
+  sm: { outer: "h-10 w-10 min-h-10 min-w-10", inner: "h-6 w-6 shrink-0" },
+  md: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-7 w-7 shrink-0" },
+  lg: { outer: "h-12 w-12 min-h-12 min-w-12", inner: "h-7 w-7 shrink-0" },
   /** Category tiles — 64px orange circle per brand spec */
-  xl: { outer: "h-16 w-16 min-h-16 min-w-16", inner: "h-8 w-8 shrink-0" },
+  xl: { outer: "h-16 w-16 min-h-16 min-w-16", inner: "h-10 w-10 shrink-0" },
 }
 
 export function CategoryBadgeIcon({ variant, size = "md", className }: Props) {
@@ -39,7 +40,7 @@ export function CategoryBadgeIcon({ variant, size = "md", className }: Props) {
       )}
       aria-hidden
     >
-      <img src={iconSrc[variant]} alt="" className={cn(inner, "object-contain")} width={32} height={32} />
+      <img src={iconSrc[variant]} alt="" className={cn(inner, "object-contain")} width={40} height={40} />
     </span>
   )
 }

@@ -41,14 +41,11 @@ const footerColumns = [
 
 function MapPinIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+    <svg viewBox="0 0 24 24" className={className} aria-hidden>
       <path
-        d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinejoin="round"
+        fill="currentColor"
+        d="M12 2C8.13 2 5 5.13 5 9c0 4.17 4.42 9.92 6.24 12.11.4.43 1.12.43 1.52 0C14.58 18.92 19 13.17 19 9c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"
       />
-      <circle cx="12" cy="11" r="2.25" fill="currentColor" />
     </svg>
   )
 }
@@ -70,8 +67,8 @@ export function SiteFooter() {
               <p>
                 <span className="font-semibold text-accent">Headquarters</span>
               </p>
-              <p className="flex items-start gap-2 leading-relaxed">
-                <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
+              <p className="flex list-none items-start gap-2.5 leading-relaxed">
+                <MapPinIcon className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
                 <span>
                   3942 Valley Ave, Suite B
                   <br />

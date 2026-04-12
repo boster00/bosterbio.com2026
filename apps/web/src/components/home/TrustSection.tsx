@@ -13,7 +13,7 @@ export function TrustSection() {
   return (
     <section
       id="trust"
-      className="border-y border-brand/10 bg-gradient-to-br from-brand-muted/60 via-white to-brand-tint py-[var(--section-y)]"
+      className="border-t border-brand/10 bg-gradient-to-br from-brand-muted/60 via-white to-brand-tint py-[var(--section-y)]"
       aria-labelledby="trust-heading"
     >
       <div className="container-content">
