@@ -2,25 +2,64 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import {
+  aboutLinks,
+  analyticalServicesLinks,
+  productsColumns,
+  promotionsCards,
+  promotionsPopularPages,
+  servicesColumns,
+  supportEducational,
+  supportResourceBlocks,
+} from "@/data/nav-mega-menu"
 import { cn } from "@/lib/cn"
 
-type NavItem = { label: string; href: string }
+function AccordionSection({
+  title,
+  accent,
+  children,
+  defaultOpen,
+}: {
+  title: string
+  accent?: boolean
+  children: React.ReactNode
+  defaultOpen?: boolean
+}) {
+  const [open, setOpen] = useState(!!defaultOpen)
+  return (
+    <div className="border-b border-brand/10">
+      <button
+        type="button"
+        className={cn(
+          "flex w-full items-center justify-between px-4 py-3 text-left font-heading text-sm font-bold uppercase tracking-wide",
+          accent ? "bg-accent-warm text-white" : "bg-brand-tint/60 text-brand-primary",
+        )}
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+      >
+        {title}
+        <span className="text-lg leading-none">{open ? "−" : "+"}</span>
+      </button>
+      {open ? <div className="bg-white px-4 py-3">{children}</div> : null}
+    </div>
+  )
+}
 
-export function MobileNav({ items }: { items: readonly NavItem[] }) {
-  const [open, setOpen] = useState(false)
+export function MobileNav() {
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
     <>
       <button
         type="button"
-        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand/15 text-brand hover:bg-brand-tint md:hidden"
-        aria-expanded={open}
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-primary/20 text-brand-primary hover:bg-brand-tint md:hidden"
+        aria-expanded={drawerOpen}
         aria-controls="mobile-menu"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setDrawerOpen((o) => !o)}
       >
         <span className="sr-only">Menu</span>
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
-          {open ? (
+          {drawerOpen ? (
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           ) : (
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -34,16 +73,16 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
         aria-modal="true"
         aria-label="Site navigation"
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-[min(100%,20rem)] flex-col border-l border-brand/10 bg-white shadow-card transition-transform duration-200 ease-out md:hidden",
-          open ? "translate-x-0" : "translate-x-full pointer-events-none",
+          "fixed inset-y-0 right-0 z-50 flex w-[min(100%,22rem)] flex-col border-l border-brand-primary/15 bg-white shadow-card transition-transform duration-200 ease-out md:hidden",
+          drawerOpen ? "translate-x-0" : "translate-x-full pointer-events-none",
         )}
       >
-        <div className="flex items-center justify-between border-b border-brand/10 bg-brand-tint/50 px-4 py-3">
-          <span className="font-display text-lg font-bold text-brand">Menu</span>
+        <div className="flex items-center justify-between border-b border-brand-primary/10 bg-brand-primary px-4 py-3 text-white">
+          <span className="font-heading text-lg font-bold">Menu</span>
           <button
             type="button"
-            className="rounded-full p-2 text-brand hover:bg-white"
-            onClick={() => setOpen(false)}
+            className="rounded-full p-2 hover:bg-white/10"
+            onClick={() => setDrawerOpen(false)}
             aria-label="Close menu"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
@@ -51,36 +90,171 @@ export function MobileNav({ items }: { items: readonly NavItem[] }) {
             </svg>
           </button>
         </div>
-        <ul className="flex-1 divide-y divide-brand/10 overflow-y-auto py-2">
-          {items.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className="nav-link-animate block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80 hover:text-accent"
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-          <li>
+
+        <div className="flex-1 overflow-y-auto">
+          <AccordionSection title="Promotions" accent defaultOpen>
+            <p className="mb-2 text-xs font-bold uppercase text-ink-tertiary">Popular pages</p>
+            <ul className="space-y-2">
+              {promotionsPopularPages.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-sm text-brand-primary hover:underline"
+                    onClick={() => setDrawerOpen(false)}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="mb-2 mt-4 text-xs font-bold uppercase text-ink-tertiary">Promotions</p>
+            <ul className="space-y-2">
+              {promotionsCards.map((c) => (
+                <li key={c.href}>
+                  <Link href={c.href} className="text-sm text-brand-primary hover:underline" onClick={() => setDrawerOpen(false)}>
+                    {c.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <Link
-              href="/account"
-              className="nav-link-animate block px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-tint/80"
-              onClick={() => setOpen(false)}
+              href="/promotions"
+              className="mt-3 inline-block text-sm font-bold text-accent-warm"
+              onClick={() => setDrawerOpen(false)}
             >
+              View all promotions →
+            </Link>
+          </AccordionSection>
+
+          <AccordionSection title="Products">
+            {productsColumns.map((col) => (
+              <div key={col.title} className="mb-4">
+                <strong className="text-sm text-brand-primary">{col.title}</strong>
+                <ul className="mt-1 space-y-1.5">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm text-ink-secondary hover:underline" onClick={() => setDrawerOpen(false)}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </AccordionSection>
+
+          <AccordionSection title="Services">
+            {servicesColumns.map((col) => (
+              <div key={col.title} className="mb-4">
+                <strong className="text-sm text-brand-primary">{col.title}</strong>
+                <ul className="mt-1 space-y-1.5">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm text-ink-secondary hover:underline" onClick={() => setDrawerOpen(false)}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <div className="mb-4">
+              <strong className="text-sm text-brand-primary">Analytical services</strong>
+              <ul className="mt-1 space-y-1.5">
+                {analyticalServicesLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="text-sm text-ink-secondary hover:underline" onClick={() => setDrawerOpen(false)}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </AccordionSection>
+
+          <AccordionSection title="Support">
+            {supportResourceBlocks.map((b) => (
+              <div key={b.title} className="mb-3">
+                <Link href={b.href} className="text-sm font-bold text-brand-primary hover:underline" onClick={() => setDrawerOpen(false)}>
+                  {b.title}
+                </Link>
+                <ul className="mt-1 space-y-1">
+                  {b.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm text-ink-secondary hover:underline" onClick={() => setDrawerOpen(false)}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <strong className="text-sm text-brand-primary">Educational</strong>
+            <ul className="mt-1 space-y-1">
+              {supportEducational.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-sm text-ink-secondary hover:underline" onClick={() => setDrawerOpen(false)}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 space-y-2 border-t border-brand/10 pt-3">
+              <Link href="/resources/troubleshooting-ebooks" className="block text-sm font-bold text-accent-warm" onClick={() => setDrawerOpen(false)}>
+                Troubleshooting eBooks →
+              </Link>
+              <Link href="/supportformpage" className="block text-sm font-bold text-accent-warm" onClick={() => setDrawerOpen(false)}>
+                Technical support form →
+              </Link>
+            </div>
+          </AccordionSection>
+
+          <div className="border-b border-brand/10">
+            <Link
+              href="/blog"
+              className="block bg-brand-tint/60 px-4 py-3 font-heading text-sm font-bold uppercase tracking-wide text-brand-primary"
+              onClick={() => setDrawerOpen(false)}
+            >
+              Blog
+            </Link>
+          </div>
+
+          <AccordionSection title="About">
+            <ul className="space-y-2">
+              {aboutLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-sm text-brand-primary hover:underline" onClick={() => setDrawerOpen(false)}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </AccordionSection>
+
+          <div className="border-b border-brand/10">
+            <Link
+              href="/distributors"
+              className="block bg-brand-tint/60 px-4 py-3 font-heading text-sm font-bold uppercase tracking-wide text-brand-primary"
+              onClick={() => setDrawerOpen(false)}
+            >
+              Distributors
+            </Link>
+          </div>
+
+          <div className="p-4">
+            <Link href="/account" className="block py-2 text-sm font-semibold text-brand-primary" onClick={() => setDrawerOpen(false)}>
               Sign in
             </Link>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
 
-      {open ? (
+      {drawerOpen ? (
         <button
           type="button"
           className="fixed inset-0 z-40 bg-brand-deep/40 md:hidden"
           aria-label="Close menu"
-          onClick={() => setOpen(false)}
+          onClick={() => setDrawerOpen(false)}
         />
       ) : null}
     </>
