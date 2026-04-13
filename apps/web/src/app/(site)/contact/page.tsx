@@ -1,3 +1,11 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Contact us",
+  description:
+    "Contact BosterBio for antibodies, ELISA kits, and custom services — Pleasanton, CA. Phone, email, and contact form.",
+}
+
 export default function ContactPage() {
   return (
     <main id="main-content">

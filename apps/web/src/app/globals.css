@@ -4,12 +4,11 @@
 
 @layer base {
   :root {
-    --font-sans: "Inter", system-ui, sans-serif;
-    --font-display: "Inter", system-ui, sans-serif;
+    /* Mulish body, Josefin headings — set in layout.tsx via next/font */
     --section-y: clamp(3rem, 6vw, 5rem);
     --container-px: clamp(1rem, 4vw, 1.5rem);
-    --brand-deep: #1a365d;
-    --accent: #f97316;
+    --brand-deep: #003366;
+    --accent: #ea8d28;
   }
 
   html {
@@ -17,7 +16,16 @@
   }
 
   body {
-    @apply overflow-x-hidden bg-brand-tint text-ink font-sans text-[15px] leading-relaxed;
+    @apply overflow-x-hidden bg-brand-tint text-ink font-sans text-[15px] leading-relaxed md:text-base;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
   }
 
   :focus-visible {
@@ -78,5 +86,103 @@
   }
   .nav-link-animate:hover {
     @apply decoration-current;
+  }
+
+  /**
+   * Legacy Magento CMS HTML inside NavCmsPage — scope styles so theme classes render readably.
+   */
+  .nav-cms-html {
+    @apply text-ink text-[15px] leading-relaxed;
+  }
+  .nav-cms-html .container {
+    @apply mx-auto max-w-content px-[var(--container-px)];
+  }
+  .nav-cms-html .row {
+    @apply flex flex-wrap -mx-2;
+  }
+  .nav-cms-html [class*="col-"] {
+    @apply px-2 w-full;
+  }
+  .nav-cms-html .col-md-3 {
+    @apply md:w-1/4;
+  }
+  .nav-cms-html .col-md-4 {
+    @apply md:w-1/3;
+  }
+  .nav-cms-html .col-md-6 {
+    @apply md:w-1/2;
+  }
+  .nav-cms-html .col-md-8 {
+    @apply md:w-2/3;
+  }
+  .nav-cms-html .col-lg-3 {
+    @apply lg:w-1/4;
+  }
+  .nav-cms-html .col-lg-4 {
+    @apply lg:w-1/3;
+  }
+  .nav-cms-html .col-lg-6 {
+    @apply lg:w-1/2;
+  }
+  .nav-cms-html .col-lg-8 {
+    @apply lg:w-2/3;
+  }
+  .nav-cms-html h1,
+  .nav-cms-html .font-largest {
+    @apply font-heading text-3xl font-bold text-brand-primary md:text-4xl;
+  }
+  .nav-cms-html h2,
+  .nav-cms-html .font-larger {
+    @apply font-heading text-2xl font-semibold text-brand-primary mt-8 mb-4;
+  }
+  .nav-cms-html h3,
+  .nav-cms-html .font-large {
+    @apply font-heading text-xl font-semibold text-brand-primary mt-6 mb-3;
+  }
+  .nav-cms-html .text-orange,
+  .nav-cms-html .topic-heading {
+    @apply text-accent-warm;
+  }
+  .nav-cms-html .text-grey {
+    @apply text-ink-secondary;
+  }
+  .nav-cms-html .text-darkgrey {
+    @apply text-ink;
+  }
+  .nav-cms-html a {
+    @apply text-brand-sky underline-offset-2 hover:text-brand-primary hover:underline;
+  }
+  .nav-cms-html .btn-orange,
+  .nav-cms-html .button,
+  .nav-cms-html .action.primary {
+    @apply inline-block rounded-full bg-accent-warm px-5 py-2.5 text-sm font-bold text-white no-underline shadow-md hover:bg-accent-hover;
+  }
+  .nav-cms-html .hero-section {
+    @apply relative mb-6 min-h-[180px] rounded-xl bg-cover bg-center text-white;
+  }
+  .nav-cms-html .hero-section .dark-overlap,
+  .nav-cms-html .dark-overlap {
+    @apply flex min-h-[160px] items-center justify-center bg-black/50 px-4 py-10;
+  }
+  .nav-cms-html .content-section,
+  .nav-cms-html .single-column,
+  .nav-cms-html .multi-column {
+    @apply mb-6;
+  }
+  .nav-cms-html table {
+    @apply my-4 w-full border-collapse text-sm;
+  }
+  .nav-cms-html th,
+  .nav-cms-html td {
+    @apply border border-brand-primary/15 px-3 py-2;
+  }
+  .nav-cms-html img {
+    @apply max-w-full h-auto;
+  }
+  .nav-cms-html ul {
+    @apply my-3 list-disc pl-6;
+  }
+  .nav-cms-html .list-unstyled {
+    @apply list-none pl-0;
   }
 }

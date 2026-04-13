@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 
-/** Brand from Figma asset library: deep blue primary, warm orange accent */
+/** BosterBio 2026 design system — primary blue, accent orange, light blue */
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,20 +9,32 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "375px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
+      },
       colors: {
         brand: {
-          DEFAULT: "#1a365d",
-          deep: "#152a4a",
-          /** Top bar / footer — maps legacy `brand-dark` */
-          dark: "#152a4a",
-          /** Hover / mid blue — maps legacy `brand-light` */
-          light: "#2c5282",
+          /** Primary blue #004C95 */
+          DEFAULT: "#004C95",
+          primary: "#004C95",
+          deep: "#003366",
+          dark: "#002847",
+          /** Light blue accent #3CA9D6 */
+          light: "#3CA9D6",
+          sky: "#3CA9D6",
           muted: "#e8eef6",
-          tint: "#f0f5fb",
+          tint: "#f0f7fc",
         },
         accent: {
-          DEFAULT: "#f97316",
-          hover: "#ea580c",
+          /** Orange #EA8D28 */
+          DEFAULT: "#EA8D28",
+          warm: "#EA8D28",
+          hover: "#d67a1c",
           soft: "#fff7ed",
         },
         surface: {
@@ -38,7 +50,9 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-sans)", "system-ui", "sans-serif"],
+        heading: ["var(--font-heading)", "var(--font-sans)", "system-ui", "sans-serif"],
+        /** Alias for legacy components — same as heading (Josefin) */
+        display: ["var(--font-heading)", "system-ui", "sans-serif"],
       },
       fontSize: {
         "display-lg": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
@@ -46,8 +60,8 @@ const config: Config = {
         title: ["1.25rem", { lineHeight: "1.35", fontWeight: "600" }],
       },
       boxShadow: {
-        card: "0 1px 3px rgba(26, 54, 93, 0.06), 0 10px 28px rgba(26, 54, 93, 0.08)",
-        nav: "0 1px 0 rgba(26, 54, 93, 0.08)",
+        card: "0 1px 3px rgba(0, 76, 149, 0.08), 0 10px 28px rgba(0, 76, 149, 0.1)",
+        nav: "0 1px 0 rgba(0, 76, 149, 0.08)",
       },
       maxWidth: {
         content: "1200px",
