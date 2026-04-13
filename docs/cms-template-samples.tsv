@@ -1,0 +1,419 @@
+type	page_id	identifier	content_preview
+service	475	services/assay-services/western-blotting-service	<style>
+/* Maintain original h4 styling for converted h3 elements */
+h3.h4-as-h3 {
+color: white;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 50% 20%;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+h3.h4-as-h3:focus {
+  outline: none;
+  display: block !important;
+  font-size: 1.35em !important;
+}
+
+</style>
+<section class="mb-6 hero-section" style="background-image: url(/media/images/design-guide/hero-people-team2.jpg)">
+  <div class="dark-overlap">
+
+    <div class="row">
+      <div class="col-lg-12 text-left">
+
+    <p class="font-large mb-4 font-weight-bold">Proteomics CRO: Bioanalytical Western Blot Services</p>
+    <h1 class="my-5 ml-4">WESTERN BLOT SERVICE</h1>
+</div>
+</div>
+    <div class="row">
+      <div class="col-lg-6 text-left">
+        <p class="font-medium mb-4">Boster Bio offers professional Western blotting services tailored for proteomics Western blot applications for biotech and pharma companies. Our service covers sample processing, blotting, quantitative imaging, data analysis and professional reporting. </p>
+        <p class="font-medium mb-4">Get a quote today if you want your Western blots done...</p>
+        <ol class="font-medium mb-4">
+          <li>in a WB-dedicated facility with streamlined workflow</li>
+          <li>by experts with 32 years WB experience</li>
+          <li>in a fast and worry-free manner</li>
+        </ol>
+        <p class="font-medium mb-4">Our technical experts stand ready to consult you every step of the way.<br>
+        </p>
+        <p class="btn-orange" action="popup-cj-form">Get a Quote</p>
+      </div>
+      <div class="col-lg-6 text-left" id="inquiry">
+        <iframe width="560" height="315" style="max-width:100%;" src="https://www.youtube.com/embed/_NM2_OFtboA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+      </div>
+      <!--<div class="col-lg-4 text-left" id="inquiry">
+        <p class="font-large font-weight-bold mb-4">Begin Inquiry</p>
+        <form id="boster-form" action="https://bioinvsync.com/bostervtiger/api.php" method="post" redirecturl="https://www.bosterbio.com/thank-you?from=wb-service" siq_id="autopick_2260">
+          <input class="form-control" type="text" name="action" value="createOpportunity" hidden="true" required="">
+          <input class="form-control" type="text" name="opportunity_name" value="WB service inquiry" hidden="true" required="">
+          <input class="form-control" type="text" name="description" value="https://www.bosterbio.com/services/assay-services/western-blotting-service" hidden="true" required="">
+          <input class="form-control" type="text" name="opportunity_type" value="WB Service" hidden="true" required="">
+          <div class="row">
+            <div class="form-group col-md-
+disease	850	diseases/hashimoto-s-thyroiditis-antibodies	
+            <section class="mb-5 topic-heading-section">
+            <h1 class="topic-heading text-orange text-center font-larger text-uppercase font-weight-bold typography-josefin-sans mb-3">Hashimoto’s Thyroiditis antibodies</h1>
+            <p class="text-grey text-center w-75 mx-auto mb-5 font-medium">and ELISA kits, proteins related to Hashimoto’s Thyroiditis.</p>
+          </section>
+<section class="mb-6 single-column content-section">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <h2 class="font-large text-orange mb-2 text-capitalize">Introduction to Hashimoto’s Thyroiditis</h2>
+                  <p class="font-medium text-grey mb-4">Hashimoto’s Thyroiditis, also known as chronic lymphocytic thyroiditis, is an autoimmune disorder and the most common cause of hypothyroidism in the United States. It occurs when the immune system mistakenly attacks the thyroid gland, leading to inflammation and an inability to produce sufficient thyroid hormones. This condition affects millions, predominantly middle-aged women, but can also occur in men and women of any age and even in children.
+
+Symptoms of Hashimoto’s can vary widely and may include fatigue, weight gain, cold intolerance, depression, and dry skin. As the disease progresses, the thyroid may enlarge forming a goiter. Diagnosis is typically confirmed through blood tests measuring thyroid hormone levels and thyroid-specific antibodies.
+
+Recent research has expanded our understanding of the molecular and genetic bases of Hashimoto’s, highlighting the significance of both genetic predisposition and environmental factors. This page is dedicated to the ongoing research and development of specific antibodies that play a crucial role in both the diagnosis and potential therapeutic interventions for Hashimoto's Thyroiditis.</p>
+                  <h2 class="font-large text-darkgrey mb-2 text-capitalize">Contents:</h2><ol class="text-darkgrey"><li><a href="#biomarkers">Hashimoto’s Thyroiditis Biomarkers</a></li><li><a href="#sub-areas">Important Mechanisms</a></li></ol></div>
+              </div>
+            </div>
+          </section>
+<section class="mb-6 single-column content-section">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <h2 class="font-large text-orange mb-2 text-capitalize">Hashimoto’s Thyroiditis biomarkers</h2>
+            <div class="container p-3">
+              <h3 class="font-large text-orange mb-3 text-capitalize"></h3><div class="multicolumns"><div class="table-cell col-md-3"><img src="/media/catalog/product/p/a/pa1214-7.jpg"><p class="mb-3"><a href="/anti-hsp70-antibody-pa1214-boster.html">Anti-Hsp70/HSPA1A/HSPA1B Antibody Picoband®</a>,  IF analysis of Hsp70 using anti-Hsp70 antibody (PA1214). <br>
+Hsp70 was detected in immunocytochemical section of Hela cells. Enzyme antigen retr...</p>
+             
+research-area	762	research-area/immunology-antibodies	<section class="mb-5 topic-heading-section">
+	<h1
+		class="topic-heading text-orange text-center font-larger text-uppercase font-weight-bold typography-josefin-sans mb-3">
+		Immunology antibodies</h1>
+	<p class="text-grey text-center w-75 mx-auto mb-5 font-medium">and ELISA kits, proteins related to Immunology.</p>
+</section>
+<section class="mb-6 single-column content-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="font-large text-orange mb-2 text-capitalize">Introduction to Immunology</h2>
+				<p class="font-medium text-grey mb-4">Immunology is the branch of biomedical science that explains how
+					the immune system protects the body from infection and maintains tissue homeostasis. At the heart of
+					this field are antibodies—highly specific proteins that recognize and neutralize pathogens such as
+					bacteria, viruses, and toxins. By studying the interactions between antibodies, antigens, and immune
+					cells, researchers can map immune pathways, discover biomarkers, and design targeted interventions.
+					This antibodies hub is designed to help you navigate immunology by disease area and cell type, and
+					to select the right antibodies and assays for applications such as IHC/IF, flow cytometry, ELISA,
+					and Western blot. By deepening our understanding of antibody behavior and immune system function, we
+					enable better tools for vaccine development, immunotherapy, and diagnostics, ultimately improving
+					outcomes in both emerging and chronic diseases.</p>
+				<h2 class="font-large text-darkgrey mb-2 text-capitalize">Contents:</h2>
+				<ol class="text-darkgrey">
+                                        <li><a href="#biomarkers">Immunology biomarkers</a></li>
+					<li><a href="#immunology-by-method">Immunology by experimental method</a></li>
+					<li><a href="#disease_area">Immunology by disease area</a></li>
+					<li><a href="#immune_cell_type">Immunology by immune cell type</a></li>
+					<li><a href="#immunology-pathways">Immunology signaling pathways & maps</a></li>
+					<li><a href="#important-mechanisms">Important mechanisms in immunology</a></li>
+					<li><a href="#immunology-related-research-areas">Related research fields for immunology</a></li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="mb-6 single-column content-section" id="biomarkers">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="font-large text-orange mb-2 text-capitalize">Immunology biomarkers</h2>
+
+				{{block class="Magento\Framework\View\Element\Template" name="showcaseSKUs" template="Magento_Theme::skuShowcase.phtml"   genes="IFNG|CD4|PDCD1|CTLA4|IL2|TNF|IFNG|CRP|CD19|MS4A1|HLA-DRB1|IL2RA|FCGR3A"}}
+
+
+			</div>
+		</div>
+	</div>
+	<br>
+	<table id="sqltable" class="w-100 table table-striped" cellpadding="7">
+		<thead class="w-100 table table-striped">
+			<tr>
+				<th>Protein Name</th>
+				<th>Gene Name</th>
+				
+protocol	61	protocol-and-troubleshooting/elisa-sample-preparation-guide	
+                       <style>
+.mainbox {
+	position: relative;
+}
+.buttonbottom {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	left: 15px;
+}
+</style>
+<section class="mb-6 text-center hero-section" id="elisa-sample-preparation-guide-hero">
+  <div class="dark-overlap">
+    <h1 class="mb-2">Elisa Sample Preparation Guide</h1>
+    <p class="font-large">ELISAs can accurately assess soluble proteins in their native state, so they are ideal for samples such as urine or saliva. Check out the ELISA sample preparation guides to learn how to get the best results from your sample type.</p>
+  </div>
+</section><section class="mb-6 p-3 bg-darkgrey cta-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-12">
+        <h3 class="font-large">Experiencing Issues with ELISA?</h3>
+        <p>Get a unique combination of service quality and subject expertise by outsourcing your ELISA experiments to Bosterbio.</p>
+      </div>
+      <div class="col-lg-4 col-12 vertical-center"><a href="https://www.bosterbio.com/services/assay-services/elisa-testing-service" class="btn-outline-white btn-full-width">Learn more about ELISA CRO services!</a></div>
+    </div>
+  </div>
+</section>
+<section class="mb-6 single-column content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p class="mb-5">The procedure below provides general guidance for the preparation of commonly tested samples for use in <a href="https://www.bosterbio.com/services/assay-services/elisa-testing-service" style="color:#EA8D28">ELISA assays</a>. Please check with the literature for experiments similar to yours for your new assay development. In this article, the following samples are covered:</p>
+        <h3 class="font-large text-orange mb-3 text-capitalize"><span style="font-size: 25px;"><b>General Tips For ELISA Sample Preparation</b></span></h3>
+        <ul class="mb-5 list-style-bullets">
+          <li><h3 class="font-large text-orange mb-3 text-capitalize"><span style="color: rgb(67, 67, 67); font-size: 16px;">1. Hemolysis should be avoided as much as possible when collecting blood samples.</span></h3></li><li><div><span style="color: rgb(67, 67, 67); font-size: 16px;">2. After collecting anticoagulated whole blood, gently invert the tube to ensure full anticoagulation, preventing clotting caused by partial blood not coming into contact with the anticoagulant.</span></div></li><li><div><span style="color: rgb(67, 67, 67); font-size: 16px;">3. It is not recommended to use commercial lysis buffers when collecting tissue and cell extract samples. Surfactants in the lysis buffer may affect the native conformation of the analyte, potentially leading to significantly reduced measurements or false negatives. Additionally, since a new solvent is introduced, potential matrix interference is uncertain, which could increase background levels and affect measurement accuracy.</span></div></li><li><div>
+about	10	about-us	
+            
+            
+            
+            
+            <style>
+  #about-us-credibility-section {
+    background-image: url("/media/images/design-guide/blue-background.jpg");
+  }
+  .supporting-icon {
+    height: 60px;
+    width: 54px;
+  }
+  .image-grid {
+    display: grid;
+    grid-template-rows: 112.5px 112.5px;
+    grid-template-columns: 326.25px 219.75px;
+    gap: 10px;
+  }
+  .double-height {
+    grid-row: span 2;
+  }
+  .years-later p,
+  .beginings p {
+    font-size: 14px;
+  }
+  .years-later .thumbnail img,
+  .years-later .thumbnail {
+    height: 100px;
+    width: 160px;
+  }
+  .years-later .thumbnail {
+    overflow: hidden;
+  }
+  .years-later .thumbnail:has(.active) {
+    outline: 2.5px solid #144b8c;
+  }
+  .years-later .thumbnail img:hover {
+    transform-origin: center center;
+    transition: transform 500ms ease-in-out;
+    transform: scale(1.2, 1.2);
+  }
+  .years-later .carousel-controls {
+    position: relative;
+    left: 92%;
+    top: -50px;
+  }
+  .years-later .carousel-controls button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+  }
+  .years-later .carousel-controls #nextButton {
+    margin-left: 15px;
+  }
+  .years-later #fullsize-image {
+    transition: opacity 0.25s ease-in-out;
+    margin-top: -30px;
+  }
+  .years-later #fullsize-image.fade-out {
+    opacity: 0;
+  }
+  .years-later .carousel-controls #nextButton:hover {
+    outline: 1.7px solid #144b8c;
+  }
+  .years-later .carousel-controls #prevButton:hover {
+    outline: 1.7px solid #3ca9d6;
+  }
+  .years-later .carousel-controls #nextButton,
+  .years-later .carousel-controls #prevButton {
+    box-shadow: none;
+  }
+  .years-later .carousel-controls #nextButtonIcon {
+    margin-left: 5px;
+  }
+  .years-later .carousel-controls #prevButtonIcon {
+    margin-left: 7px;
+  }
+  .years-later .carousel-controls #nextButtonIcon #next-arrow,
+  .years-later .carousel-controls #prevButtonIcon #prev-arrow,
+  .years-later .carousel-controls #prevButtonIcon,
+  .years-later .carousel-controls #nextButtonIcon #next-arrow-head {
+    transition: transform 500ms ease-in-out;
+  }
+  .years-later .carousel-controls #nextButton:active,
+  .years-later .carousel-controls #nextButton:hover,
+  .years-later .carousel-controls #nextButton:focus {
+    background-color: #3ca9d6;
+  }
+  .years-later .carousel-controls #nextButton:focus,
+  .years-later .carousel-controls #nextButton:active,
+  .years-later .carousel-controls #prevButton:active,
+  .years-later .carousel-controls #prevButton:focus {
+    border: none;
+    outline: inherit;
+  }
+  .years-later > div {
+    margin: 5rem;
+  }
+  .years-later .carousel-controls #prevButton:active {
+    background-color: white;
+  }
+  @media (min-width: 768px) and (max-width: 992px) {
+    .image-grid {
+      grid-template-rows: 184.5px 90px 33.3px 90px;
+      grid-template-columns: 261.99px;
+    }
+    .years-later p,
+    .beginings p 
+landing	306	biology-research-tools/elisa-data-analysis-online	<link rel="stylesheet" href="/tools-assets/elisa-analysis-online/css/elisa-calculator.css">
+
+<body>
+    <!-- Fixed Side Icon -->
+    <div class="fixed-side-icon">
+        <a href="/promotions/top-100-elisa-40off" target="_blank">
+            <img id="side-icon" src="/media/badge/40-off-elisa.png" alt="side-icon" loading="lazy">
+        </a>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container-flex">
+
+        <!-- Content -->
+        <div class="tab-content" id="control-panel-tab-content">
+            <div class="container">
+
+           <div class="row">
+                  <div class="col-6">
+                           <img id="elisa-logo" src="/media/icons/Elisa info logo.png" data-src="/media/icons/Elisa info logo.png" alt="elisa-logo" data-done="Loaded" loading="lazy">
+                  </div>            
+                  <div class="col-6">
+                            <p>&nbsp;</p>
+                            <img id="elisa-40off" src="/media/images/ELISA/elisa-40off.png" alt="ELISA 40% discount promotion banner" data-done="Loaded" loading="lazy">
+                </div>
+           </div>
+
+                <!-- Explanation -->
+                <h3 class="tier-three">
+                    ELISA Data Analysis Made Easy
+                </h3>
+                <p class="tier-subheader">
+                     Maximize the value of your ELISA data using Boster Bio's <a href="https://www.bosterbio.com/elisa-data-analysis-instructions">ELISA Data Analysis</a> Tool. Created by our expert team, this robust tool
+                    provides accurate and thorough analysis capabilities for your ELISA experiments. Unleash the full potential of your results with
+                    our precise and comprehensive data analysis solution.
+                </p>
+<div style="position: relative; padding-bottom: 25.25%; height: 0;"><iframe src="https://www.youtube.com/embed/p1dnUcALsGg" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+                
+                <hr>
+                <br>
+                
+                <!-- Data Importing -->
+                <h3 class="tier-three">Data Importing</h3>
+                <h3 class="tier-subheader">Paste your OD raw data from Word, Excel, CSV table into the below frame (Numeric format only).</h3>
+                <div id="data-importing">
+
+                    <!-- Initial text area -->
+                    <textarea id="excel-table-input"></textarea>
+                    
+                    <!-- Data Table -->
+                    <div id="data-grid-table-input" class="elisa-grid"></div>
+                </div>
+                <a id="btn-demo-data" class="btn-orange mr-4">Demo data</a>
+                <a id="btn-clear-data" class="btn-orange mr-4" style="display: none;">Clear data</a>
+
+                <hr>
+                <br>
+
+                <
+landing	782	antibody-categories	
+            <section class="mb-4 text-center hero-section" style="background-image: url(/media/images/design-guide/background-celltype.jpg)">
+  <div class="dark-overlap">
+    <h1 class="font-large font-weight-bold mb-4">
+      <font face="Josefin Sans, tahoma, sans-serif">
+        <span style="font-size: 50px; text-transform: uppercase;">Antibodies by Research Field</span>
+      </font>
+    </h1>
+    <p class="font-large mb-4">
+      Browse antibodies through 10 major research fields, then refine by disease, cell type, additional topics, or rare species.
+    </p>
+    <div class="d-flex justify-content-center">
+      <a class="btn-outline-white" href="#major-research-fields">Browse Major Research Fields</a>
+    </div>
+  </div>
+</section>
+<section class="mb-6 single-column content-section" id="major-research-fields">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="font-large text-orange mb-2 text-capitalize">10 Major Research Fields</h2>
+        <p class="font-medium text-grey mb-5">
+          Start with Boster’s primary research field landing pages, then narrow your search through related disease categories, cell types, and specialized research topics below.
+        </p>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 col-lg-6 mb-3">
+            <a href="https://www.bosterbio.com/research-area/immunology-antibodies" class="text-decoration-none d-block h-100">
+              <div class="p-4 h-100" style="background:#f7f7f7; border-left:4px solid #f39a27;">
+                <h3 class="font-large text-orange mb-2">Immunology Antibodies</h3>
+                <p class="mb-2 text-grey">Cytokines, immune markers, inflammation, immune response.</p>
+                <p class="mb-0 text-orange font-weight-bold">Explore →</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-12 col-lg-6 mb-3">
+            <a href="https://www.bosterbio.com/research-area/neuroscience-antibodies" class="text-decoration-none d-block h-100">
+              <div class="p-4 h-100" style="background:#f7f7f7; border-left:4px solid #f39a27;">
+                <h3 class="font-large text-orange mb-2">Neuroscience Antibodies</h3>
+                <p class="mb-2 text-grey">Neural markers, glia, neurodegeneration, brain pathways.</p>
+                <p class="mb-0 text-orange font-weight-bold">Explore →</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-12 col-lg-6 mb-3">
+            <a href="https://www.bosterbio.com/research-area/cancer-antibodies" class="text-decoration-none d-block h-100">
+              <div class="p-4 h-100" style="background:#f7f7f7; border-left:4px solid #f39a27;">
+                <h3 class="font-large text-orange mb-2">Cancer Antibodies</h3>
+                <p class="mb-2 text-grey">Tumor biomarkers, TME, oncology pathways, disease relevance.</p>
+                <p 
+landing	844	cell-types/smooth-muscle-cells-antibodies	
+            <section class="mb-5 topic-heading-section">
+            <h1 class="topic-heading text-orange text-center font-larger text-uppercase font-weight-bold typography-josefin-sans mb-3">Smooth muscle cells antibodies</h1>
+            <p class="text-grey text-center w-75 mx-auto mb-5 font-medium">and ELISA kits, proteins related to Smooth muscle cells.</p>
+          </section>
+<section class="mb-6 single-column content-section">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <h2 class="font-large text-orange mb-2 text-capitalize">Introduction to Smooth muscle cells</h2>
+                  <p class="font-medium text-grey mb-4">Smooth muscle cells (SMCs) are specialized cells found primarily within the walls of hollow organs such as blood vessels, the respiratory tract, the intestines, and the bladder. Unlike skeletal muscle, smooth muscle is not under conscious control, hence categorized as involuntary muscle. These cells are crucial for various physiological processes including the regulation of blood flow and pressure, gastrointestinal motility, and respiratory airflow.
+
+Research into smooth muscle cells has increased understanding of numerous medical conditions, such as hypertension, asthma, and arteriosclerosis. This research is pivotal for developing targeted therapies that can more effectively treat or potentially reverse these conditions. Antibodies that specifically bind to smooth muscle cell proteins are invaluable tools in this research. They help scientists identify, locate, and quantify specific proteins within smooth muscle cells, contributing immensely to our understanding of cell function, signaling pathways, and interactions. As we continue to explore the complex nature of smooth muscle cells, the role of specialized antibodies becomes increasingly significant, opening new avenues for medical advancements and therapeutic interventions.</p>
+                  <h2 class="font-large text-darkgrey mb-2 text-capitalize">Contents:</h2><ol class="text-darkgrey"><li><a href="#biomarkers">Smooth muscle cells Biomarkers</a></li><li><a href="#sub-areas">Important Mechanisms</a></li></ol></div>
+              </div>
+            </div>
+          </section>
+<section class="mb-6 single-column content-section">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <h2 class="font-large text-orange mb-2 text-capitalize">Smooth muscle cells biomarkers</h2>
+            <div class="container p-3">
+              <h3 class="font-large text-orange mb-3 text-capitalize"></h3><div class="multicolumns"><div class="table-cell col-md-3"><img src="/media/catalog/product/p/b/pb9359-vimentin-primary-antibodies-if-testing-11.jpg"><p class="mb-3"><a href="/anti-vimentin-picoband-trade-antibody-pb9359-boster.html">Anti-Vimentin Antibody Picoband®</a>,  IF analysis of Vimentin using anti-Vimentin a
