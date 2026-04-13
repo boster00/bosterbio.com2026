@@ -1,20 +1,32 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useMemo, useState } from "react"
+import type { CatalogProduct } from "@/lib/products-supabase"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
-import { MOCK_ANTIBODIES, uniqueSorted, type MockAntibody } from "@/data/mock-antibodies"
 
-const hosts = uniqueSorted(MOCK_ANTIBODIES.map((a) => a.host))
-const targets = uniqueSorted(MOCK_ANTIBODIES.map((a) => a.target))
-const applications = uniqueSorted(MOCK_ANTIBODIES.flatMap((a) => a.applications))
-const reactivities = uniqueSorted(MOCK_ANTIBODIES.flatMap((a) => a.reactivity))
+function uniqueSorted(values: string[]) {
+  return [...new Set(values)].sort((a, b) => a.localeCompare(b))
+}
 
-function ProductCard({ product }: { product: MockAntibody }) {
+function ProductCard({ product }: { product: CatalogProduct }) {
   return (
-    <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card hover:border-accent/40">
+    <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 border-l-4 border-l-accent bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
-        <ProductPlaceholderThumb />
+        {product.imageUrl ? (
+          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200">
+            <Image
+              src={product.imageUrl}
+              alt=""
+              fill
+              className="object-contain p-1"
+              sizes="80px"
+            />
+          </div>
+        ) : (
+          <ProductPlaceholderThumb />
+        )}
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <h2 className="font-display text-base font-semibold leading-snug text-brand group-hover:text-accent">
@@ -32,16 +44,22 @@ function ProductCard({ product }: { product: MockAntibody }) {
       </div>
       <div className="flex flex-1 flex-col p-5">
         <div className="flex flex-wrap gap-1.5" aria-label="Applications">
-          {product.applications.map((app) => (
-            <span
-              key={app}
-              className="rounded-full border border-brand/15 bg-brand-muted/50 px-2.5 py-0.5 text-xs font-bold text-brand"
-            >
-              {app}
-            </span>
-          ))}
+          {product.applications.length ? (
+            product.applications.map((app) => (
+              <span
+                key={app}
+                className="rounded-full border border-blue-100 bg-[#eff6ff] px-2.5 py-0.5 text-xs font-bold text-brand"
+              >
+                {app}
+              </span>
+            ))
+          ) : (
+            <span className="text-xs text-ink-tertiary">No applications listed</span>
+          )}
         </div>
-        <p className="mt-3 text-xs text-ink-tertiary">Reactivity: {product.reactivity.join(", ")}</p>
+        <p className="mt-3 text-xs text-ink-tertiary">
+          Reactivity: {product.reactivity.length ? product.reactivity.join(", ") : "—"}
+        </p>
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-brand/10 pt-4">
           <p className="text-sm font-bold text-ink">{product.priceLabel}</p>
           <Link
@@ -56,16 +74,26 @@ function ProductCard({ product }: { product: MockAntibody }) {
   )
 }
 
-export function ProductCatalog({ initialQuery = "" }: { initialQuery?: string }) {
+type Props = {
+  initialQuery?: string
+  initialProducts: CatalogProduct[]
+}
+
+export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
   const [query, setQuery] = useState(initialQuery)
   const [target, setTarget] = useState("")
   const [host, setHost] = useState("")
   const [application, setApplication] = useState("")
   const [reactivity, setReactivity] = useState("")
 
+  const hosts = useMemo(() => uniqueSorted(initialProducts.map((a) => a.host).filter((h) => h && h !== "—")), [initialProducts])
+  const targets = useMemo(() => uniqueSorted(initialProducts.map((a) => a.target).filter((t) => t && t !== "—")), [initialProducts])
+  const applications = useMemo(() => uniqueSorted(initialProducts.flatMap((a) => a.applications)), [initialProducts])
+  const reactivities = useMemo(() => uniqueSorted(initialProducts.flatMap((a) => a.reactivity)), [initialProducts])
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return MOCK_ANTIBODIES.filter((p) => {
+    return initialProducts.filter((p) => {
       if (q) {
         const hay = `${p.name} ${p.catalog} ${p.target} ${p.host}`.toLowerCase()
         if (!hay.includes(q)) return false
@@ -76,7 +104,9 @@ export function ProductCatalog({ initialQuery = "" }: { initialQuery?: string })
       if (reactivity && !p.reactivity.includes(reactivity)) return false
       return true
     })
-  }, [query, target, host, application, reactivity])
+  }, [query, target, host, application, reactivity, initialProducts])
+
+  const total = initialProducts.length
 
   return (
     <>
@@ -86,8 +116,9 @@ export function ProductCatalog({ initialQuery = "" }: { initialQuery?: string })
             <p className="text-xs font-bold uppercase tracking-widest text-accent">Catalog</p>
             <h1 className="mt-2 font-display text-display-md text-brand">Antibodies &amp; reagents</h1>
             <p className="mt-3 text-ink-secondary">
-              Search and filter like leading biotech suppliers — {MOCK_ANTIBODIES.length} demo listings. Connect Medusa for
-              live stock and pricing.
+              {total > 0
+                ? `Live catalog from Supabase — ${total} product${total === 1 ? "" : "s"}.`
+                : "No products returned from the database. Check Supabase configuration and RLS policies."}
             </p>
           </div>
           <form
@@ -217,7 +248,7 @@ export function ProductCatalog({ initialQuery = "" }: { initialQuery?: string })
         </div>
 
         <p className="mt-8 text-sm text-ink-secondary">
-          Showing <span className="font-bold text-brand">{filtered.length}</span> of {MOCK_ANTIBODIES.length} products
+          Showing <span className="font-bold text-brand">{filtered.length}</span> of {total} products
         </p>
 
         <ul className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

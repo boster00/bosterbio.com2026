@@ -12,10 +12,12 @@
     "screenshots:nav-pages": "node scripts/capture-nav-pages.mjs",
     "screenshots:sections": "node scripts/capture-sections.mjs",
     "screenshots:fullpages": "node scripts/capture-sections.mjs fullpages",
-    "screenshots:routes": "PUPPETEER_WAIT=load PUPPETEER_POST_LOAD_MS=2500 node scripts/capture-sections.mjs routes"
+    "screenshots:routes": "PUPPETEER_WAIT=load PUPPETEER_POST_LOAD_MS=2500 node scripts/capture-sections.mjs routes",
+    "screenshots:products-catalog": "PUPPETEER_POST_LOAD_MS=2500 node scripts/capture-product-catalog-screenshots.mjs"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.0.0",
+    "@supabase/supabase-js": "^2.103.0",
     "@tanstack/react-query": "^5.50.0",
     "clsx": "^2.1.1",
     "next": "^15.0.0",

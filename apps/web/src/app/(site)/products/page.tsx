@@ -1,3 +1,4 @@
+import { fetchCatalogProducts } from "@/lib/products-supabase"
 import { ProductCatalog } from "./ProductCatalog"
 
 type Props = {
@@ -7,10 +8,11 @@ type Props = {
 export default async function ProductsPage({ searchParams }: Props) {
   const params = await searchParams
   const q = typeof params.q === "string" ? params.q : ""
+  const products = await fetchCatalogProducts()
 
   return (
     <main id="main-content" className="min-h-[60vh]">
-      <ProductCatalog initialQuery={q} />
+      <ProductCatalog initialQuery={q} initialProducts={products} />
     </main>
   )
 }
