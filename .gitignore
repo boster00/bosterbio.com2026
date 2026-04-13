@@ -36,3 +36,7 @@ uploads/
 
 # TypeScript
 *.tsbuildinfo
+
+# Magento CMS exports (large, may contain sensitive URLs) — generate locally
+cms_pages_export.json
+docs/_cms-template-catalog.generated.md
