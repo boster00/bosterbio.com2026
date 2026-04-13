@@ -43,7 +43,15 @@ const allShots = [
 
 /** Optional: GROUP=1 | GROUP=2 | GROUP=3 | GROUP=4 to capture one batch only */
 const groupNum = process.env.GROUP
-const shots = groupNum ? allShots.filter((s) => s[0] === `group${groupNum}`) : allShots
+/** Optional: ROUTE=/about-us to capture a single path (still uses group/name from matching row or NAME env) */
+const singleRoute = process.env.ROUTE
+const singleName = process.env.NAME || "custom"
+const singleGroup = process.env.GROUP_PREFIX || "group1"
+const shots = singleRoute
+  ? [[singleGroup, singleName, singleRoute]]
+  : groupNum
+    ? allShots.filter((s) => s[0] === `group${groupNum}`)
+    : allShots
 
 async function main() {
   await fs.mkdir(OUT, { recursive: true })

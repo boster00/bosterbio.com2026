@@ -6,7 +6,7 @@ const WEB = path.join(import.meta.dirname, "..")
 const APP = path.join(WEB, "src/app/(site)")
 
 const routes = [
-  { file: "about-us/page.tsx", id: "about-us", title: "About Us" },
+  // about-us lives at src/app/about-us (custom layout + Figma-style page) — do not generate under (site)
   { file: "contact-us/page.tsx", id: "contact-us", title: "Contact Us", special: "contact" },
   { file: "boster-guarantee/page.tsx", id: "boster-guarantee", title: "Boster Guarantee" },
   { file: "faqs/page.tsx", id: "faqs", title: "FAQs" },
