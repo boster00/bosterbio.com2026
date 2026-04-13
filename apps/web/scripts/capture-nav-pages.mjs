@@ -10,7 +10,7 @@ const BASE = process.env.BASE_URL || "http://localhost:3003"
 const OUT = path.join(process.cwd(), "public/screenshots/nav-pages")
 const EXEC = process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/local/bin/google-chrome"
 
-const shots = [
+const allShots = [
   ["group1", "about-us", "/about-us"],
   ["group1", "contact-us", "/contact-us"],
   ["group1", "boster-guarantee", "/boster-guarantee"],
@@ -41,6 +41,10 @@ const shots = [
   ["group4", "supportformpage", "/supportformpage"],
 ]
 
+/** Optional: GROUP=1 | GROUP=2 | GROUP=3 | GROUP=4 to capture one batch only */
+const groupNum = process.env.GROUP
+const shots = groupNum ? allShots.filter((s) => s[0] === `group${groupNum}`) : allShots
+
 async function main() {
   await fs.mkdir(OUT, { recursive: true })
   const browser = await puppeteer.launch({
@@ -50,6 +54,11 @@ async function main() {
   })
   const page = await browser.newPage()
   await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 })
+
+  if (shots.length === 0) {
+    console.error("No shots match GROUP=", groupNum)
+    process.exit(1)
+  }
 
   for (const [group, name, route] of shots) {
     const url = `${BASE}${route}`
