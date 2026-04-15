@@ -31,5 +31,10 @@ export function hydrateCmsHtml(html: string): string {
   s = s.replace(/\bsrc="\/media\//g, 'src="https://www.bosterbio.com/media/')
   s = s.replace(/\bdata-src="\/media\//g, 'data-src="https://www.bosterbio.com/media/')
   s = s.replace(/url\(\/media\//g, "url(https://www.bosterbio.com/media/")
+  // Legacy Magento hex to 2026 Figma tokens (NavCmsPage HTML)
+  s = s.replace(/#EA8D28/gi, "#f97316")
+  s = s.replace(/#144b8c/gi, "#1a365d")
+  s = s.replace(/#004C95/gi, "#1a365d")
+  s = s.replace(/#003366/gi, "#15294a")
   return s
 }

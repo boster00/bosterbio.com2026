@@ -95,6 +95,10 @@
   .nav-cms-html {
     @apply text-ink text-[15px] leading-relaxed;
   }
+  /* Legacy Magento <font face="Josefin…"> → site Inter stack */
+  .nav-cms-html font[face*="Josefin"] {
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif !important;
+  }
   .nav-cms-html .container {
     @apply mx-auto max-w-content px-[var(--container-px)];
   }

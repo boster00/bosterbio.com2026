@@ -51,7 +51,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         heading: ["var(--font-heading)", "var(--font-sans)", "system-ui", "sans-serif"],
-        /** Alias for legacy components — same as heading (Josefin) */
+        /** Alias for legacy components — same as heading (Inter) */
         display: ["var(--font-heading)", "system-ui", "sans-serif"],
       },
       fontSize: {
@@ -60,8 +60,8 @@ const config: Config = {
         title: ["1.25rem", { lineHeight: "1.35", fontWeight: "600" }],
       },
       boxShadow: {
-        card: "0 1px 3px rgba(0, 76, 149, 0.08), 0 10px 28px rgba(0, 76, 149, 0.1)",
-        nav: "0 1px 0 rgba(0, 76, 149, 0.08)",
+        card: "0 1px 3px rgba(26, 54, 93, 0.08), 0 10px 28px rgba(26, 54, 93, 0.1)",
+        nav: "0 1px 0 rgba(26, 54, 93, 0.08)",
       },
       maxWidth: {
         content: "1200px",
