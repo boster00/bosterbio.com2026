@@ -107,7 +107,7 @@ function mapRowsToCatalog(rows: ProductRow[], images: ImageRow[] | null | undefi
 }
 
 /**
- * Featured subset of `boster_products` — deterministic “random” slice for catalog / Medusa sync.
+ * Featured subset of `boster_products` — deterministic slice for the storefront PLP (same SKUs can be mirrored into Medusa for commerce).
  */
 export async function fetchFeaturedCatalogProducts(
   limit = CATALOG_FEATURED_LIMIT,

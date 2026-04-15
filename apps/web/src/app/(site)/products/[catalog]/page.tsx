@@ -56,7 +56,9 @@ export default async function ProductDetailPage({ params }: Props) {
               <p className="text-xs font-bold uppercase tracking-widest text-brand">Ordering</p>
               <p className="mt-4 text-3xl font-bold text-brand">{merged.priceLabel}</p>
               <p className="mt-2 text-sm text-ink-secondary">
-                {medusaRow ? "Store price from Medusa when available; otherwise catalog list price." : "List price from catalog."}
+                {medusaRow
+                  ? "Catalog list price from Supabase; store checkout price from Medusa when linked."
+                  : "Catalog list price from Supabase (Medusa commerce pricing applies at cart/checkout)."}
               </p>
               <Link
                 href={`/contact?product=${encodeURIComponent(merged.catalog)}`}

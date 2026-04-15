@@ -2,7 +2,7 @@ import { cn } from "@/lib/cn"
 
 /**
  * Neutral catalog placeholder — 80×80 gray tile with subtle Y-shaped antibody outline.
- * Use until real product images are wired from Medusa/PIM.
+ * Use when `boster_products` / `boster_product_images` has no image for the SKU (Magento media path may 404).
  */
 export function ProductPlaceholderThumb({ className }: { className?: string }) {
   return (
