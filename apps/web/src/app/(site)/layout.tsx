@@ -1,5 +1,8 @@
+import { cookies, headers } from "next/headers"
 import { SiteShell } from "@/components/site/SiteShell"
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+  await cookies()
+  await headers()
   return <SiteShell>{children}</SiteShell>
 }
