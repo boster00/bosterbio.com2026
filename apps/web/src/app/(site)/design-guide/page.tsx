@@ -24,7 +24,7 @@ export default function DesignGuidePage() {
           <p className="text-xs font-bold uppercase tracking-widest text-accent-soft">BosterBio · 2026</p>
           <h1 className="mt-3 font-display text-display-lg">Design system guide</h1>
           <p className="mt-4 max-w-2xl text-lg text-white/90">
-            Typography (Josefin Sans + Mulish), brand colors, buttons, cards, and form patterns used across the storefront.
+            Typography (Inter), brand colors, buttons, cards, and form patterns used across the storefront.
           </p>
         </div>
       </div>

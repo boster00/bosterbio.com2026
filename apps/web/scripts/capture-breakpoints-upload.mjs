@@ -3,12 +3,16 @@
  *
  *   BASE_URL=http://localhost:3000 node scripts/capture-breakpoints-upload.mjs
  *   SUPABASE_SERVICE_ROLE_KEY=... BASE_URL=http://localhost:3000 node scripts/capture-breakpoints-upload.mjs upload
+ * Loads apps/web/.env.local automatically (uses SUPABASE_SECRETE_KEY → service role if set).
  */
 import fs from "node:fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { createClient } from "@supabase/supabase-js"
 import puppeteer from "puppeteer-core"
+import { loadEnvLocal } from "./load-env-local.mjs"
+
+loadEnvLocal()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const BASE = process.env.BASE_URL ?? "http://localhost:3000"
@@ -43,9 +47,9 @@ async function capture(page, width, urlPath) {
 
 async function main() {
   const upload = process.argv.includes("upload")
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRETE_KEY
   if (upload && !serviceKey) {
-    console.error("Missing SUPABASE_SERVICE_ROLE_KEY for upload mode.")
+    console.error("Missing SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SECRETE_KEY for upload mode.")
     process.exit(1)
   }
 

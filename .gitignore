@@ -36,6 +36,7 @@ uploads/
 
 # Generated Puppeteer screenshots (upload via scripts; do not commit binaries)
 apps/web/public/screenshots/responsive/
+apps/web/public/screenshots/deliverables/
 
 # TypeScript
 *.tsbuildinfo
