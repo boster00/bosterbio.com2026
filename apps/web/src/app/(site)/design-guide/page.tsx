@@ -19,7 +19,7 @@ function Swatch({ name, hex }: { name: string; hex: string }) {
 export default function DesignGuidePage() {
   return (
     <main id="main-content" className="min-h-screen bg-surface-subtle pb-20">
-      <div className="border-b border-brand/10 bg-gradient-to-br from-brand-primary via-brand-deep to-brand-dark text-white">
+      <div className="border-b border-brand/10 bg-gradient-to-br from-brand via-brand-deep to-brand-dark text-white">
         <div className="container-content py-14 md:py-20">
           <p className="text-xs font-bold uppercase tracking-widest text-accent-soft">BosterBio · 2026</p>
           <h1 className="mt-3 font-display text-display-lg">Design system guide</h1>

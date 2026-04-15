@@ -16,7 +16,7 @@ export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) 
   return (
     <main id="main-content" className="bg-surface-subtle pb-16">
       <section
-        className="relative border-b border-brand-primary/15 bg-gradient-to-br from-brand-deep via-brand to-brand-sky/90 text-white"
+        className="relative border-b border-brand/15 bg-gradient-to-br from-brand-deep via-brand to-brand-sky/90 text-white"
         aria-labelledby="nav-cms-hero-heading"
       >
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1440 120%27%3E%3Cpath fill=%27%23ffffff%27 fill-opacity=%270.06%27 d=%27M0 60c200 20 400 20 600 0s400-20 600 0v60H0z%27/%3E%3C/svg%3E')] bg-cover bg-bottom opacity-90" />
@@ -37,11 +37,11 @@ export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) 
       <div className="container-content py-10 md:py-14">
         {html ? (
           <article
-            className="nav-cms-html overflow-x-auto rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card sm:p-8 md:p-10"
+            className="nav-cms-html overflow-x-auto rounded-2xl border border-brand/10 bg-white p-6 shadow-card sm:p-8 md:p-10"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         ) : (
-          <div className="rounded-2xl border border-brand-primary/10 bg-white p-10 text-center shadow-card">
+          <div className="rounded-2xl border border-brand/10 bg-white p-10 text-center shadow-card">
             <p className="text-ink-secondary">Content is being migrated. Please check back soon.</p>
           </div>
         )}

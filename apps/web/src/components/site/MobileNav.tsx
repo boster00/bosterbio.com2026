@@ -32,7 +32,7 @@ function AccordionSection({
         type="button"
         className={cn(
           "flex w-full items-center justify-between px-4 py-3 text-left font-heading text-sm font-bold uppercase tracking-wide",
-          accent ? "bg-accent-warm text-white" : "bg-brand-tint/60 text-brand-primary",
+          accent ? "bg-accent-warm text-white" : "bg-brand-tint/60 text-brand",
         )}
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
@@ -52,7 +52,7 @@ export function MobileNav() {
     <>
       <button
         type="button"
-        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-primary/20 text-brand-primary hover:bg-brand-tint md:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand/20 text-brand hover:bg-brand-tint md:hidden"
         aria-expanded={drawerOpen}
         aria-controls="mobile-menu"
         onClick={() => setDrawerOpen((o) => !o)}
@@ -73,7 +73,7 @@ export function MobileNav() {
         aria-modal="true"
         aria-label="Site navigation"
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-[min(100%,22rem)] flex-col border-l border-brand-primary/15 bg-white shadow-card transition-transform duration-200 ease-out md:hidden",
+          "fixed inset-y-0 right-0 z-50 flex w-[min(100%,22rem)] flex-col border-l border-brand/15 bg-white shadow-card transition-transform duration-200 ease-out md:hidden",
           drawerOpen ? "translate-x-0" : "translate-x-full pointer-events-none",
         )}
       >
@@ -99,7 +99,7 @@ export function MobileNav() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-sm text-brand-primary hover:underline"
+                    className="text-sm text-brand hover:underline"
                     onClick={() => setDrawerOpen(false)}
                   >
                     {l.label}
@@ -111,7 +111,7 @@ export function MobileNav() {
             <ul className="space-y-2">
               {promotionsCards.map((c) => (
                 <li key={c.href}>
-                  <Link href={c.href} className="text-sm text-brand-primary hover:underline" onClick={() => setDrawerOpen(false)}>
+                  <Link href={c.href} className="text-sm text-brand hover:underline" onClick={() => setDrawerOpen(false)}>
                     {c.label}
                   </Link>
                 </li>
@@ -129,7 +129,7 @@ export function MobileNav() {
           <AccordionSection title="Products">
             {productsColumns.map((col) => (
               <div key={col.title} className="mb-4">
-                <strong className="text-sm text-brand-primary">{col.title}</strong>
+                <strong className="text-sm text-brand">{col.title}</strong>
                 <ul className="mt-1 space-y-1.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
@@ -146,7 +146,7 @@ export function MobileNav() {
           <AccordionSection title="Services">
             {servicesColumns.map((col) => (
               <div key={col.title} className="mb-4">
-                <strong className="text-sm text-brand-primary">{col.title}</strong>
+                <strong className="text-sm text-brand">{col.title}</strong>
                 <ul className="mt-1 space-y-1.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
@@ -159,7 +159,7 @@ export function MobileNav() {
               </div>
             ))}
             <div className="mb-4">
-              <strong className="text-sm text-brand-primary">Analytical services</strong>
+              <strong className="text-sm text-brand">Analytical services</strong>
               <ul className="mt-1 space-y-1.5">
                 {analyticalServicesLinks.map((l) => (
                   <li key={l.href}>
@@ -175,7 +175,7 @@ export function MobileNav() {
           <AccordionSection title="Support">
             {supportResourceBlocks.map((b) => (
               <div key={b.title} className="mb-3">
-                <Link href={b.href} className="text-sm font-bold text-brand-primary hover:underline" onClick={() => setDrawerOpen(false)}>
+                <Link href={b.href} className="text-sm font-bold text-brand hover:underline" onClick={() => setDrawerOpen(false)}>
                   {b.title}
                 </Link>
                 <ul className="mt-1 space-y-1">
@@ -189,7 +189,7 @@ export function MobileNav() {
                 </ul>
               </div>
             ))}
-            <strong className="text-sm text-brand-primary">Educational</strong>
+            <strong className="text-sm text-brand">Educational</strong>
             <ul className="mt-1 space-y-1">
               {supportEducational.map((l) => (
                 <li key={l.href}>
@@ -212,7 +212,7 @@ export function MobileNav() {
           <div className="border-b border-brand/10">
             <Link
               href="/blog"
-              className="block bg-brand-tint/60 px-4 py-3 font-heading text-sm font-bold uppercase tracking-wide text-brand-primary"
+              className="block bg-brand-tint/60 px-4 py-3 font-heading text-sm font-bold uppercase tracking-wide text-brand"
               onClick={() => setDrawerOpen(false)}
             >
               Blog
@@ -223,7 +223,7 @@ export function MobileNav() {
             <ul className="space-y-2">
               {aboutLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-sm text-brand-primary hover:underline" onClick={() => setDrawerOpen(false)}>
+                  <Link href={l.href} className="text-sm text-brand hover:underline" onClick={() => setDrawerOpen(false)}>
                     {l.label}
                   </Link>
                 </li>
@@ -234,7 +234,7 @@ export function MobileNav() {
           <div className="border-b border-brand/10">
             <Link
               href="/distributors"
-              className="block bg-brand-tint/60 px-4 py-3 font-heading text-sm font-bold uppercase tracking-wide text-brand-primary"
+              className="block bg-brand-tint/60 px-4 py-3 font-heading text-sm font-bold uppercase tracking-wide text-brand"
               onClick={() => setDrawerOpen(false)}
             >
               Distributors
@@ -242,7 +242,7 @@ export function MobileNav() {
           </div>
 
           <div className="p-4">
-            <Link href="/account" className="block py-2 text-sm font-semibold text-brand-primary" onClick={() => setDrawerOpen(false)}>
+            <Link href="/account" className="block py-2 text-sm font-semibold text-brand" onClick={() => setDrawerOpen(false)}>
               Sign in
             </Link>
           </div>
