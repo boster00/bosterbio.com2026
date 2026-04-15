@@ -88,23 +88,44 @@ function serviceKey() {
   return process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRETE_KEY
 }
 
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms))
+}
+
 async function capture(page, width, urlPath) {
   await page.setViewport({ width, height: 900, deviceScaleFactor: 1 })
   const url = `${BASE}${urlPath}`
-  await page.goto(url, { waitUntil: "load", timeout: 120000 })
+  const waitUntils = ["load", "domcontentloaded"]
+  for (let i = 0; i < waitUntils.length; i++) {
+    try {
+      await page.goto(url, { waitUntil: waitUntils[i], timeout: 120000 })
+      break
+    } catch (e) {
+      if (i === waitUntils.length - 1) throw e
+      await sleep(1200)
+    }
+  }
   try {
-    await page.waitForSelector("#main-content", { timeout: 20000 })
+    await page.waitForSelector("#main-content", { timeout: 25000 })
   } catch {
-    await page.waitForSelector("body", { timeout: 5000 })
+    await page.waitForSelector("body", { timeout: 8000 })
   }
   await new Promise((r) => setTimeout(r, SETTLE_MS))
   return page.screenshot({ fullPage: true, type: "png" })
 }
 
 async function firstProductCatalogPath(page) {
-  await page.goto(`${BASE}/products`, { waitUntil: "load", timeout: 120000 })
-  await page.waitForSelector("#main-content", { timeout: 30000 })
-  await new Promise((r) => setTimeout(r, SETTLE_MS))
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await page.goto(`${BASE}/products`, { waitUntil: "domcontentloaded", timeout: 120000 })
+      await page.waitForSelector("#main-content", { timeout: 45000 })
+      await new Promise((r) => setTimeout(r, SETTLE_MS))
+      break
+    } catch (e) {
+      if (attempt === 2) throw e
+      await sleep(2000)
+    }
+  }
   const href = await page.evaluate(() => {
     const root = document.querySelector("#main-content") || document.body
     const singleSeg = /^\/products\/[A-Za-z0-9][A-Za-z0-9._-]*$/

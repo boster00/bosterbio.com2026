@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { cookies, headers } from "next/headers"
 import { Inter } from "next/font/google"
 import "./globals.css"
 
@@ -28,11 +29,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  await cookies()
+  await headers()
+
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen font-sans">{children}</body>
