@@ -93,9 +93,17 @@ async function capture(page, width, urlPath) {
 }
 
 async function firstProductCatalogPath(page) {
-  await page.goto(`${BASE}/products`, { waitUntil: "load", timeout: 120000 })
-  await page.waitForSelector("#main-content", { timeout: 30000 })
-  await new Promise((r) => setTimeout(r, SETTLE_MS))
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await page.goto(`${BASE}/products`, { waitUntil: "domcontentloaded", timeout: 120000 })
+      await page.waitForSelector("#main-content", { timeout: 45000 })
+      await new Promise((r) => setTimeout(r, SETTLE_MS))
+      break
+    } catch (e) {
+      if (attempt === 2) throw e
+      await new Promise((r) => setTimeout(r, 2000))
+    }
+  }
   return page.evaluate(() => {
     const root = document.querySelector("#main-content") || document.body
     const singleSeg = /^\/products\/[A-Za-z0-9][A-Za-z0-9._-]*$/
@@ -132,33 +140,49 @@ async function main() {
     }
   }
 
-  const catalogBuf = await capture(page, W_DESKTOP, "/products")
-  await fs.writeFile(path.join(outDir, "products-catalog-1400.png"), catalogBuf)
-  saved.push("public/screenshots/deliverables/products-catalog-1400.png")
-
-  const pdpPath = await firstProductCatalogPath(page)
-  if (pdpPath) {
-    const sku = pdpPath.replace("/products/", "").replace(/[^\w.-]/g, "_")
-    const buf = await capture(page, W_DESKTOP, pdpPath)
-    const name = `product-detail-1400-${sku}.png`
-    await fs.writeFile(path.join(outDir, name), buf)
-    saved.push(`public/screenshots/deliverables/${name}`)
-  } else {
-    console.warn("No PDP link found on /products")
+  try {
+    const catalogBuf = await capture(page, W_DESKTOP, "/products")
+    await fs.writeFile(path.join(outDir, "products-catalog-1400.png"), catalogBuf)
+    saved.push("public/screenshots/deliverables/products-catalog-1400.png")
+  } catch (e) {
+    console.warn("[skip] catalog PLP:", e instanceof Error ? e.message : e)
   }
 
-  for (const r of RESP_PAGES) {
-    for (const w of RESP_WIDTHS) {
-      const buf = await capture(page, w, r.path)
-      const name = `responsive-${r.slug}-${w}.png`
+  try {
+    const pdpPath = await firstProductCatalogPath(page)
+    if (pdpPath) {
+      const sku = pdpPath.replace("/products/", "").replace(/[^\w.-]/g, "_")
+      const buf = await capture(page, W_DESKTOP, pdpPath)
+      const name = `product-detail-1400-${sku}.png`
       await fs.writeFile(path.join(outDir, name), buf)
       saved.push(`public/screenshots/deliverables/${name}`)
+    } else {
+      console.warn("No PDP link found on /products")
     }
+  } catch (e) {
+    console.warn("[skip] PDP capture:", e instanceof Error ? e.message : e)
   }
 
-  const dgBuf = await capture(page, W_DESKTOP, "/design-guide")
-  await fs.writeFile(path.join(outDir, "design-guide-1400.png"), dgBuf)
-  saved.push("public/screenshots/deliverables/design-guide-1400.png")
+  try {
+    for (const r of RESP_PAGES) {
+      for (const w of RESP_WIDTHS) {
+        const buf = await capture(page, w, r.path)
+        const name = `responsive-${r.slug}-${w}.png`
+        await fs.writeFile(path.join(outDir, name), buf)
+        saved.push(`public/screenshots/deliverables/${name}`)
+      }
+    }
+  } catch (e) {
+    console.warn("[skip] responsive set:", e instanceof Error ? e.message : e)
+  }
+
+  try {
+    const dgBuf = await capture(page, W_DESKTOP, "/design-guide")
+    await fs.writeFile(path.join(outDir, "design-guide-1400.png"), dgBuf)
+    saved.push("public/screenshots/deliverables/design-guide-1400.png")
+  } catch (e) {
+    console.warn("[skip] design-guide:", e instanceof Error ? e.message : e)
+  }
 
   await browser.close()
 
