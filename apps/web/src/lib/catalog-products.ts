@@ -21,6 +21,27 @@ export type CatalogProduct = {
   storage: string | null
 }
 
+/** Lowercase blob for client-side search (URL `?q=` + filters). */
+export function catalogSearchHaystack(p: CatalogProduct): string {
+  return [
+    p.name,
+    p.catalog,
+    p.target,
+    p.host,
+    ...p.applications,
+    ...p.reactivity,
+    p.shortDescription,
+    p.description,
+    p.clone,
+    p.productTemplate,
+    p.storage,
+    ...p.badges,
+  ]
+    .filter((s): s is string => typeof s === "string" && s.trim() !== "")
+    .join(" ")
+    .toLowerCase()
+}
+
 function strMeta(m: Record<string, unknown> | null | undefined, key: string): string | null {
   if (!m) return null
   const v = m[key]

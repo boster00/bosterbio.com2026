@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
-import type { CatalogProduct } from "@/lib/catalog-products"
+import { catalogSearchHaystack, type CatalogProduct } from "@/lib/catalog-products"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
 
 function uniqueSorted(values: string[]) {
@@ -108,8 +108,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
     const q = query.trim().toLowerCase()
     return initialProducts.filter((p) => {
       if (q) {
-        const hay = `${p.name} ${p.catalog} ${p.target} ${p.host}`.toLowerCase()
-        if (!hay.includes(q)) return false
+        if (!catalogSearchHaystack(p).includes(q)) return false
       }
       if (target && p.target !== target) return false
       if (host && p.host !== host) return false
