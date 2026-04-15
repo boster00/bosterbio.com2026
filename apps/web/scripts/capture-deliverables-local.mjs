@@ -79,14 +79,30 @@ function pathToSlug(routePath) {
   return routePath.replace(/^\//, "").replace(/\//g, "__") || "page"
 }
 
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms))
+}
+
 async function capture(page, width, urlPath) {
   await page.setViewport({ width, height: 900, deviceScaleFactor: 1 })
   const url = `${BASE}${urlPath}`
-  await page.goto(url, { waitUntil: "load", timeout: 120000 })
+  const waitUntils = ["load", "domcontentloaded"]
+  let lastErr
+  for (let i = 0; i < waitUntils.length; i++) {
+    try {
+      await page.goto(url, { waitUntil: waitUntils[i], timeout: 120000 })
+      lastErr = undefined
+      break
+    } catch (e) {
+      lastErr = e
+      if (i === waitUntils.length - 1) throw lastErr
+      await sleep(1200)
+    }
+  }
   try {
-    await page.waitForSelector("#main-content", { timeout: 20000 })
+    await page.waitForSelector("#main-content", { timeout: 25000 })
   } catch {
-    await page.waitForSelector("body", { timeout: 5000 })
+    await page.waitForSelector("body", { timeout: 8000 })
   }
   await new Promise((r) => setTimeout(r, SETTLE_MS))
   return page.screenshot({ fullPage: true, type: "png" })
