@@ -13,6 +13,13 @@ export type CatalogProduct = {
   reactivity: string[]
   priceLabel: string
   imageUrl: string | null
+  /** Supabase `boster_products` — shown on PDP / optional PLP subtitle */
+  shortDescription: string | null
+  description: string | null
+  clone: string | null
+  productTemplate: string | null
+  badges: string[]
+  storage: string | null
 }
 
 type ProductRow = {
@@ -24,6 +31,12 @@ type ProductRow = {
   reactivity: string[] | null
   price: number | null
   target_info: unknown
+  short_description?: string | null
+  description?: string | null
+  clone?: string | null
+  product_template?: string | null
+  badges?: unknown
+  storage?: string | null
 }
 
 type ImageRow = {
@@ -78,6 +91,22 @@ export function buildImageUrl(path: string): string {
   return `${MAGENTO_MEDIA_BASE}${p}`
 }
 
+function badgesFromRow(badges: unknown): string[] {
+  if (Array.isArray(badges)) return badges.filter((b): b is string => typeof b === "string" && b.trim() !== "")
+  if (typeof badges === "string" && badges.trim()) {
+    try {
+      const p = JSON.parse(badges) as unknown
+      return Array.isArray(p) ? p.filter((b): b is string => typeof b === "string") : []
+    } catch {
+      return [badges]
+    }
+  }
+  return []
+}
+
+const PRODUCT_SELECT =
+  "id, sku, title, host_species, applications, reactivity, price, target_info, short_description, description, clone, product_template, badges, storage"
+
 function mapRowsToCatalog(rows: ProductRow[], images: ImageRow[] | null | undefined): CatalogProduct[] {
   const byProduct = new Map<string, ImageRow[]>()
   for (const img of images ?? []) {
@@ -102,6 +131,12 @@ function mapRowsToCatalog(rows: ProductRow[], images: ImageRow[] | null | undefi
       reactivity: Array.isArray(r.reactivity) ? r.reactivity.filter(Boolean) : [],
       priceLabel: priceLabel(r.price),
       imageUrl,
+      shortDescription: r.short_description?.trim() || null,
+      description: r.description?.trim() || null,
+      clone: r.clone?.trim() || null,
+      productTemplate: r.product_template?.trim() || null,
+      badges: badgesFromRow(r.badges),
+      storage: r.storage?.trim() || null,
     }
   })
 }
@@ -139,7 +174,7 @@ export async function fetchFeaturedCatalogProducts(
 
   const { data: products, error: pErr } = await supabase
     .from("boster_products")
-    .select("id, sku, title, host_species, applications, reactivity, price, target_info")
+    .select(PRODUCT_SELECT)
     .in("id", ids)
 
   if (pErr) {
@@ -171,7 +206,7 @@ export async function fetchCatalogProducts(): Promise<CatalogProduct[]> {
 export async function fetchCatalogProductByCatalog(catalog: string): Promise<CatalogProduct | null> {
   const { data: row, error } = await supabase
     .from("boster_products")
-    .select("id, sku, title, host_species, applications, reactivity, price, target_info")
+    .select(PRODUCT_SELECT)
     .eq("sku", catalog)
     .maybeSingle()
 
@@ -229,7 +264,7 @@ export async function fetchFeaturedProductRowsForSeed(
 
   const { data: products, error: pErr } = await supabase
     .from("boster_products")
-    .select("id, sku, title, host_species, applications, reactivity, price, target_info")
+    .select(PRODUCT_SELECT)
     .in("id", ids)
 
   if (pErr || !products?.length) {
