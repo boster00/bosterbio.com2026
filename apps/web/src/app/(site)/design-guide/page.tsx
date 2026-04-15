@@ -32,7 +32,10 @@ export default function DesignGuidePage() {
       <div className="container-content space-y-16 py-12">
         <section className="rounded-2xl border border-brand/10 bg-white p-8 shadow-card">
           <h2 className="font-display text-display-md text-brand">Typography</h2>
-          <p className="mt-2 text-ink-secondary">Headings use Josefin Sans; body uses Mulish.</p>
+          <p className="mt-2 text-ink-secondary">
+            <strong className="text-ink">Inter</strong> for body and headings (via Next.js <code className="font-mono text-xs">next/font</code> —{" "}
+            <code className="font-mono text-xs">--font-sans</code> and <code className="font-mono text-xs">--font-heading</code>).
+          </p>
           <div className="mt-8 space-y-6 border-t border-brand/10 pt-8">
             <div>
               <p className="font-display text-display-lg text-brand">Display large</p>
@@ -48,10 +51,10 @@ export default function DesignGuidePage() {
             </div>
             <div>
               <p className="text-base text-ink">
-                Body — Mulish at base size for readable paragraphs, support text, and navigation labels. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
+                Body — Inter at base size for readable paragraphs, support text, and navigation labels. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
               </p>
-              <p className="mt-1 font-mono text-xs text-ink-tertiary">text-base text-ink</p>
+              <p className="mt-1 font-mono text-xs text-ink-tertiary">font-sans text-base text-ink</p>
             </div>
             <div>
               <p className="text-sm text-ink-secondary">Secondary body for captions and helper text.</p>
@@ -61,10 +64,17 @@ export default function DesignGuidePage() {
 
         <section className="rounded-2xl border border-brand/10 bg-white p-8 shadow-card">
           <h2 className="font-display text-display-md text-brand">Color palette</h2>
+          <p className="mt-2 text-sm text-ink-secondary">
+            Figma primaries: deep blue <span className="font-mono text-ink">#1a365d</span>, accent orange{" "}
+            <span className="font-mono text-ink">#f97316</span> (Tailwind <code className="font-mono text-xs">brand</code> /{" "}
+            <code className="font-mono text-xs">accent</code>).
+          </p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <Swatch name="brand.DEFAULT" hex="#004C95" />
-            <Swatch name="brand.deep" hex="#003366" />
-            <Swatch name="accent.DEFAULT" hex="#EA8D28" />
+            <Swatch name="brand.DEFAULT (Figma blue)" hex="#1a365d" />
+            <Swatch name="brand.deep" hex="#15294a" />
+            <Swatch name="brand.dark" hex="#0f1f36" />
+            <Swatch name="accent.DEFAULT (Figma orange)" hex="#f97316" />
+            <Swatch name="accent.hover" hex="#ea670c" />
             <Swatch name="brand.sky" hex="#3CA9D6" />
             <Swatch name="surface.subtle" hex="#f4f8fc" />
             <Swatch name="ink.DEFAULT" hex="#1e293b" />
