@@ -7,6 +7,7 @@
     "build": "medusa build",
     "start": "medusa start",
     "seed": "medusa exec ./src/scripts/seed.ts",
+    "seed:catalog": "medusa exec ./src/scripts/seed-featured-catalog.ts",
     "type-check": "tsc --noEmit",
     "migration:run": "medusa db:migrate",
     "migration:generate": "medusa db:generate"

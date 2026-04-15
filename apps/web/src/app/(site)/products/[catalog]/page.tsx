@@ -1,8 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { fetchMedusaProductBySku, mergeMedusaPrice } from "@/lib/medusa-merge"
-import { fetchCatalogProductByCatalog } from "@/lib/products-supabase"
+import { fetchCatalogProductByCatalog } from "@/lib/catalog-products"
 
 type Props = { params: Promise<{ catalog: string }> }
 
@@ -17,11 +16,8 @@ function formatBadgeLabel(slug: string) {
 export default async function ProductDetailPage({ params }: Props) {
   const { catalog } = await params
   const decoded = decodeURIComponent(catalog)
-  const product = await fetchCatalogProductByCatalog(decoded)
-  if (!product) notFound()
-
-  const medusaRow = await fetchMedusaProductBySku(product.catalog)
-  const merged = mergeMedusaPrice(product, medusaRow)
+  const merged = await fetchCatalogProductByCatalog(decoded)
+  if (!merged) notFound()
 
   const longDescription =
     merged.description && merged.shortDescription && merged.description.trim() !== merged.shortDescription.trim()
@@ -118,11 +114,7 @@ export default async function ProductDetailPage({ params }: Props) {
             <div className="rounded-2xl border-2 border-brand/10 bg-white p-6 shadow-card md:p-8">
               <p className="text-xs font-bold uppercase tracking-widest text-brand">Ordering</p>
               <p className="mt-4 text-3xl font-bold text-brand">{merged.priceLabel}</p>
-              <p className="mt-2 text-sm text-ink-secondary">
-                {medusaRow
-                  ? "Catalog list price from Supabase; store checkout price from Medusa when linked."
-                  : "Catalog list price from Supabase (Medusa commerce pricing applies at cart/checkout)."}
-              </p>
+              <p className="mt-2 text-sm text-ink-secondary">Price from Medusa catalog (local PostgreSQL).</p>
               <Link
                 href={`/contact?product=${encodeURIComponent(merged.catalog)}`}
                 className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-accent px-6 py-3 text-center text-sm font-bold uppercase tracking-wide text-white shadow-md transition hover:bg-accent-hover md:w-auto"

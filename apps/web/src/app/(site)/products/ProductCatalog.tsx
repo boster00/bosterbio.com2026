@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
-import type { CatalogProduct } from "@/lib/products-supabase"
+import type { CatalogProduct } from "@/lib/catalog-products"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
 
 function uniqueSorted(values: string[]) {
