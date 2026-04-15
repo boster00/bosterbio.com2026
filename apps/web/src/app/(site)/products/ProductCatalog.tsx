@@ -134,8 +134,8 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
             <h1 className="mt-2 font-display text-display-md text-brand">Antibodies &amp; reagents</h1>
             <p className="mt-3 text-ink-secondary">
               {total > 0
-                ? `Live catalog from Supabase — ${total} product${total === 1 ? "" : "s"}.`
-                : "No products returned from the database. Check Supabase configuration and RLS policies."}
+                ? `Live catalog from Medusa (local PostgreSQL) — ${total} product${total === 1 ? "" : "s"}.`
+                : "No products returned from Medusa. Start the Medusa API with Postgres, then from apps/api run: pnpm seed:catalog (loads five featured antibodies). Ensure NEXT_PUBLIC_MEDUSA_BACKEND_URL points at the API."}
             </p>
           </div>
           <form
