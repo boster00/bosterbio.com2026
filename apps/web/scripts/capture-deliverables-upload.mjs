@@ -106,11 +106,14 @@ async function firstProductCatalogPath(page) {
   await page.waitForSelector("#main-content", { timeout: 30000 })
   await new Promise((r) => setTimeout(r, SETTLE_MS))
   const href = await page.evaluate(() => {
-    const skuLike = /^\/products\/[A-Za-z0-9][A-Za-z0-9._-]*$/
-    const links = [...document.querySelectorAll('a[href^="/products/"]')]
+    const root = document.querySelector("#main-content") || document.body
+    const singleSeg = /^\/products\/[A-Za-z0-9][A-Za-z0-9._-]*$/
+    const links = [...root.querySelectorAll('a[href^="/products/"]')]
       .map((a) => a.getAttribute("href") || "")
-      .filter((h) => h && !h.includes("?") && skuLike.test(h))
-    return links[0] ?? null
+      .filter((h) => h && !h.includes("?") && singleSeg.test(h))
+    const cat = (h) => (h.split("/")[2] || "").trim()
+    const withDigit = links.filter((h) => /\d/.test(cat(h)))
+    return (withDigit[0] ?? links[0]) ?? null
   })
   return href
 }

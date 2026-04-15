@@ -34,9 +34,8 @@ Thumbs.db
 uploads/
 .cache/
 
-# Generated Puppeteer screenshots (upload via scripts; do not commit binaries)
+# Generated Puppeteer screenshots (local only; deliverables are committed for review)
 apps/web/public/screenshots/responsive/
-apps/web/public/screenshots/deliverables/
 
 # TypeScript
 *.tsbuildinfo
