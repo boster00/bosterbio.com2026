@@ -1,10 +1,11 @@
 /**
  * Deliverable screenshots → public/screenshots/deliverables/
  *
- * - Every storefront page @ 1400px (full-page)
- * - /products catalog @ 1400px (explicit filename)
- * - First antibody PDP from PLP @ 1400px
- * - Three representative pages @ 375px (mobile)
+ * - Every storefront page @ 1400px (full-page): page-1400-*.png
+ * - /products catalog @ 1400px: products-catalog-1400.png
+ * - First antibody PDP from PLP @ 1400px: product-detail-1400-*.png
+ * - Home, /products, /services @ 375, 968, 1200, 1400: responsive-{home|products|services}-{width}.png
+ * - Design guide @ 1400: design-guide-1400.png (explicit copy for reporting)
  *
  *   BASE_URL=http://localhost:3000 node scripts/capture-deliverables-local.mjs
  */
@@ -18,7 +19,13 @@ const BASE = process.env.BASE_URL ?? "http://localhost:3000"
 const EXEC = process.env.PUPPETEER_EXECUTABLE_PATH ?? "/usr/local/bin/google-chrome"
 const SETTLE_MS = Number(process.env.PUPPETEER_POST_LOAD_MS ?? 2000)
 const W_DESKTOP = 1400
-const W_MOBILE = 375
+const RESP_WIDTHS = [375, 968, 1200, 1400]
+
+const RESP_PAGES = [
+  { slug: "home", path: "/" },
+  { slug: "products", path: "/products" },
+  { slug: "services", path: "/services" },
+]
 
 /** All `page.tsx` routes under the site (1400px audit). */
 const AUDIT_ROUTES = [
@@ -140,17 +147,18 @@ async function main() {
     console.warn("No PDP link found on /products")
   }
 
-  const mobile = [
-    { slug: "home", path: "/" },
-    { slug: "products", path: "/products" },
-    { slug: "about", path: "/about" },
-  ]
-  for (const m of mobile) {
-    const buf = await capture(page, W_MOBILE, m.path)
-    const name = `mobile-375-${m.slug}.png`
-    await fs.writeFile(path.join(outDir, name), buf)
-    saved.push(`public/screenshots/deliverables/${name}`)
+  for (const r of RESP_PAGES) {
+    for (const w of RESP_WIDTHS) {
+      const buf = await capture(page, w, r.path)
+      const name = `responsive-${r.slug}-${w}.png`
+      await fs.writeFile(path.join(outDir, name), buf)
+      saved.push(`public/screenshots/deliverables/${name}`)
+    }
   }
+
+  const dgBuf = await capture(page, W_DESKTOP, "/design-guide")
+  await fs.writeFile(path.join(outDir, "design-guide-1400.png"), dgBuf)
+  saved.push("public/screenshots/deliverables/design-guide-1400.png")
 
   await browser.close()
 
