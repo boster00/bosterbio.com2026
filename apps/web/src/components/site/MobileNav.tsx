@@ -77,7 +77,7 @@ export function MobileNav() {
           drawerOpen ? "translate-x-0" : "translate-x-full pointer-events-none",
         )}
       >
-        <div className="flex items-center justify-between border-b border-brand-primary/10 bg-brand-primary px-4 py-3 text-white">
+        <div className="flex items-center justify-between border-b border-brand/10 bg-brand px-4 py-3 text-white">
           <span className="font-heading text-lg font-bold">Menu</span>
           <button
             type="button"

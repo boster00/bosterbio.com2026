@@ -4,10 +4,10 @@ const footerColumns = [
   {
     title: "Products",
     links: [
-      { label: "Primary Antibodies", href: "/products?category=primary" },
-      { label: "Secondary Antibodies", href: "/products?category=secondary" },
-      { label: "ELISA Kits", href: "/products?category=elisa" },
-      { label: "Conjugation Kits", href: "/products?category=conjugation" },
+      { label: "Primary Antibodies", href: "/primary-antibodies" },
+      { label: "Secondary Antibodies", href: "/secondary-antibodies" },
+      { label: "ELISA Kits", href: "/elisa_kits_landing_page" },
+      { label: "Catalog search", href: "/products" },
       { label: "Custom Services", href: "/services" },
     ],
   },
@@ -24,17 +24,18 @@ const footerColumns = [
     title: "Resources",
     links: [
       { label: "Protocols", href: "/resources#protocols" },
-      { label: "FAQs", href: "/resources#faq" },
-      { label: "Blog", href: "/resources#blog" },
-      { label: "Citations", href: "/resources#citations" },
+      { label: "FAQs", href: "/faqs" },
+      { label: "Technical centers", href: "/resources" },
+      { label: "Testimonials", href: "/testimonials" },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About BosterBio", href: "/about" },
-      { label: "Careers", href: "/about#careers" },
-      { label: "Contact & distributors", href: "/contact#distributors" },
+      { label: "Careers", href: "/career-opportunities" },
+      { label: "Contact", href: "/contact-us" },
+      { label: "Distributors", href: "/distributors" },
     ],
   },
 ] as const

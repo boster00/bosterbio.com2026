@@ -61,7 +61,7 @@ export function DesktopMegaNav() {
   const analyticalCol2 = analyticalServicesLinks.slice(analyticalHalf)
 
   return (
-    <nav className="border-t border-brand-primary/10 bg-brand-primary text-white" aria-label="Primary">
+    <nav className="border-t border-brand/10 bg-brand text-white" aria-label="Primary">
       <div className="mx-auto flex w-full max-w-[1440px] items-stretch px-[var(--container-px)]">
         {/* 1. Promotions */}
         <div className="group relative flex-1">
@@ -130,7 +130,7 @@ export function DesktopMegaNav() {
             Products
             <Chevron />
           </button>
-          <MegaPanel className="bg-brand-primary" innerClassName="bg-brand-primary">
+          <MegaPanel className="bg-brand" innerClassName="bg-brand">
             <div className="grid gap-6 border-t border-white/15 pt-6 sm:grid-cols-2 lg:grid-cols-4">
               {productsColumns.map((col) => (
                 <div key={col.title}>
@@ -164,7 +164,7 @@ export function DesktopMegaNav() {
             Services
             <Chevron />
           </button>
-          <MegaPanel className="bg-brand-primary" innerClassName="bg-brand-primary">
+          <MegaPanel className="bg-brand" innerClassName="bg-brand">
             <div className="grid gap-6 border-t border-white/15 pt-6 sm:grid-cols-2 lg:grid-cols-4">
               {servicesColumns.map((col) => (
                 <div key={col.title}>
@@ -227,7 +227,7 @@ export function DesktopMegaNav() {
             Support
             <Chevron />
           </button>
-          <MegaPanel className="bg-brand-primary" innerClassName="bg-brand-primary">
+          <MegaPanel className="bg-brand" innerClassName="bg-brand">
             <div className="grid gap-8 border-t border-white/15 pt-6 lg:grid-cols-4">
               <div className="lg:col-span-3">
                 <DropMenuTitle className="mb-4 text-brand-sky">Application resource centers</DropMenuTitle>
@@ -307,7 +307,7 @@ export function DesktopMegaNav() {
             About
             <Chevron />
           </button>
-          <MegaPanel className="bg-brand-primary" innerClassName="bg-brand-primary">
+          <MegaPanel className="bg-brand" innerClassName="bg-brand">
             <div className="max-w-md border-t border-white/15 pt-6">
               <DropMenuTitle className="mb-4 text-brand-sky">About BosterBio</DropMenuTitle>
               <ul className="space-y-2">
