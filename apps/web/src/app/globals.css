@@ -4,11 +4,12 @@
 
 @layer base {
   :root {
-    /* Mulish body, Josefin headings — set in layout.tsx via next/font */
+    /* Inter — set in layout.tsx via next/font; headings use same family */
+    --font-heading: var(--font-sans);
     --section-y: clamp(3rem, 6vw, 5rem);
     --container-px: clamp(1rem, 4vw, 1.5rem);
-    --brand-deep: #003366;
-    --accent: #ea8d28;
+    --brand-deep: #1a365d;
+    --accent: #f97316;
   }
 
   html {

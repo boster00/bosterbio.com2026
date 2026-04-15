@@ -2,7 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
 import type { CatalogProduct } from "@/lib/products-supabase"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
 
@@ -30,7 +31,9 @@ function ProductCard({ product }: { product: CatalogProduct }) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <h2 className="font-display text-base font-semibold leading-snug text-brand group-hover:text-accent">
-              {product.name}
+              <Link href={`/products/${encodeURIComponent(product.catalog)}`} className="hover:underline">
+                {product.name}
+              </Link>
             </h2>
             <span className="shrink-0 rounded-full bg-accent px-2.5 py-1 font-mono text-xs font-bold text-white">
               {product.catalog}
@@ -62,12 +65,20 @@ function ProductCard({ product }: { product: CatalogProduct }) {
         </p>
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-brand/10 pt-4">
           <p className="text-sm font-bold text-ink">{product.priceLabel}</p>
-          <Link
-            href={`/contact?product=${encodeURIComponent(product.catalog)}`}
-            className="rounded-full bg-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-md active:scale-[0.98]"
-          >
-            Request quote
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href={`/products/${encodeURIComponent(product.catalog)}`}
+              className="rounded-full border border-brand/20 bg-white px-4 py-2 text-xs font-bold uppercase tracking-wide text-brand shadow-sm transition duration-200 hover:border-accent hover:text-accent"
+            >
+              Details
+            </Link>
+            <Link
+              href={`/contact?product=${encodeURIComponent(product.catalog)}`}
+              className="rounded-full bg-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-md active:scale-[0.98]"
+            >
+              Request quote
+            </Link>
+          </div>
         </div>
       </div>
     </article>
@@ -80,6 +91,8 @@ type Props = {
 }
 
 export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [query, setQuery] = useState(initialQuery)
   const [target, setTarget] = useState("")
   const [host, setHost] = useState("")
@@ -108,6 +121,10 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
 
   const total = initialProducts.length
 
+  useEffect(() => {
+    setQuery(searchParams.get("q") ?? "")
+  }, [searchParams])
+
   return (
     <>
       <div className="page-hero-bar border-b border-brand/10">
@@ -124,7 +141,11 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
           <form
             className="flex w-full min-w-0 max-w-md flex-col gap-2 sm:flex-row"
             role="search"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault()
+              const trimmed = query.trim()
+              router.push(trimmed ? `/products?q=${encodeURIComponent(trimmed)}` : "/products")
+            }}
           >
             <label htmlFor="catalog-search" className="sr-only">
               Search products

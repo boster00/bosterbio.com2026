@@ -19,11 +19,11 @@ const config: Config = {
       },
       colors: {
         brand: {
-          /** Primary blue #004C95 */
-          DEFAULT: "#004C95",
-          primary: "#004C95",
-          deep: "#003366",
-          dark: "#002847",
+          /** Primary / deep blue — Figma #1a365d */
+          DEFAULT: "#1a365d",
+          primary: "#1a365d",
+          deep: "#15294a",
+          dark: "#0f1f36",
           /** Light blue accent #3CA9D6 */
           light: "#3CA9D6",
           sky: "#3CA9D6",
@@ -31,10 +31,10 @@ const config: Config = {
           tint: "#f0f7fc",
         },
         accent: {
-          /** Orange #EA8D28 */
-          DEFAULT: "#EA8D28",
-          warm: "#EA8D28",
-          hover: "#d67a1c",
+          /** Orange — Figma #f97316 */
+          DEFAULT: "#f97316",
+          warm: "#f97316",
+          hover: "#ea670c",
           soft: "#fff7ed",
         },
         surface: {
