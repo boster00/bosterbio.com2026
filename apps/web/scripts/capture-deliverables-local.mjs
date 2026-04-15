@@ -10,6 +10,7 @@
  *   BASE_URL=http://localhost:3000 node scripts/capture-deliverables-local.mjs
  */
 import fs from "node:fs/promises"
+import fsSync from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import puppeteer from "puppeteer-core"
@@ -83,6 +84,21 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms))
 }
 
+/** When Medusa has no products, PLP never gets PDP links — use first SKU from API seed file. */
+function fallbackPdpPathFromSeed() {
+  try {
+    const seedPath = path.join(__dirname, "../../api/src/data/featured-catalog.seed.json")
+    const raw = fsSync.readFileSync(seedPath, "utf8")
+    const rows = JSON.parse(raw)
+    if (!Array.isArray(rows) || rows.length === 0) return null
+    const withDigit = rows.map((r) => r?.catalog_sku).filter((sku) => typeof sku === "string" && /\d/.test(sku))
+    const sku = (withDigit[0] ?? rows[0]?.catalog_sku) || null
+    return typeof sku === "string" && sku.trim() ? `/products/${encodeURIComponent(sku.trim())}` : null
+  } catch {
+    return null
+  }
+}
+
 async function capture(page, width, urlPath) {
   await page.setViewport({ width, height: 900, deviceScaleFactor: 1 })
   const url = `${BASE}${urlPath}`
@@ -112,15 +128,37 @@ async function firstProductCatalogPath(page) {
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
       await page.goto(`${BASE}/products`, { waitUntil: "domcontentloaded", timeout: 120000 })
-      await page.waitForSelector("#main-content", { timeout: 45000 })
+      try {
+        await page.waitForSelector("#main-content", { timeout: 45000 })
+      } catch {
+        await page.waitForSelector("body", { timeout: 8000 })
+      }
       await new Promise((r) => setTimeout(r, SETTLE_MS))
+      // PLP uses Suspense; wait for hydrated catalog links, or detect empty Medusa state.
+      const productLinkReady = () => {
+        const root = document.querySelector("#main-content") || document.body
+        const singleSeg = /^\/products\/[A-Za-z0-9][A-Za-z0-9._-]*$/
+        return [...root.querySelectorAll('a[href^="/products/"]')].some((a) => {
+          const h = a.getAttribute("href") || ""
+          return singleSeg.test(h) && !h.includes("?")
+        })
+      }
+      const emptyCatalog = () => (document.body?.innerText || "").includes("No products returned from Medusa")
+      try {
+        await Promise.race([
+          page.waitForFunction(productLinkReady, { timeout: 90000 }),
+          page.waitForFunction(emptyCatalog, { timeout: 90000 }),
+        ])
+      } catch {
+        /* fall through to evaluate + seed fallback */
+      }
       break
     } catch (e) {
       if (attempt === 2) throw e
       await new Promise((r) => setTimeout(r, 2000))
     }
   }
-  return page.evaluate(() => {
+  const fromDom = await page.evaluate(() => {
     const root = document.querySelector("#main-content") || document.body
     const singleSeg = /^\/products\/[A-Za-z0-9][A-Za-z0-9._-]*$/
     const links = [...root.querySelectorAll('a[href^="/products/"]')]
@@ -130,11 +168,13 @@ async function firstProductCatalogPath(page) {
     const withDigit = links.filter((h) => /\d/.test(cat(h)))
     return (withDigit[0] ?? links[0]) ?? null
   })
+  return fromDom ?? fallbackPdpPathFromSeed()
 }
 
 async function main() {
   const outDir = path.join(__dirname, "../public/screenshots/deliverables")
   await fs.mkdir(outDir, { recursive: true })
+  const onlyPdp = process.env.ONLY_PDP === "1"
 
   const browser = await puppeteer.launch({
     executablePath: EXEC,
@@ -143,6 +183,26 @@ async function main() {
   })
   const page = await browser.newPage()
   const saved = []
+
+  if (onlyPdp) {
+    try {
+      const pdpPath = await firstProductCatalogPath(page)
+      if (pdpPath) {
+        const sku = pdpPath.replace("/products/", "").replace(/[^\w.-]/g, "_")
+        const buf = await capture(page, W_DESKTOP, pdpPath)
+        const name = `product-detail-1400-${sku}.png`
+        await fs.writeFile(path.join(outDir, name), buf)
+        saved.push(`public/screenshots/deliverables/${name}`)
+      } else {
+        console.warn("No PDP link found on /products")
+      }
+    } catch (e) {
+      console.warn("[skip] PDP capture:", e instanceof Error ? e.message : e)
+    }
+    await browser.close()
+    console.log(JSON.stringify({ count: saved.length, files: saved.sort() }, null, 2))
+    return
+  }
 
   for (const routePath of AUDIT_ROUTES) {
     const slug = pathToSlug(routePath)

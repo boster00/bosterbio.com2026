@@ -10,6 +10,7 @@
  *   BASE_URL=http://localhost:3000 node scripts/capture-deliverables-upload.mjs
  */
 import fs from "node:fs/promises"
+import fsSync from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { createClient } from "@supabase/supabase-js"
@@ -92,6 +93,20 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms))
 }
 
+function fallbackPdpPathFromSeed() {
+  try {
+    const seedPath = path.join(__dirname, "../../api/src/data/featured-catalog.seed.json")
+    const raw = fsSync.readFileSync(seedPath, "utf8")
+    const rows = JSON.parse(raw)
+    if (!Array.isArray(rows) || rows.length === 0) return null
+    const withDigit = rows.map((r) => r?.catalog_sku).filter((sku) => typeof sku === "string" && /\d/.test(sku))
+    const sku = (withDigit[0] ?? rows[0]?.catalog_sku) || null
+    return typeof sku === "string" && sku.trim() ? `/products/${encodeURIComponent(sku.trim())}` : null
+  } catch {
+    return null
+  }
+}
+
 async function capture(page, width, urlPath) {
   await page.setViewport({ width, height: 900, deviceScaleFactor: 1 })
   const url = `${BASE}${urlPath}`
@@ -118,8 +133,29 @@ async function firstProductCatalogPath(page) {
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
       await page.goto(`${BASE}/products`, { waitUntil: "domcontentloaded", timeout: 120000 })
-      await page.waitForSelector("#main-content", { timeout: 45000 })
+      try {
+        await page.waitForSelector("#main-content", { timeout: 45000 })
+      } catch {
+        await page.waitForSelector("body", { timeout: 8000 })
+      }
       await new Promise((r) => setTimeout(r, SETTLE_MS))
+      const productLinkReady = () => {
+        const root = document.querySelector("#main-content") || document.body
+        const singleSeg = /^\/products\/[A-Za-z0-9][A-Za-z0-9._-]*$/
+        return [...root.querySelectorAll('a[href^="/products/"]')].some((a) => {
+          const h = a.getAttribute("href") || ""
+          return singleSeg.test(h) && !h.includes("?")
+        })
+      }
+      const emptyCatalog = () => (document.body?.innerText || "").includes("No products returned from Medusa")
+      try {
+        await Promise.race([
+          page.waitForFunction(productLinkReady, { timeout: 90000 }),
+          page.waitForFunction(emptyCatalog, { timeout: 90000 }),
+        ])
+      } catch {
+        /* fall through */
+      }
       break
     } catch (e) {
       if (attempt === 2) throw e
@@ -136,7 +172,7 @@ async function firstProductCatalogPath(page) {
     const withDigit = links.filter((h) => /\d/.test(cat(h)))
     return (withDigit[0] ?? links[0]) ?? null
   })
-  return href
+  return href ?? fallbackPdpPathFromSeed()
 }
 
 async function main() {
