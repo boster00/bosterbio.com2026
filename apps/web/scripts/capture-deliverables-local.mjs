@@ -1,5 +1,10 @@
 /**
- * Save full-page screenshots under public/screenshots/deliverables/ (no upload).
+ * Deliverable screenshots → public/screenshots/deliverables/
+ *
+ * - Every storefront page @ 1400px (full-page)
+ * - /products catalog @ 1400px (explicit filename)
+ * - First antibody PDP from PLP @ 1400px
+ * - Three representative pages @ 375px (mobile)
  *
  *   BASE_URL=http://localhost:3000 node scripts/capture-deliverables-local.mjs
  */
@@ -12,9 +17,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const BASE = process.env.BASE_URL ?? "http://localhost:3000"
 const EXEC = process.env.PUPPETEER_EXECUTABLE_PATH ?? "/usr/local/bin/google-chrome"
 const SETTLE_MS = Number(process.env.PUPPETEER_POST_LOAD_MS ?? 2000)
-const AUDIT_WIDTH = 1400
-const RESP_WIDTHS = [375, 968, 1200, 1400]
+const W_DESKTOP = 1400
+const W_MOBILE = 375
 
+/** All `page.tsx` routes under the site (1400px audit). */
 const AUDIT_ROUTES = [
   "/",
   "/about",
@@ -107,25 +113,11 @@ async function main() {
   const page = await browser.newPage()
   const saved = []
 
-  const responsive = [
-    { slug: "home", path: "/" },
-    { slug: "products", path: "/products" },
-    { slug: "about", path: "/about" },
-  ]
-  for (const r of responsive) {
-    for (const w of RESP_WIDTHS) {
-      const buf = await capture(page, w, r.path)
-      const name = `responsive-${r.slug}-${w}.png`
-      await fs.writeFile(path.join(outDir, name), buf)
-      saved.push(`public/screenshots/deliverables/${name}`)
-    }
-  }
-
   for (const routePath of AUDIT_ROUTES) {
     const slug = pathToSlug(routePath)
     try {
-      const buf = await capture(page, AUDIT_WIDTH, routePath)
-      const name = `audit-1400-${slug}.png`
+      const buf = await capture(page, W_DESKTOP, routePath)
+      const name = `page-1400-${slug}.png`
       await fs.writeFile(path.join(outDir, name), buf)
       saved.push(`public/screenshots/deliverables/${name}`)
     } catch (e) {
@@ -133,25 +125,36 @@ async function main() {
     }
   }
 
+  const catalogBuf = await capture(page, W_DESKTOP, "/products")
+  await fs.writeFile(path.join(outDir, "products-catalog-1400.png"), catalogBuf)
+  saved.push("public/screenshots/deliverables/products-catalog-1400.png")
+
   const pdpPath = await firstProductCatalogPath(page)
   if (pdpPath) {
     const sku = pdpPath.replace("/products/", "").replace(/[^\w.-]/g, "_")
-    const buf = await capture(page, AUDIT_WIDTH, pdpPath)
-    const name = `catalog-pdp-${sku}.png`
+    const buf = await capture(page, W_DESKTOP, pdpPath)
+    const name = `product-detail-1400-${sku}.png`
     await fs.writeFile(path.join(outDir, name), buf)
     saved.push(`public/screenshots/deliverables/${name}`)
   } else {
     console.warn("No PDP link found on /products")
   }
 
-  const catalogBuf = await capture(page, AUDIT_WIDTH, "/products")
-  const plpName = "catalog-plp-1400.png"
-  await fs.writeFile(path.join(outDir, plpName), catalogBuf)
-  saved.push(`public/screenshots/deliverables/${plpName}`)
+  const mobile = [
+    { slug: "home", path: "/" },
+    { slug: "products", path: "/products" },
+    { slug: "about", path: "/about" },
+  ]
+  for (const m of mobile) {
+    const buf = await capture(page, W_MOBILE, m.path)
+    const name = `mobile-375-${m.slug}.png`
+    await fs.writeFile(path.join(outDir, name), buf)
+    saved.push(`public/screenshots/deliverables/${name}`)
+  }
 
   await browser.close()
 
-  console.log(JSON.stringify({ count: saved.length, files: saved }, null, 2))
+  console.log(JSON.stringify({ count: saved.length, files: saved.sort() }, null, 2))
 }
 
 main().catch((e) => {
