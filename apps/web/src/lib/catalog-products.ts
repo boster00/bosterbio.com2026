@@ -3,6 +3,17 @@ import { medusa } from "./medusa"
 
 const MAGENTO_MEDIA_BASE = "https://www.bosterbio.com/media/catalog/product"
 
+/** Required by Medusa v2 store when listing with calculated_price — set in .env.local */
+function storeProductListQuery(extra: Record<string, unknown> = {}): Record<string, unknown> {
+  const regionId = process.env.NEXT_PUBLIC_MEDUSA_REGION_ID?.trim()
+  return {
+    limit: 100,
+    fields: "+metadata,+thumbnail,+variants.*,+variants.calculated_price,+variants.prices.*",
+    ...(regionId ? { region_id: regionId } : {}),
+    ...extra,
+  }
+}
+
 export type CatalogProduct = {
   id: string
   catalog: string
@@ -176,10 +187,7 @@ export async function fetchFeaturedCatalogProducts(limit = CATALOG_FEATURED_LIMI
   }
 
   try {
-    const { products } = await medusa.store.product.list({
-      limit: 100,
-      fields: "+metadata,+thumbnail,+variants.*,+variants.calculated_price,+variants.prices.*",
-    } as Record<string, unknown>)
+    const { products } = await medusa.store.product.list(storeProductListQuery() as never)
 
     const rows = (products ?? []) as unknown as Record<string, unknown>[]
     const withMeta = rows
@@ -213,11 +221,9 @@ export async function fetchCatalogProductByCatalog(catalog: string): Promise<Cat
   if (!sku) return null
 
   try {
-    const { products } = await medusa.store.product.list({
-      q: sku,
-      limit: 40,
-      fields: "+metadata,+thumbnail,+variants.*,+variants.calculated_price,+variants.prices.*",
-    } as Record<string, unknown>)
+    const { products } = await medusa.store.product.list(
+      storeProductListQuery({ q: sku, limit: 40 }) as never,
+    )
 
     const list = (products ?? []) as unknown as Record<string, unknown>[]
     const match =
