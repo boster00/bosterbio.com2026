@@ -128,7 +128,7 @@ export default function ContactPage() {
               Map embed placeholder — add Google Maps or Mapbox iframe when API keys are configured.
             </p>
             <div
-              className="relative mt-4 flex h-64 items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-accent/40 bg-gradient-to-b from-sky-100/90 via-brand-tint to-accent-soft text-center shadow-inner"
+              className="relative mt-4 flex h-64 items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-accent/40 bg-gradient-to-b from-brand-sky/15 via-brand-tint to-accent-soft text-center shadow-inner"
               role="img"
               aria-label="Map placeholder for 3942 Valley Ave Suite B Pleasanton CA 94566"
             >
