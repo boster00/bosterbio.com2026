@@ -41,5 +41,7 @@ export function hydrateCmsHtml(html: string): string {
   s = s.replace(/rgb\s*\(\s*243\s*,\s*154\s*,\s*39\s*\)/gi, "rgb(249, 115, 22)")
   s = s.replace(/rgb\s*\(\s*0\s*,\s*76\s*,\s*149\s*\)/gi, "rgb(26, 54, 93)")
   s = s.replace(/rgb\s*\(\s*0\s*,\s*51\s*,\s*102\s*\)/gi, "rgb(21, 41, 74)")
+  // Generic Tailwind blue-500 borders on Magento exports → brand sky (#3CA9D6)
+  s = s.replace(/rgba\s*\(\s*59\s*,\s*130\s*,\s*246\s*,\s*([\d.]+)\s*\)/gi, "rgba(60, 169, 214, $1)")
   return s
 }

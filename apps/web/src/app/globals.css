@@ -99,6 +99,10 @@
   .nav-cms-html font[face*="Josefin"] {
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif !important;
   }
+  /* Magento topic headings used typography-josefin-sans — align with Inter / heading token */
+  .nav-cms-html .typography-josefin-sans {
+    font-family: var(--font-heading), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  }
   .nav-cms-html .container {
     @apply mx-auto max-w-content px-[var(--container-px)];
   }
