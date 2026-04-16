@@ -31,6 +31,8 @@ export function hydrateCmsHtml(html: string): string {
   s = s.replace(/\bsrc="\/media\//g, 'src="https://www.bosterbio.com/media/')
   s = s.replace(/\bdata-src="\/media\//g, 'data-src="https://www.bosterbio.com/media/')
   s = s.replace(/url\(\/media\//g, "url(https://www.bosterbio.com/media/")
+  // Inline styles still reference Magento display font — use Inter (same as site)
+  s = s.replace(/Josefin Sans/gi, "Inter")
   // Legacy Magento hex to 2026 Figma tokens (NavCmsPage HTML)
   s = s.replace(/#EA8D28/gi, "#f97316")
   s = s.replace(/#F39A27/gi, "#f97316")
