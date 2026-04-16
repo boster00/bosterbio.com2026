@@ -16,7 +16,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
     <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 border-l-4 border-l-accent bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
         {product.imageUrl ? (
-          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200">
+          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-brand/10">
             <Image
               src={product.imageUrl}
               alt=""

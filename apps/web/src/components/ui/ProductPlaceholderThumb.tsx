@@ -8,12 +8,12 @@ export function ProductPlaceholderThumb({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-slate-200 ring-1 ring-slate-300/80",
+        "flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-surface-muted ring-1 ring-brand/10",
         className,
       )}
       aria-hidden
     >
-      <svg viewBox="0 0 32 32" className="h-9 w-9 shrink-0 text-slate-400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 32 32" className="h-9 w-9 shrink-0 text-ink-tertiary" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M16 6v6M16 20v6M11 11l5 5 5-5M11 21l5-5 5 5"
           stroke="currentColor"
