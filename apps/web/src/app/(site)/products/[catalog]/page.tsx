@@ -138,7 +138,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <ul className="mt-3 flex flex-wrap gap-2">
                 {merged.applications.length ? (
                   merged.applications.map((app) => (
-                    <li key={app} className="rounded-full border border-blue-100 bg-[#eff6ff] px-3 py-1 text-xs font-bold text-brand">
+                    <li key={app} className="rounded-full border border-brand-muted/60 bg-brand-tint px-3 py-1 text-xs font-bold text-brand">
                       {app}
                     </li>
                   ))

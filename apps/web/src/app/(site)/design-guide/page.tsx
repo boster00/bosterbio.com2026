@@ -111,8 +111,8 @@ export default function DesignGuidePage() {
               <h3 className="font-display text-title text-brand">Product-style card</h3>
               <p className="mt-2 text-sm text-ink-secondary">Left orange border, soft blue tint header row.</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <span className="rounded-full bg-[#eff6ff] px-3 py-1 text-xs font-bold text-brand">WB</span>
-                <span className="rounded-full bg-[#eff6ff] px-3 py-1 text-xs font-bold text-brand">IHC</span>
+                <span className="rounded-full border border-brand-muted/60 bg-brand-tint px-3 py-1 text-xs font-bold text-brand">WB</span>
+                <span className="rounded-full border border-brand-muted/60 bg-brand-tint px-3 py-1 text-xs font-bold text-brand">IHC</span>
               </div>
             </article>
             <div className="flex flex-col justify-center gap-3 rounded-2xl border border-dashed border-brand/20 bg-surface-subtle p-6">

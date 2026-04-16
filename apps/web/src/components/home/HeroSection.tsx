@@ -27,7 +27,7 @@ export function HeroSection() {
         className="pointer-events-none absolute inset-0 opacity-[0.15]"
         style={{
           background:
-            "radial-gradient(ellipse 80% 50% at 50% -20%, #38bdf8 0%, transparent 55%), radial-gradient(ellipse 60% 40% at 100% 100%, #f97316 0%, transparent 50%)",
+            "radial-gradient(ellipse 80% 50% at 50% -20%, #3ca9d6 0%, transparent 55%), radial-gradient(ellipse 60% 40% at 100% 100%, #f97316 0%, transparent 50%)",
         }}
         aria-hidden
       />

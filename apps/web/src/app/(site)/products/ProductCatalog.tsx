@@ -51,7 +51,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
             product.applications.map((app) => (
               <span
                 key={app}
-                className="rounded-full border border-blue-100 bg-[#eff6ff] px-2.5 py-0.5 text-xs font-bold text-brand"
+                className="rounded-full border border-brand-muted/60 bg-brand-tint px-2.5 py-0.5 text-xs font-bold text-brand"
               >
                 {app}
               </span>
