@@ -6,25 +6,25 @@ const categories = [
   {
     title: "Primary Antibodies",
     description: "Rabbit and mouse monoclonals, polyclonals, and phospho-specific primaries for WB, IHC, ICC, and flow.",
-    href: "/products?category=primary",
+    href: "/primary-antibodies",
     badge: "antibodies" as const,
   },
   {
     title: "Secondary Antibodies",
     description: "HRP, AP, FITC, and Alexa Fluor®-conjugated secondaries with minimal cross-reactivity.",
-    href: "/products?category=secondary",
+    href: "/secondary-antibodies",
     badge: "secondary" as const,
   },
   {
     title: "ELISA Kits",
     description: "Picokine® sandwich ELISAs with pre-coated plates, standards, and ready-to-use detection.",
-    href: "/products?category=elisa",
+    href: "/elisa_kits_landing_page",
     badge: "elisa" as const,
   },
   {
     title: "Conjugation Kits",
     description: "Label your own antibodies with biotin, fluorophores, and enzymes using optimized kits.",
-    href: "/products?category=conjugation",
+    href: "/services/conjugation",
     badge: "conjugation" as const,
   },
   {
