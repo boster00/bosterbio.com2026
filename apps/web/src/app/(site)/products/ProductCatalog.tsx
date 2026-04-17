@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useMemo, useState } from "react"
 import type { CatalogProduct } from "@/lib/catalog-products"
-import { catalogSearchHaystack } from "@/lib/catalog-products"
+import { catalogSearchHaystack } from "@/lib/catalog-search"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
 
 function uniqueSorted(values: string[]) {

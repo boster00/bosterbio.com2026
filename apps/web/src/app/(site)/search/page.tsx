@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { fetchCatalogProducts, catalogSearchHaystack } from "@/lib/catalog-products"
+import { fetchCatalogProducts } from "@/lib/catalog-products"
+import { catalogSearchHaystack } from "@/lib/catalog-search"
 
 type Props = { searchParams: Promise<{ q?: string }> }
 
