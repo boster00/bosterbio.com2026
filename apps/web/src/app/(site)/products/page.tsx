@@ -1,4 +1,4 @@
-import { fetchCatalogProducts } from "@/lib/products-supabase"
+import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { ProductCatalog } from "./ProductCatalog"
 
 type Props = {
