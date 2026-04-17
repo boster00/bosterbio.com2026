@@ -31,10 +31,11 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className="container-content flex min-w-0 items-center gap-2 py-3 sm:gap-4 md:py-4">
+      <div className="border-t border-white/10 bg-[#004C95] text-white">
+        <div className="container-content flex min-w-0 items-center gap-2 py-3 sm:gap-4 md:py-4">
         <Link
           href="/"
-          className="min-w-0 shrink font-heading text-lg font-bold tracking-tight text-brand-primary sm:text-xl md:text-2xl"
+          className="min-w-0 shrink font-heading text-lg font-bold tracking-tight text-white sm:text-xl md:text-2xl"
           aria-label="BosterBio home"
         >
           Boster<span className="text-accent-warm">Bio</span>
@@ -54,7 +55,7 @@ export function SiteHeader() {
             name="q"
             type="search"
             placeholder="Search by gene, catalog #, or application…"
-            className="h-11 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-5 text-sm text-ink placeholder:text-ink-tertiary focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-sky/30"
+            className="h-11 w-full min-w-0 rounded-l-full border border-white/25 border-r-0 bg-white/10 px-5 text-sm text-white placeholder:text-white/60 focus:border-accent-warm focus:outline-none focus:ring-2 focus:ring-accent-warm/40"
           />
           <button
             type="submit"
@@ -68,25 +69,27 @@ export function SiteHeader() {
           <Link
             href="/account"
             className={cn(
-              "nav-link-animate hidden rounded-full px-3 py-2 text-sm font-medium text-ink-secondary hover:bg-brand-tint sm:inline-block",
+              "nav-link-animate hidden rounded-full px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/10 sm:inline-block",
             )}
           >
             Sign in
           </Link>
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 rounded-full border border-brand-primary/15 bg-brand-tint px-3 py-2 text-sm font-semibold text-brand-primary hover:border-accent-warm/40"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-2 text-sm font-semibold text-white hover:border-accent-warm/60 hover:bg-white/15"
           >
             <span aria-hidden>Cart</span>
             <span className="rounded-full bg-accent-warm px-2 py-0.5 text-xs font-bold text-white">0</span>
           </Link>
-          <div className="relative flex items-center md:static">
+          <div className="relative flex items-center md:static text-white [&_button]:text-white">
             <MobileNav />
           </div>
         </div>
       </div>
+      </div>
 
-      <div className="container-content pb-3 md:hidden">
+      <div className="border-t border-white/10 bg-[#004C95] pb-3 md:hidden">
+        <div className="container-content pt-3">
         <form className="flex" role="search" action="/search" method="get">
           <label htmlFor="mobile-search" className="sr-only">
             Search catalog
@@ -96,12 +99,13 @@ export function SiteHeader() {
             name="q"
             type="search"
             placeholder="Search catalog…"
-            className="h-10 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-4 text-sm focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-sky/30"
+            className="h-10 w-full min-w-0 rounded-l-full border border-white/25 border-r-0 bg-white/10 px-4 text-sm text-white placeholder:text-white/60 focus:border-accent-warm focus:outline-none focus:ring-2 focus:ring-accent-warm/40"
           />
           <button type="submit" className="shrink-0 rounded-r-full bg-accent-warm px-5 text-sm font-bold text-white">
             Search
           </button>
         </form>
+        </div>
       </div>
 
       <div className="hidden md:block">

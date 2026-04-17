@@ -15,11 +15,12 @@ export function buildMagentoImageUrl(path: string): string {
 function rowImageUrl(r: SeedRow): string | null {
   const local = typeof r.local_image === "string" ? r.local_image.trim() : ""
   if (local) return local
-  /** Prefer BosterBio CDN path (real catalog imagery); ignore decorative seed URLs. */
+  /** Explicit CDN URL (e.g. cache path) wins over raw image_path when both exist. */
+  const direct = typeof r.image_url === "string" ? r.image_url.trim() : ""
+  if (direct) return direct
   const rel = typeof r.image_path === "string" ? r.image_path.trim() : ""
   if (rel) return buildMagentoImageUrl(rel)
-  const direct = typeof r.image_url === "string" ? r.image_url.trim() : ""
-  return direct || null
+  return null
 }
 
 /** Offline / CI fallback — same shape as Medusa-backed `CatalogProduct`. */
