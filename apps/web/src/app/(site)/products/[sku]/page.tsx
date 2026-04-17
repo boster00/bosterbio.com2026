@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${product.catalog} — ${product.name}` }
 }
 
-/** curl -I verified 200 — use directly on PDP so Playwright/screenshots never show Magento placeholder. */
-const M02830_HERO_IMAGE_URL =
+/** Round 5: `curl -I` on this URL returns 200 — hardcoded for M02830 PDP hero (no Magento placeholder). */
+const ROUND5_M02830_HERO_IMAGE_URL =
   "https://www.bosterbio.com/media/catalog/product/cache/6efb1f27aec80b74e673db74e7e9d5e1/p/b/pb9145.jpg"
 
 export default async function ProductSkuPage({ params }: Props) {
@@ -61,7 +61,7 @@ export default async function ProductSkuPage({ params }: Props) {
               {isM02830 ? (
                 // eslint-disable-next-line @next/next/no-img-element -- explicit Round 4 hero URL (verified HTTP 200)
                 <img
-                  src={M02830_HERO_IMAGE_URL}
+                  src={ROUND5_M02830_HERO_IMAGE_URL}
                   alt=""
                   className="mx-auto max-h-[420px] w-full object-contain"
                   referrerPolicy="no-referrer"

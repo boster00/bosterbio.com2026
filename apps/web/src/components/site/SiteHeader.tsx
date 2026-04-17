@@ -5,10 +5,7 @@ import { cn } from "@/lib/cn"
 
 export function SiteHeader() {
   return (
-    <header
-      className="relative sticky top-0 z-50 max-w-[100vw] border-b border-[#003366] bg-[#004C95] shadow-nav"
-      style={{ backgroundColor: "#004C95" }}
-    >
+    <header className="relative sticky top-0 z-50 max-w-[100vw] border-b border-brand-primary/10 bg-[#004C95] shadow-nav">
       <div className="bg-brand-deep text-white">
         <div className="container-content flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2.5 text-center text-xs sm:justify-between sm:text-left">
           <p className="font-medium text-white/95">
