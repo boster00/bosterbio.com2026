@@ -82,14 +82,14 @@ export default function AboutUsPage() {
     <main id="main-content" className="bg-surface-subtle">
       {/* Hero — 1440-aligned, Figma-style */}
       <section
-        className="relative border-b border-brand-primary/10 bg-gradient-to-br from-brand-primary via-[#003a73] to-brand-sky text-white"
+        className="relative border-b border-brand/10 bg-gradient-to-br from-brand via-brand-deep to-brand-sky text-white"
         aria-labelledby="about-hero-heading"
       >
         <div
           className="pointer-events-none absolute inset-0 opacity-30"
           style={{
             backgroundImage:
-              "radial-gradient(ellipse 80% 60% at 70% 20%, rgba(60,169,214,0.35), transparent 55%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(234,141,40,0.2), transparent 50%)",
+              "radial-gradient(ellipse 80% 60% at 70% 20%, rgba(60,169,214,0.35), transparent 55%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(249,115,22,0.2), transparent 50%)",
           }}
         />
         <div className="relative mx-auto max-w-[1440px] px-[var(--container-px)] py-14 md:py-20 lg:py-24">
@@ -111,7 +111,7 @@ export default function AboutUsPage() {
       <section className="mx-auto max-w-[1440px] px-[var(--container-px)] py-12 md:py-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-8">
-            <h2 className="font-heading text-2xl font-bold text-brand-primary md:text-3xl">Our values</h2>
+            <h2 className="font-heading text-2xl font-bold text-brand md:text-3xl">Our values</h2>
             <p className="mt-4 text-ink-secondary leading-relaxed">
               You, the life scientist, are the hero destined for great discoveries and inventions. We serve to help you become
               the overachiever you were meant to be.
@@ -122,7 +122,7 @@ export default function AboutUsPage() {
               passion. This is our way of helping the life science community thrive, helping more researchers get the best
               tools to move forward.
             </p>
-            <h2 className="mt-10 font-heading text-2xl font-bold text-brand-primary md:text-3xl">Boster quality guarantee</h2>
+            <h2 className="mt-10 font-heading text-2xl font-bold text-brand md:text-3xl">Boster quality guarantee</h2>
             <p className="mt-4 text-ink-secondary leading-relaxed">
               With our pride in providing products you can trust, a satisfaction/money-back guarantee backs up each of our
               items and services! This is our commitment to you, our loyal clients, who deserve the best of our technology,
@@ -130,8 +130,8 @@ export default function AboutUsPage() {
             </p>
           </div>
           <aside className="lg:col-span-4">
-            <div className="rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card md:p-8">
-              <h3 className="font-heading text-xl font-bold text-brand-primary">Solutions, not just products</h3>
+            <div className="rounded-2xl border border-brand/10 bg-white p-6 shadow-card md:p-8">
+              <h3 className="font-heading text-xl font-bold text-brand">Solutions, not just products</h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-secondary">
                 Empowering life science researchers has always been our aspiration—now, it’s our reality. With Boster Bio’s{" "}
                 <strong className="text-ink">Free Validation Service</strong>, we test our antibodies in your research
@@ -149,7 +149,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Journey */}
-      <section className="border-y border-brand-primary/10 bg-white py-12 md:py-16">
+      <section className="border-y border-brand/10 bg-white py-12 md:py-16">
         <div className="mx-auto max-w-[1440px] px-[var(--container-px)]">
           <h2 className="text-center font-heading text-2xl font-bold uppercase tracking-wide text-accent-warm md:text-3xl">
             The journey of Boster Bio
@@ -161,7 +161,7 @@ export default function AboutUsPage() {
               <h3 className="font-heading text-xl font-bold text-accent-warm">Humble start</h3>
               <p className="mt-3 text-ink-secondary leading-relaxed">
                 Founded in 1993 by histologist Steven Xia, Boster Bio is an{" "}
-                <Link href="/antibody-company" className="font-semibold text-brand-sky underline hover:text-brand-primary">
+                <Link href="/antibody-company" className="font-semibold text-brand-sky underline hover:text-brand">
                   antibody manufacturing company
                 </Link>{" "}
                 specializing in high-sensitivity, high-specificity ELISA kits and WB/IHC compatible antibodies.
@@ -231,7 +231,7 @@ export default function AboutUsPage() {
               <li key={item.year} className="relative">
                 <span className="absolute -left-[2.125rem] top-1 flex h-4 w-4 -translate-x-px rounded-full border-2 border-brand-sky bg-white" />
                 <p className="font-heading text-sm font-bold uppercase tracking-wide text-brand-sky">{item.year}</p>
-                <h3 className="mt-1 font-heading text-lg font-bold text-brand-primary">{item.title}</h3>
+                <h3 className="mt-1 font-heading text-lg font-bold text-brand">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-secondary">{item.body}</p>
               </li>
             ))}
@@ -261,7 +261,7 @@ export default function AboutUsPage() {
           </p>
           <p>
             Ready to collaborate? Let’s discover, create, or analyze the next breakthrough in biological research!{" "}
-            <Link href="/contact-us" className="font-bold text-brand-sky underline hover:text-brand-primary">
+            <Link href="/contact-us" className="font-bold text-brand-sky underline hover:text-brand">
               Contact us today
             </Link>
             .
@@ -270,7 +270,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Brands */}
-      <section className="border-t border-brand-primary/10 bg-white py-12 md:py-16">
+      <section className="border-t border-brand/10 bg-white py-12 md:py-16">
         <div className="mx-auto max-w-[1440px] px-[var(--container-px)]">
           <h2 className="text-center font-heading text-2xl font-bold uppercase tracking-wide text-accent-warm md:text-3xl">
             Our brands
@@ -288,7 +288,7 @@ export default function AboutUsPage() {
             </p>
             <p>
               The white line inside is both a stylized “B” and a subtle thumbs-up from our mascot, Dr. Booster — a mark of
-              confidence. Our tagline: <em className="text-brand-primary">Antibody and ELISA Experts.</em> Trusted by
+              confidence. Our tagline: <em className="text-brand">Antibody and ELISA Experts.</em> Trusted by
               thousands, proven for decades.
             </p>
           </div>
@@ -305,7 +305,7 @@ export default function AboutUsPage() {
 
       {/* Stats */}
       <section
-        className="bg-gradient-to-br from-brand-primary to-[#003566] py-12 text-white md:py-16"
+        className="bg-gradient-to-br from-brand to-brand-dark py-12 text-white md:py-16"
         aria-labelledby="stats-heading"
       >
         <div className="mx-auto max-w-[1440px] px-[var(--container-px)]">
@@ -337,7 +337,7 @@ export default function AboutUsPage() {
           What life scientists are saying about Boster products
         </p>
         <div className="mt-10 grid gap-8 lg:grid-cols-3">
-          <figure className="rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card">
+          <figure className="rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
             <div className="mb-4 overflow-hidden rounded-lg bg-brand-tint">
               <Image
                 src="https://www.bosterbio.com/media/images/testimonials/immunofluorescence-PA1239-anti-Glial-fibrillary-acidic-protein-GFAP-antibody.jpg"
@@ -350,14 +350,14 @@ export default function AboutUsPage() {
             <figcaption>
               <p className="font-heading font-bold text-accent-warm">Maria Teresa Dell&apos;Anno</p>
               <p className="text-xs text-ink-tertiary">Postdoc</p>
-              <p className="mt-3 font-heading text-sm font-bold text-brand-primary">This antibody works perfectly!</p>
+              <p className="mt-3 font-heading text-sm font-bold text-brand">This antibody works perfectly!</p>
               <blockquote className="mt-2 text-sm leading-relaxed text-ink-secondary">
                 I used it for IHC on frozen sections at a dilution of 1:500. It did not need several trials to optimize the
                 protocol.
               </blockquote>
             </figcaption>
           </figure>
-          <figure className="rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card">
+          <figure className="rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
             <div className="mb-4 overflow-hidden rounded-lg bg-brand-tint">
               <Image
                 src="https://www.bosterbio.com/media/images/testimonials/DZ12892-Jakub-Famulski.png"
@@ -370,14 +370,14 @@ export default function AboutUsPage() {
             <figcaption>
               <p className="font-heading font-bold text-accent-warm">Jakub Famulski</p>
               <p className="text-xs text-ink-tertiary">Principal investigator</p>
-              <p className="mt-3 font-heading text-sm font-bold text-brand-primary">Good zebrafish antibody for Nlz2</p>
+              <p className="mt-3 font-heading text-sm font-bold text-brand">Good zebrafish antibody for Nlz2</p>
               <blockquote className="mt-2 text-sm leading-relaxed text-ink-secondary">
                 Zebrafish-specific antibody. Used in whole mount IF on 24hpf zebrafish embryos… promising results in whole
                 mount applications.
               </blockquote>
             </figcaption>
           </figure>
-          <figure className="rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card">
+          <figure className="rounded-2xl border border-brand/10 bg-white p-6 shadow-card">
             <div className="mb-4 overflow-hidden rounded-lg bg-brand-tint">
               <Image
                 src="https://www.bosterbio.com/media/images/testimonials/PB9318-Ramaz-Geguchadze.png"
@@ -390,7 +390,7 @@ export default function AboutUsPage() {
             <figcaption>
               <p className="font-heading font-bold text-accent-warm">Ramaz Geguchadze</p>
               <p className="text-xs text-ink-tertiary">Research scientist</p>
-              <p className="mt-3 font-heading text-sm font-bold text-brand-primary">A good PKC alpha antibody for IP and WB</p>
+              <p className="mt-3 font-heading text-sm font-bold text-brand">A good PKC alpha antibody for IP and WB</p>
               <blockquote className="mt-2 text-sm leading-relaxed text-ink-secondary">
                 Strong positive band with right mass. Works great without optimization! Good quality and ready for publish.
               </blockquote>
@@ -401,11 +401,11 @@ export default function AboutUsPage() {
       </section>
 
       {/* Support strip + contact */}
-      <section className="border-t border-brand-primary/10 bg-brand-tint/40 py-12 md:py-16">
+      <section className="border-t border-brand/10 bg-brand-tint/40 py-12 md:py-16">
         <div className="mx-auto max-w-[1440px] px-[var(--container-px)]">
           <div className="grid gap-10 lg:grid-cols-2">
             <div className="rounded-2xl bg-white p-8 shadow-card md:p-10">
-              <h2 className="font-heading text-xl font-bold text-brand-primary md:text-2xl">Boster support to customers</h2>
+              <h2 className="font-heading text-xl font-bold text-brand md:text-2xl">Boster support to customers</h2>
               <p className="mt-2 font-heading text-sm font-semibold text-ink-secondary">Our expertise at your service</p>
               <p className="mt-4 text-ink-secondary leading-relaxed">
                 Our technical resources are free to access and download at your convenience, and our customer support is at
@@ -413,27 +413,27 @@ export default function AboutUsPage() {
                 validation data so you can get better data with less time, less money, and less frustration.
               </p>
             </div>
-            <div className="flex flex-col justify-center rounded-2xl border border-brand-primary/10 bg-white p-8 shadow-card md:p-10">
-              <h2 className="font-heading text-xl font-bold text-brand-primary">Get in touch</h2>
+            <div className="flex flex-col justify-center rounded-2xl border border-brand/10 bg-white p-8 shadow-card md:p-10">
+              <h2 className="font-heading text-xl font-bold text-brand">Get in touch</h2>
               <p className="mt-2 text-sm text-ink-secondary">Our support team will answer within 24 hours.</p>
               <ul className="mt-6 space-y-3 text-sm text-ink-secondary">
                 <li>
-                  <strong className="text-brand-primary">Orders:</strong>{" "}
+                  <strong className="text-brand">Orders:</strong>{" "}
                   <a href="mailto:orders@bosterbio.com" className="text-brand-sky underline">
                     orders@bosterbio.com
                   </a>
                 </li>
                 <li>
-                  <strong className="text-brand-primary">Support:</strong>{" "}
+                  <strong className="text-brand">Support:</strong>{" "}
                   <a href="mailto:support@bosterbio.com" className="text-brand-sky underline">
                     support@bosterbio.com
                   </a>
                 </li>
                 <li>
-                  <strong className="text-brand-primary">Phone:</strong> (888) 466-3604
+                  <strong className="text-brand">Phone:</strong> (888) 466-3604
                 </li>
                 <li>
-                  <strong className="text-brand-primary">Address:</strong> 3942 Valley Ave, Suite B, Pleasanton, CA 94566
+                  <strong className="text-brand">Address:</strong> 3942 Valley Ave, Suite B, Pleasanton, CA 94566
                 </li>
               </ul>
               <Link

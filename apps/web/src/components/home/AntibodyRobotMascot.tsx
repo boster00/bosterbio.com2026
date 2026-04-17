@@ -15,12 +15,12 @@ export function AntibodyRobotMascot({ className = "" }: { className?: string }) 
       <title>Antibody robot mascot</title>
       <defs>
         <linearGradient id="robot-body" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#2c5282" />
+          <stop offset="0%" stopColor="#15294a" />
           <stop offset="100%" stopColor="#1a365d" />
         </linearGradient>
         <linearGradient id="robot-metal" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#e2eaf3" />
-          <stop offset="100%" stopColor="#94a3b8" />
+          <stop offset="100%" stopColor="#64748b" />
         </linearGradient>
         <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="2" result="b" />
@@ -75,8 +75,8 @@ export function AntibodyRobotMascot({ className = "" }: { className?: string }) 
       {/* Visor */}
       <rect x="96" y="72" width="88" height="36" rx="14" fill="rgba(15,23,42,0.45)" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
       {/* Eyes */}
-      <circle cx="118" cy="90" r="9" fill="#e0f2fe" />
-      <circle cx="162" cy="90" r="9" fill="#e0f2fe" />
+      <circle cx="118" cy="90" r="9" fill="#f0f7fc" />
+      <circle cx="162" cy="90" r="9" fill="#f0f7fc" />
       <circle cx="120" cy="92" r="4" fill="#1a365d" />
       <circle cx="164" cy="92" r="4" fill="#1a365d" />
       {/* Smile */}
@@ -85,8 +85,8 @@ export function AntibodyRobotMascot({ className = "" }: { className?: string }) 
       <line x1="140" y1="42" x2="140" y2="22" stroke="#f97316" strokeWidth="4" strokeLinecap="round" />
       <circle cx="140" cy="14" r="8" fill="#f97316" stroke="white" strokeWidth="2" />
       {/* Ear modules */}
-      <rect x="78" y="78" width="14" height="24" rx="4" fill="#2c5282" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
-      <rect x="188" y="78" width="14" height="24" rx="4" fill="#2c5282" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+      <rect x="78" y="78" width="14" height="24" rx="4" fill="#15294a" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+      <rect x="188" y="78" width="14" height="24" rx="4" fill="#15294a" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
     </svg>
   )
 }

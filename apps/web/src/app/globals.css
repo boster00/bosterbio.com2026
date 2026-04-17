@@ -4,11 +4,12 @@
 
 @layer base {
   :root {
-    /* Mulish body, Josefin headings — set in layout.tsx via next/font */
+    /* Inter — set in layout.tsx via next/font; headings use same family */
+    --font-heading: var(--font-sans);
     --section-y: clamp(3rem, 6vw, 5rem);
     --container-px: clamp(1rem, 4vw, 1.5rem);
-    --brand-deep: #003366;
-    --accent: #ea8d28;
+    --brand-deep: #1a365d;
+    --accent: #f97316;
   }
 
   html {
@@ -94,6 +95,14 @@
   .nav-cms-html {
     @apply text-ink text-[15px] leading-relaxed;
   }
+  /* Legacy Magento <font face="Josefin…"> → site Inter stack */
+  .nav-cms-html font[face*="Josefin"] {
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif !important;
+  }
+  /* Magento topic headings used typography-josefin-sans — align with Inter / heading token */
+  .nav-cms-html .typography-josefin-sans {
+    font-family: var(--font-heading), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  }
   .nav-cms-html .container {
     @apply mx-auto max-w-content px-[var(--container-px)];
   }
@@ -129,15 +138,15 @@
   }
   .nav-cms-html h1,
   .nav-cms-html .font-largest {
-    @apply font-heading text-3xl font-bold text-brand-primary md:text-4xl;
+    @apply font-heading text-3xl font-bold text-brand md:text-4xl;
   }
   .nav-cms-html h2,
   .nav-cms-html .font-larger {
-    @apply font-heading text-2xl font-semibold text-brand-primary mt-8 mb-4;
+    @apply font-heading text-2xl font-semibold text-brand mt-8 mb-4;
   }
   .nav-cms-html h3,
   .nav-cms-html .font-large {
-    @apply font-heading text-xl font-semibold text-brand-primary mt-6 mb-3;
+    @apply font-heading text-xl font-semibold text-brand mt-6 mb-3;
   }
   .nav-cms-html .text-orange,
   .nav-cms-html .topic-heading {
@@ -150,7 +159,7 @@
     @apply text-ink;
   }
   .nav-cms-html a {
-    @apply text-brand-sky underline-offset-2 hover:text-brand-primary hover:underline;
+    @apply text-brand-sky underline-offset-2 hover:text-brand hover:underline;
   }
   .nav-cms-html .btn-orange,
   .nav-cms-html .button,
@@ -174,7 +183,7 @@
   }
   .nav-cms-html th,
   .nav-cms-html td {
-    @apply border border-brand-primary/15 px-3 py-2;
+    @apply border border-brand/15 px-3 py-2;
   }
   .nav-cms-html img {
     @apply max-w-full h-auto;

@@ -10,7 +10,7 @@ export function CtaSection() {
             aria-hidden
           />
           <div
-            className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl"
+            className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-brand-sky/20 blur-3xl"
             aria-hidden
           />
           <h2 id="cta-heading" className="relative font-display text-display-md">

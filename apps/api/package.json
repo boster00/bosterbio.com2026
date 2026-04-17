@@ -7,18 +7,21 @@
     "build": "medusa build",
     "start": "medusa start",
     "seed": "medusa exec ./src/scripts/seed.ts",
+    "seed:catalog": "medusa exec ./src/scripts/seed-featured-catalog.ts",
     "type-check": "tsc --noEmit",
     "migration:run": "medusa db:migrate",
     "migration:generate": "medusa db:generate"
   },
   "dependencies": {
-    "@medusajs/medusa": "^2.0.0",
-    "@medusajs/framework": "^2.0.0",
+    "@bosterbio/types": "workspace:*",
     "@medusajs/core-flows": "^2.0.0",
-    "@bosterbio/types": "workspace:*"
+    "@medusajs/framework": "^2.0.0",
+    "@medusajs/medusa": "^2.0.0",
+    "stripe": "^22.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.0"
   }
 }

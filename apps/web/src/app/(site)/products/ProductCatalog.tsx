@@ -2,8 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useMemo, useState } from "react"
-import type { CatalogProduct } from "@/lib/products-supabase"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
+import { catalogSearchHaystack, type CatalogProduct } from "@/lib/catalog-products"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
 
 function uniqueSorted(values: string[]) {
@@ -15,7 +16,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
     <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 border-l-4 border-l-accent bg-white shadow-card hover:border-accent/40">
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
         {product.imageUrl ? (
-          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200">
+          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-brand/10">
             <Image
               src={product.imageUrl}
               alt=""
@@ -30,7 +31,9 @@ function ProductCard({ product }: { product: CatalogProduct }) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <h2 className="font-display text-base font-semibold leading-snug text-brand group-hover:text-accent">
-              {product.name}
+              <Link href={`/products/${encodeURIComponent(product.catalog)}`} className="hover:underline">
+                {product.name}
+              </Link>
             </h2>
             <span className="shrink-0 rounded-full bg-accent px-2.5 py-1 font-mono text-xs font-bold text-white">
               {product.catalog}
@@ -48,7 +51,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
             product.applications.map((app) => (
               <span
                 key={app}
-                className="rounded-full border border-blue-100 bg-[#eff6ff] px-2.5 py-0.5 text-xs font-bold text-brand"
+                className="rounded-full border border-brand-muted/60 bg-brand-tint px-2.5 py-0.5 text-xs font-bold text-brand"
               >
                 {app}
               </span>
@@ -62,12 +65,20 @@ function ProductCard({ product }: { product: CatalogProduct }) {
         </p>
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-brand/10 pt-4">
           <p className="text-sm font-bold text-ink">{product.priceLabel}</p>
-          <Link
-            href={`/contact?product=${encodeURIComponent(product.catalog)}`}
-            className="rounded-full bg-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-md active:scale-[0.98]"
-          >
-            Request quote
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href={`/products/${encodeURIComponent(product.catalog)}`}
+              className="rounded-full border border-brand/20 bg-white px-4 py-2 text-xs font-bold uppercase tracking-wide text-brand shadow-sm transition duration-200 hover:border-accent hover:text-accent"
+            >
+              Details
+            </Link>
+            <Link
+              href={`/contact?product=${encodeURIComponent(product.catalog)}`}
+              className="rounded-full bg-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-md active:scale-[0.98]"
+            >
+              Request quote
+            </Link>
+          </div>
         </div>
       </div>
     </article>
@@ -76,27 +87,30 @@ function ProductCard({ product }: { product: CatalogProduct }) {
 
 type Props = {
   initialQuery?: string
-  initialProducts: CatalogProduct[]
+  /** When omitted or undefined, renders empty catalog safely (smoke / edge cases). */
+  initialProducts?: CatalogProduct[]
 }
 
 export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
+  const products = initialProducts ?? []
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [query, setQuery] = useState(initialQuery)
   const [target, setTarget] = useState("")
   const [host, setHost] = useState("")
   const [application, setApplication] = useState("")
   const [reactivity, setReactivity] = useState("")
 
-  const hosts = useMemo(() => uniqueSorted(initialProducts.map((a) => a.host).filter((h) => h && h !== "—")), [initialProducts])
-  const targets = useMemo(() => uniqueSorted(initialProducts.map((a) => a.target).filter((t) => t && t !== "—")), [initialProducts])
-  const applications = useMemo(() => uniqueSorted(initialProducts.flatMap((a) => a.applications)), [initialProducts])
-  const reactivities = useMemo(() => uniqueSorted(initialProducts.flatMap((a) => a.reactivity)), [initialProducts])
+  const hosts = useMemo(() => uniqueSorted(products.map((a) => a.host).filter((h) => h && h !== "—")), [products])
+  const targets = useMemo(() => uniqueSorted(products.map((a) => a.target).filter((t) => t && t !== "—")), [products])
+  const applications = useMemo(() => uniqueSorted(products.flatMap((a) => a.applications)), [products])
+  const reactivities = useMemo(() => uniqueSorted(products.flatMap((a) => a.reactivity)), [products])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return initialProducts.filter((p) => {
+    return products.filter((p) => {
       if (q) {
-        const hay = `${p.name} ${p.catalog} ${p.target} ${p.host}`.toLowerCase()
-        if (!hay.includes(q)) return false
+        if (!catalogSearchHaystack(p).includes(q)) return false
       }
       if (target && p.target !== target) return false
       if (host && p.host !== host) return false
@@ -104,9 +118,13 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
       if (reactivity && !p.reactivity.includes(reactivity)) return false
       return true
     })
-  }, [query, target, host, application, reactivity, initialProducts])
+  }, [query, target, host, application, reactivity, products])
 
-  const total = initialProducts.length
+  const total = products.length
+
+  useEffect(() => {
+    setQuery(searchParams.get("q") ?? "")
+  }, [searchParams])
 
   return (
     <>
@@ -117,14 +135,18 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
             <h1 className="mt-2 font-display text-display-md text-brand">Antibodies &amp; reagents</h1>
             <p className="mt-3 text-ink-secondary">
               {total > 0
-                ? `Live catalog from Supabase — ${total} product${total === 1 ? "" : "s"}.`
-                : "No products returned from the database. Check Supabase configuration and RLS policies."}
+                ? `Live catalog from Medusa (local PostgreSQL) — ${total} product${total === 1 ? "" : "s"}.`
+                : "No products returned from Medusa. Start the Medusa API with Postgres, then from apps/api run: pnpm seed:catalog (loads five featured antibodies). Ensure NEXT_PUBLIC_MEDUSA_BACKEND_URL points at the API."}
             </p>
           </div>
           <form
             className="flex w-full min-w-0 max-w-md flex-col gap-2 sm:flex-row"
             role="search"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault()
+              const trimmed = query.trim()
+              router.push(trimmed ? `/products?q=${encodeURIComponent(trimmed)}` : "/products")
+            }}
           >
             <label htmlFor="catalog-search" className="sr-only">
               Search products

@@ -1,4 +1,5 @@
-import { fetchCatalogProducts } from "@/lib/products-supabase"
+import { Suspense } from "react"
+import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { ProductCatalog } from "./ProductCatalog"
 
 type Props = {
@@ -12,7 +13,9 @@ export default async function ProductsPage({ searchParams }: Props) {
 
   return (
     <main id="main-content" className="min-h-[60vh]">
-      <ProductCatalog initialQuery={q} initialProducts={products} />
+      <Suspense fallback={<div className="container-content py-16 text-ink-secondary">Loading catalog…</div>}>
+        <ProductCatalog initialQuery={q} initialProducts={products} />
+      </Suspense>
     </main>
   )
 }

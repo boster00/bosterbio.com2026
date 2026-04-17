@@ -1,14 +1,9 @@
 import type { Metadata } from "next"
-import { Josefin_Sans, Mulish } from "next/font/google"
+import { cookies, headers } from "next/headers"
+import { Inter } from "next/font/google"
 import "./globals.css"
 
-const josefin = Josefin_Sans({
-  subsets: ["latin"],
-  variable: "--font-heading",
-  display: "swap",
-})
-
-const mulish = Mulish({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -34,13 +29,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  await cookies()
+  await headers()
+
   return (
-    <html lang="en" className={`${josefin.variable} ${mulish.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body className="min-h-screen font-sans">{children}</body>
     </html>
   )

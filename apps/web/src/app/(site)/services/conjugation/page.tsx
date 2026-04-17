@@ -76,7 +76,7 @@ export default function ConjugationServicePage() {
             Submit antibody details
           </Link>
           <Link
-            href="/products?category=conjugation"
+            href="/products"
             className="inline-flex rounded-full border-2 border-brand/20 px-8 py-3 text-sm font-bold text-brand hover:border-accent"
           >
             Conjugation kits

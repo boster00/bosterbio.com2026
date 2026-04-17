@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn"
 
 export function SiteHeader() {
   return (
-    <header className="relative sticky top-0 z-50 max-w-[100vw] border-b border-brand-primary/10 bg-white shadow-nav">
+    <header className="relative sticky top-0 z-50 max-w-[100vw] border-b border-brand/10 bg-white shadow-nav">
       <div className="bg-brand-deep text-white">
         <div className="container-content flex flex-wrap items-center justify-center gap-x-6 gap-y-1 py-2.5 text-center text-xs sm:justify-between sm:text-left">
           <p className="font-medium text-white/95">
@@ -34,7 +34,7 @@ export function SiteHeader() {
       <div className="container-content flex min-w-0 items-center gap-2 py-3 sm:gap-4 md:py-4">
         <Link
           href="/"
-          className="min-w-0 shrink font-heading text-lg font-bold tracking-tight text-brand-primary sm:text-xl md:text-2xl"
+          className="min-w-0 shrink font-heading text-lg font-bold tracking-tight text-brand sm:text-xl md:text-2xl"
           aria-label="BosterBio home"
         >
           Boster<span className="text-accent-warm">Bio</span>
@@ -43,7 +43,7 @@ export function SiteHeader() {
         <form
           className="mx-auto hidden min-w-0 flex-1 max-w-xl md:flex"
           role="search"
-          action="/products"
+          action="/search"
           method="get"
         >
           <label htmlFor="site-search" className="sr-only">
@@ -54,7 +54,7 @@ export function SiteHeader() {
             name="q"
             type="search"
             placeholder="Search by gene, catalog #, or application…"
-            className="h-11 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-5 text-sm text-ink placeholder:text-ink-tertiary focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-sky/30"
+            className="h-11 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-5 text-sm text-ink placeholder:text-ink-tertiary focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-sky/30"
           />
           <button
             type="submit"
@@ -75,7 +75,7 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 rounded-full border border-brand-primary/15 bg-brand-tint px-3 py-2 text-sm font-semibold text-brand-primary hover:border-accent-warm/40"
+            className="inline-flex items-center gap-2 rounded-full border border-brand/15 bg-brand-tint px-3 py-2 text-sm font-semibold text-brand hover:border-accent-warm/40"
           >
             <span aria-hidden>Cart</span>
             <span className="rounded-full bg-accent-warm px-2 py-0.5 text-xs font-bold text-white">0</span>
@@ -87,7 +87,7 @@ export function SiteHeader() {
       </div>
 
       <div className="container-content pb-3 md:hidden">
-        <form className="flex" role="search" action="/products" method="get">
+        <form className="flex" role="search" action="/search" method="get">
           <label htmlFor="mobile-search" className="sr-only">
             Search catalog
           </label>
@@ -96,7 +96,7 @@ export function SiteHeader() {
             name="q"
             type="search"
             placeholder="Search catalog…"
-            className="h-10 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-4 text-sm focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-sky/30"
+            className="h-10 w-full min-w-0 rounded-l-full border border-surface-muted border-r-0 bg-brand-tint px-4 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-sky/30"
           />
           <button type="submit" className="shrink-0 rounded-r-full bg-accent-warm px-5 text-sm font-bold text-white">
             Search

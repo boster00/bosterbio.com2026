@@ -19,12 +19,12 @@ function Swatch({ name, hex }: { name: string; hex: string }) {
 export default function DesignGuidePage() {
   return (
     <main id="main-content" className="min-h-screen bg-surface-subtle pb-20">
-      <div className="border-b border-brand/10 bg-gradient-to-br from-brand-primary via-brand-deep to-brand-dark text-white">
+      <div className="border-b border-brand/10 bg-gradient-to-br from-brand via-brand-deep to-brand-dark text-white">
         <div className="container-content py-14 md:py-20">
           <p className="text-xs font-bold uppercase tracking-widest text-accent-soft">BosterBio · 2026</p>
           <h1 className="mt-3 font-display text-display-lg">Design system guide</h1>
           <p className="mt-4 max-w-2xl text-lg text-white/90">
-            Typography (Josefin Sans + Mulish), brand colors, buttons, cards, and form patterns used across the storefront.
+            Typography (Inter), brand colors, buttons, cards, and form patterns used across the storefront.
           </p>
         </div>
       </div>
@@ -32,7 +32,10 @@ export default function DesignGuidePage() {
       <div className="container-content space-y-16 py-12">
         <section className="rounded-2xl border border-brand/10 bg-white p-8 shadow-card">
           <h2 className="font-display text-display-md text-brand">Typography</h2>
-          <p className="mt-2 text-ink-secondary">Headings use Josefin Sans; body uses Mulish.</p>
+          <p className="mt-2 text-ink-secondary">
+            <strong className="text-ink">Inter</strong> for body and headings (via Next.js <code className="font-mono text-xs">next/font</code> —{" "}
+            <code className="font-mono text-xs">--font-sans</code> and <code className="font-mono text-xs">--font-heading</code>).
+          </p>
           <div className="mt-8 space-y-6 border-t border-brand/10 pt-8">
             <div>
               <p className="font-display text-display-lg text-brand">Display large</p>
@@ -48,10 +51,10 @@ export default function DesignGuidePage() {
             </div>
             <div>
               <p className="text-base text-ink">
-                Body — Mulish at base size for readable paragraphs, support text, and navigation labels. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
+                Body — Inter at base size for readable paragraphs, support text, and navigation labels. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
               </p>
-              <p className="mt-1 font-mono text-xs text-ink-tertiary">text-base text-ink</p>
+              <p className="mt-1 font-mono text-xs text-ink-tertiary">font-sans text-base text-ink</p>
             </div>
             <div>
               <p className="text-sm text-ink-secondary">Secondary body for captions and helper text.</p>
@@ -61,10 +64,17 @@ export default function DesignGuidePage() {
 
         <section className="rounded-2xl border border-brand/10 bg-white p-8 shadow-card">
           <h2 className="font-display text-display-md text-brand">Color palette</h2>
+          <p className="mt-2 text-sm text-ink-secondary">
+            Figma primaries: deep blue <span className="font-mono text-ink">#1a365d</span>, accent orange{" "}
+            <span className="font-mono text-ink">#f97316</span> (Tailwind <code className="font-mono text-xs">brand</code> /{" "}
+            <code className="font-mono text-xs">accent</code>).
+          </p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <Swatch name="brand.DEFAULT" hex="#004C95" />
-            <Swatch name="brand.deep" hex="#003366" />
-            <Swatch name="accent.DEFAULT" hex="#EA8D28" />
+            <Swatch name="brand.DEFAULT (Figma blue)" hex="#1a365d" />
+            <Swatch name="brand.deep" hex="#15294a" />
+            <Swatch name="brand.dark" hex="#0f1f36" />
+            <Swatch name="accent.DEFAULT (Figma orange)" hex="#f97316" />
+            <Swatch name="accent.hover" hex="#ea670c" />
             <Swatch name="brand.sky" hex="#3CA9D6" />
             <Swatch name="surface.subtle" hex="#f4f8fc" />
             <Swatch name="ink.DEFAULT" hex="#1e293b" />
@@ -101,8 +111,8 @@ export default function DesignGuidePage() {
               <h3 className="font-display text-title text-brand">Product-style card</h3>
               <p className="mt-2 text-sm text-ink-secondary">Left orange border, soft blue tint header row.</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <span className="rounded-full bg-[#eff6ff] px-3 py-1 text-xs font-bold text-brand">WB</span>
-                <span className="rounded-full bg-[#eff6ff] px-3 py-1 text-xs font-bold text-brand">IHC</span>
+                <span className="rounded-full border border-brand-muted/60 bg-brand-tint px-3 py-1 text-xs font-bold text-brand">WB</span>
+                <span className="rounded-full border border-brand-muted/60 bg-brand-tint px-3 py-1 text-xs font-bold text-brand">IHC</span>
               </div>
             </article>
             <div className="flex flex-col justify-center gap-3 rounded-2xl border border-dashed border-brand/20 bg-surface-subtle p-6">

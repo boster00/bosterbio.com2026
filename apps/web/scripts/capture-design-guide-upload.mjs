@@ -12,6 +12,9 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { createClient } from "@supabase/supabase-js"
 import puppeteer from "puppeteer-core"
+import { loadEnvLocal } from "./load-env-local.mjs"
+
+loadEnvLocal()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const BASE = process.env.BASE_URL ?? "http://localhost:3000"
@@ -22,10 +25,28 @@ const PATH_1280 = "cursor_cloud/bosterbio-website/design-guide-1280.png"
 const PATH_375 = "cursor_cloud/bosterbio-website/design-guide-375.png"
 const SETTLE_MS = Number(process.env.PUPPETEER_POST_LOAD_MS ?? 2500)
 
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms))
+}
+
 async function capture(page, width) {
   await page.setViewport({ width, height: 900, deviceScaleFactor: 1 })
-  await page.goto(`${BASE}/design-guide`, { waitUntil: "load", timeout: 120000 })
-  await page.waitForSelector("#main-content", { timeout: 30000 })
+  const url = `${BASE}/design-guide`
+  const waitUntils = ["load", "domcontentloaded"]
+  for (let i = 0; i < waitUntils.length; i++) {
+    try {
+      await page.goto(url, { waitUntil: waitUntils[i], timeout: 120000 })
+      break
+    } catch (e) {
+      if (i === waitUntils.length - 1) throw e
+      await sleep(1200)
+    }
+  }
+  try {
+    await page.waitForSelector("#main-content", { timeout: 25000 })
+  } catch {
+    await page.waitForSelector("body", { timeout: 8000 })
+  }
   await new Promise((r) => setTimeout(r, SETTLE_MS))
   return page.screenshot({ fullPage: true, type: "png" })
 }
@@ -36,9 +57,9 @@ function publicUrl(objectPath) {
 
 async function main() {
   const upload = process.argv.includes("upload")
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRETE_KEY
   if (upload && !serviceKey) {
-    console.error("Missing SUPABASE_SERVICE_ROLE_KEY for upload mode.")
+    console.error("Missing SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SECRETE_KEY for upload mode.")
     process.exit(1)
   }
 

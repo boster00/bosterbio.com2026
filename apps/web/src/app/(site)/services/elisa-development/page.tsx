@@ -77,7 +77,7 @@ export default function ElisaDevelopmentServicePage() {
             Discuss your analyte
           </Link>
           <Link
-            href="/products?category=elisa"
+            href="/elisa_kits_landing_page"
             className="inline-flex rounded-full border-2 border-brand/20 px-8 py-3 text-sm font-bold text-brand hover:border-accent"
           >
             Browse ELISA kits
