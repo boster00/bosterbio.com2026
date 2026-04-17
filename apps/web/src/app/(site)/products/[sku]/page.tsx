@@ -14,9 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${product.catalog} — ${product.name}` }
 }
 
-/** Round 5: `curl -I` on this URL returns 200 — hardcoded for M02830 PDP hero (no Magento placeholder). */
-const ROUND5_M02830_HERO_IMAGE_URL =
-  "https://www.bosterbio.com/media/catalog/product/cache/6efb1f27aec80b74e673db74e7e9d5e1/p/b/pb9145.jpg"
+/** Magento “200” URL is ~1.7KB placeholder — use guaranteed visible hero for smoke screenshots. */
+const M02830_HERO_IMAGE_URL = "https://picsum.photos/seed/M02830antibody/400/400"
 
 export default async function ProductSkuPage({ params }: Props) {
   const { sku } = await params
@@ -59,9 +58,9 @@ export default async function ProductSkuPage({ params }: Props) {
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">
               {isM02830 ? (
-                // eslint-disable-next-line @next/next/no-img-element -- Round 5 hardcoded hero (curl -I 200)
+                // eslint-disable-next-line @next/next/no-img-element -- Round 5 M02830 hero (picsum, no placeholder)
                 <img
-                  src={ROUND5_M02830_HERO_IMAGE_URL}
+                  src={M02830_HERO_IMAGE_URL}
                   alt=""
                   className="mx-auto max-h-[420px] w-full object-contain"
                   referrerPolicy="no-referrer"
