@@ -1,4 +1,5 @@
 import { CATALOG_FEATURED_LIMIT } from "./catalog-constants"
+import { seedCatalogProductBySku, seedRowsToCatalogProducts } from "./featured-catalog-seed"
 import { medusa } from "./medusa"
 
 const MAGENTO_MEDIA_BASE = "https://www.bosterbio.com/media/catalog/product"
@@ -181,9 +182,11 @@ function medusaConfigured(): boolean {
  * `featured_rank` (0..n), `catalog_sku`, optional scientific fields in metadata.
  */
 export async function fetchFeaturedCatalogProducts(limit = CATALOG_FEATURED_LIMIT): Promise<CatalogProduct[]> {
+  const fromSeed = () => seedRowsToCatalogProducts().slice(0, limit)
+
   if (!medusaConfigured()) {
-    console.warn("[catalog] NEXT_PUBLIC_MEDUSA_BACKEND_URL not set; returning empty catalog")
-    return []
+    console.warn("[catalog] NEXT_PUBLIC_MEDUSA_BACKEND_URL not set; using featured-catalog.seed.json fallback")
+    return fromSeed()
   }
 
   try {
@@ -204,10 +207,14 @@ export async function fetchFeaturedCatalogProducts(limit = CATALOG_FEATURED_LIMI
     const featured = withMeta.filter((x) => x.rank < 9000).slice(0, limit)
     if (featured.length) return featured.map((x) => x.cat)
 
-    return withMeta.slice(0, limit).map((x) => x.cat)
+    const fallbackSlice = withMeta.slice(0, limit).map((x) => x.cat)
+    if (fallbackSlice.length) return fallbackSlice
+
+    console.warn("[catalog] Medusa returned no products; using seed fallback")
+    return fromSeed()
   } catch (e) {
     console.error("[catalog] Medusa store.product.list failed", e instanceof Error ? e.message : e)
-    return []
+    return fromSeed()
   }
 }
 
@@ -216,28 +223,29 @@ export async function fetchCatalogProducts(): Promise<CatalogProduct[]> {
 }
 
 export async function fetchCatalogProductByCatalog(catalog: string): Promise<CatalogProduct | null> {
-  if (!medusaConfigured()) return null
   const sku = catalog.trim()
   if (!sku) return null
 
-  try {
-    const { products } = await medusa.store.product.list(
-      storeProductListQuery({ q: sku, limit: 40 }) as never,
-    )
+  if (medusaConfigured()) {
+    try {
+      const { products } = await medusa.store.product.list(
+        storeProductListQuery({ q: sku, limit: 40 }) as never,
+      )
 
-    const list = (products ?? []) as unknown as Record<string, unknown>[]
-    const match =
-      list.find((p) => {
-        const meta = (p.metadata as Record<string, unknown> | null | undefined) ?? {}
-        const ms = strMeta(meta, "catalog_sku")
-        if (ms && ms.toLowerCase() === sku.toLowerCase()) return true
-        return variantSku(p).toLowerCase() === sku.toLowerCase()
-      }) ?? null
+      const list = (products ?? []) as unknown as Record<string, unknown>[]
+      const match =
+        list.find((p) => {
+          const meta = (p.metadata as Record<string, unknown> | null | undefined) ?? {}
+          const ms = strMeta(meta, "catalog_sku")
+          if (ms && ms.toLowerCase() === sku.toLowerCase()) return true
+          return variantSku(p).toLowerCase() === sku.toLowerCase()
+        }) ?? null
 
-    if (!match) return null
-    return productToCatalog(match)
-  } catch (e) {
-    console.error("[catalog] PDP fetch failed", e instanceof Error ? e.message : e)
-    return null
+      if (match) return productToCatalog(match)
+    } catch (e) {
+      console.error("[catalog] PDP fetch failed", e instanceof Error ? e.message : e)
+    }
   }
+
+  return seedCatalogProductBySku(sku)
 }
