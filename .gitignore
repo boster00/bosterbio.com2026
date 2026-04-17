@@ -33,6 +33,7 @@ Thumbs.db
 # Medusa
 uploads/
 .cache/
+apps/api/.medusa/
 
 # TypeScript
 *.tsbuildinfo
