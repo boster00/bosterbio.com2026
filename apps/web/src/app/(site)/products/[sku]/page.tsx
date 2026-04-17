@@ -59,7 +59,7 @@ export default async function ProductSkuPage({ params }: Props) {
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">
               {isM02830 ? (
-                // eslint-disable-next-line @next/next/no-img-element -- explicit Round 4 hero URL (verified HTTP 200)
+                // eslint-disable-next-line @next/next/no-img-element -- Round 5 hardcoded hero (curl -I 200)
                 <img
                   src={ROUND5_M02830_HERO_IMAGE_URL}
                   alt=""
