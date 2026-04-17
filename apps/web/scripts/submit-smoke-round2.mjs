@@ -1,7 +1,7 @@
 /**
- * BosterBio Smoke Test Round 2 — upload PLP/PDP PNGs, set quests.inventory JSONB, purrview.
+ * Round 2 (d13e6653-…): upload PNGs → UPDATE quests.inventory (exact 2-item shape) → verify → purrview.
  *
- * Env from ~/guildos/.env.local only (loadGuildos-env.mjs).
+ * GuildOS env: ~/guildos/.env.local or /root/guildos/.env.local (loadGuildos-env.mjs).
  *
  *   cd apps/web && node scripts/capture-products-pdp-playwright.mjs
  *   cd apps/web && node scripts/submit-smoke-round2.mjs
@@ -24,13 +24,13 @@ const SHOTS = [
   {
     file: "products_page.png",
     item_key: "products_page",
-    description: "Product listing /products at 1440px",
+    description: "Product listing at 1440px",
     figma_score: 9,
   },
   {
     file: "pdp_page.png",
     item_key: "pdp_page",
-    description: "Product detail /products/M02830 at 1440px",
+    description: "PDP M02830 at 1440px",
     figma_score: 9,
   },
 ]
@@ -43,9 +43,9 @@ async function main() {
   loadGuildosEnv()
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL.trim()
   const serviceKey = process.env.SUPABASE_SECRETE_KEY.trim()
-  const sb = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } })
+  const db = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } })
 
-  const inventory = []
+  const urls = {}
   for (const s of SHOTS) {
     const fp = path.join(PNG_DIR, s.file)
     if (!fs.existsSync(fp)) {
@@ -54,33 +54,55 @@ async function main() {
     }
     const buf = fs.readFileSync(fp)
     const objectPath = `${PREFIX}/${s.file}`
-    const { error: upErr } = await sb.storage.from(BUCKET).upload(objectPath, buf, {
+    const { error: upErr } = await db.storage.from(BUCKET).upload(objectPath, buf, {
       contentType: "image/png",
       upsert: true,
     })
     if (upErr) throw upErr
-    const url = publicUrl(supabaseUrl, objectPath)
-    inventory.push({
-      item_key: s.item_key,
-      created_at: new Date().toISOString(),
-      payload: {
-        url,
-        figma_score: s.figma_score,
-        description: s.description,
-        storage_path: objectPath,
-      },
-    })
+    urls[s.item_key] = publicUrl(supabaseUrl, objectPath)
     console.log("Uploaded", objectPath)
   }
 
-  const { error: upQuest } = await sb.from("quests").update({ inventory, stage: "purrview" }).eq("id", QUEST_ID)
-  if (upQuest) throw upQuest
+  /** Same shape as GuildOS docs — only item_key + payload (url, figma_score, description). */
+  const inventory = [
+    {
+      item_key: "products_page",
+      payload: {
+        url: urls.products_page,
+        figma_score: SHOTS[0].figma_score,
+        description: SHOTS[0].description,
+      },
+    },
+    {
+      item_key: "pdp_page",
+      payload: {
+        url: urls.pdp_page,
+        figma_score: SHOTS[1].figma_score,
+        description: SHOTS[1].description,
+      },
+    },
+  ]
 
-  const { data: row, error: selErr } = await sb.from("quests").select("id, stage, inventory").eq("id", QUEST_ID).single()
-  if (selErr) throw selErr
+  const { error: invErr } = await db.from("quests").update({ inventory }).eq("id", QUEST_ID)
+  if (invErr) throw invErr
 
-  console.log("\n--- quests.inventory verify ---")
-  console.log(JSON.stringify({ id: row.id, stage: row.stage, inventory: row.inventory }, null, 2))
+  const { data: invRow, error: selInv } = await db.from("quests").select("inventory").eq("id", QUEST_ID).single()
+  if (selInv) throw selInv
+  const inv = invRow?.inventory
+  if (!Array.isArray(inv) || inv.length !== 2) {
+    console.error("VERIFY FAILED: expected inventory length 2, got", inv)
+    process.exit(1)
+  }
+  console.log("\n--- SELECT inventory FROM quests WHERE id = ... ---")
+  console.log(JSON.stringify(inv, null, 2))
+
+  const { error: stageErr } = await db.from("quests").update({ stage: "purrview" }).eq("id", QUEST_ID)
+  if (stageErr) throw stageErr
+
+  const { data: final, error: finErr } = await db.from("quests").select("id, stage, inventory").eq("id", QUEST_ID).single()
+  if (finErr) throw finErr
+  console.log("\n--- final row ---")
+  console.log(JSON.stringify({ id: final.id, stage: final.stage, inventory: final.inventory }, null, 2))
 }
 
 main().catch((e) => {

@@ -7,9 +7,13 @@ import path from "node:path"
 import os from "node:os"
 
 export function loadGuildosEnv() {
-  const p = path.join(os.homedir(), "guildos", ".env.local")
-  if (!fs.existsSync(p)) {
-    throw new Error(`Missing ${p}`)
+  const candidates = [
+    path.join(os.homedir(), "guildos", ".env.local"),
+    "/root/guildos/.env.local",
+  ]
+  const p = candidates.find((c) => fs.existsSync(c))
+  if (!p) {
+    throw new Error(`Missing GuildOS env (tried ${candidates.join(", ")})`)
   }
   const raw = fs.readFileSync(p, "utf8")
   for (const line of raw.split("\n")) {
