@@ -51,8 +51,9 @@ async function main() {
   const page = await browser.newPage()
 
   const files = []
-  files.push(await capture(page, "/products", "playwright-1440-products.png"))
-  files.push(await capture(page, "/products/M02830", "playwright-1440-pdp-M02830.png"))
+  /** Round-1 storage filenames (also written under quest-4444-products-pdp for legacy scripts). */
+  files.push(await capture(page, "/products", "products_page.png"))
+  files.push(await capture(page, "/products/M02830", "pdp_page.png"))
 
   await browser.close()
   console.log("Wrote:")

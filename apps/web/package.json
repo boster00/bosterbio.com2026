@@ -19,7 +19,8 @@
     "screenshots:smoke-core": "PUPPETEER_POST_LOAD_MS=2500 node scripts/capture-smoke-core-5.mjs",
     "screenshots:quest-4444-plp-pdp": "node scripts/capture-products-pdp-playwright.mjs",
     "submit:smoke-purrview": "node scripts/submit-smoke-purrview.mjs",
-    "submit:quest-4444-products-pdp": "node scripts/submit-quest-4444-products-pdp.mjs"
+    "submit:quest-4444-products-pdp": "node scripts/submit-quest-4444-products-pdp.mjs",
+    "quest:4444:fulfill": "node scripts/fulfill-quest-4444-round1.mjs"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.0.0",
