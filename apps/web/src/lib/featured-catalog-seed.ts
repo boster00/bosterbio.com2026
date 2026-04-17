@@ -3,7 +3,7 @@ import seedJson from "../data/featured-catalog.seed.json"
 
 const MAGENTO_MEDIA_BASE = "https://www.bosterbio.com/media/catalog/product"
 
-type SeedRow = (typeof seedJson)[number]
+type SeedRow = (typeof seedJson)[number] & { image_url?: string }
 
 const SEED_ROWS = seedJson as SeedRow[]
 
@@ -13,11 +13,11 @@ export function buildMagentoImageUrl(path: string): string {
 }
 
 function rowImageUrl(r: SeedRow): string | null {
-  const direct = typeof r.image_url === "string" ? r.image_url.trim() : ""
-  if (direct) return direct
+  /** Prefer BosterBio CDN path (real catalog imagery); ignore decorative seed URLs. */
   const rel = typeof r.image_path === "string" ? r.image_path.trim() : ""
   if (rel) return buildMagentoImageUrl(rel)
-  return null
+  const direct = typeof r.image_url === "string" ? r.image_url.trim() : ""
+  return direct || null
 }
 
 /** Offline / CI fallback — same shape as Medusa-backed `CatalogProduct`. */

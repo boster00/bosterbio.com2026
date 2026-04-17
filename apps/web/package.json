@@ -20,7 +20,8 @@
     "screenshots:quest-4444-plp-pdp": "node scripts/capture-products-pdp-playwright.mjs",
     "submit:smoke-purrview": "node scripts/submit-smoke-purrview.mjs",
     "submit:quest-4444-products-pdp": "node scripts/submit-quest-4444-products-pdp.mjs",
-    "quest:4444:fulfill": "node scripts/fulfill-quest-4444-round1.mjs"
+    "quest:4444:fulfill": "node scripts/fulfill-quest-4444-round1.mjs",
+    "quest:round2:submit": "node scripts/submit-smoke-round2.mjs"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.0.0",

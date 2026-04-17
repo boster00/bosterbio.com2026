@@ -5,6 +5,7 @@ import { useMemo, useState } from "react"
 import type { CatalogProduct } from "@/lib/catalog-products"
 import { catalogSearchHaystack } from "@/lib/catalog-search"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
+import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
 
 function uniqueSorted(values: string[]) {
   return [...new Set(values)].sort((a, b) => a.localeCompare(b))
@@ -16,13 +17,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
       <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
         {product.imageUrl ? (
           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200">
-            {/* eslint-disable-next-line @next/next/no-img-element -- remote Magento / Medusa URLs */}
-            <img
-              src={product.imageUrl}
-              alt=""
-              className="h-full w-full object-contain p-1"
-              loading="lazy"
-            />
+            <CatalogProductImage src={product.imageUrl} alt="" className="h-full w-full object-contain p-1" />
           </div>
         ) : (
           <ProductPlaceholderThumb />
@@ -158,119 +153,130 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
       </div>
 
       <div className="container-smoke py-10">
-        <div className="rounded-2xl border-2 border-brand/10 bg-white p-5 shadow-card md:p-7">
-          <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-brand">Refine results</h2>
-            <span className="rounded-full bg-accent-soft px-2 py-0.5 text-xs font-bold text-accent">Filters</span>
-          </div>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <label htmlFor="filter-target" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
-                Target
-              </label>
-              <select
-                id="filter-target"
-                value={target}
-                onChange={(e) => setTarget(e.target.value)}
-                className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-              >
-                <option value="">All targets</option>
-                {targets.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="filter-host" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
-                Host species
-              </label>
-              <select
-                id="filter-host"
-                value={host}
-                onChange={(e) => setHost(e.target.value)}
-                className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-              >
-                <option value="">All hosts</option>
-                {hosts.map((h) => (
-                  <option key={h} value={h}>
-                    {h}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="filter-app" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
-                Application
-              </label>
-              <select
-                id="filter-app"
-                value={application}
-                onChange={(e) => setApplication(e.target.value)}
-                className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-              >
-                <option value="">All applications</option>
-                {applications.map((a) => (
-                  <option key={a} value={a}>
-                    {a}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label
-                htmlFor="filter-reactivity"
-                className="block text-xs font-bold uppercase tracking-wide text-brand/80"
-              >
-                Reactivity
-              </label>
-              <select
-                id="filter-reactivity"
-                value={reactivity}
-                onChange={(e) => setReactivity(e.target.value)}
-                className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-              >
-                <option value="">All species</option>
-                {reactivities.map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <button
-            type="button"
-            className="mt-5 text-sm font-bold text-accent hover:underline disabled:pointer-events-none disabled:opacity-40"
-            disabled={!target && !host && !application && !reactivity && !query.trim()}
-            onClick={() => {
-              setQuery("")
-              setTarget("")
-              setHost("")
-              setApplication("")
-              setReactivity("")
-            }}
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+          {/* Left sidebar — Figma product listing */}
+          <aside
+            className="w-full shrink-0 lg:sticky lg:top-24 lg:w-[280px] xl:w-[300px]"
+            aria-label="Product filters"
           >
-            Clear all filters
-          </button>
+            <div className="rounded-2xl border-2 border-brand/10 bg-white p-5 shadow-card md:p-6">
+              <div className="flex items-center gap-2 border-b border-brand/10 pb-4">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-brand">Filters</h2>
+                <span className="rounded-full bg-accent-soft px-2 py-0.5 text-xs font-bold text-accent">Refine</span>
+              </div>
+              <div className="mt-5 space-y-4">
+                <div>
+                  <label htmlFor="filter-target" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
+                    Target
+                  </label>
+                  <select
+                    id="filter-target"
+                    value={target}
+                    onChange={(e) => setTarget(e.target.value)}
+                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                  >
+                    <option value="">All targets</option>
+                    {targets.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="filter-host" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
+                    Host species
+                  </label>
+                  <select
+                    id="filter-host"
+                    value={host}
+                    onChange={(e) => setHost(e.target.value)}
+                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                  >
+                    <option value="">All hosts</option>
+                    {hosts.map((h) => (
+                      <option key={h} value={h}>
+                        {h}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="filter-app" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
+                    Application
+                  </label>
+                  <select
+                    id="filter-app"
+                    value={application}
+                    onChange={(e) => setApplication(e.target.value)}
+                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                  >
+                    <option value="">All applications</option>
+                    {applications.map((a) => (
+                      <option key={a} value={a}>
+                        {a}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label
+                    htmlFor="filter-reactivity"
+                    className="block text-xs font-bold uppercase tracking-wide text-brand/80"
+                  >
+                    Reactivity
+                  </label>
+                  <select
+                    id="filter-reactivity"
+                    value={reactivity}
+                    onChange={(e) => setReactivity(e.target.value)}
+                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                  >
+                    <option value="">All species</option>
+                    {reactivities.map((r) => (
+                      <option key={r} value={r}>
+                        {r}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="mt-6 w-full rounded-xl border border-brand/20 py-2.5 text-sm font-bold text-accent transition hover:bg-accent-soft disabled:pointer-events-none disabled:opacity-40"
+                disabled={!target && !host && !application && !reactivity && !query.trim()}
+                onClick={() => {
+                  setQuery("")
+                  setTarget("")
+                  setHost("")
+                  setApplication("")
+                  setReactivity("")
+                }}
+              >
+                Clear all filters
+              </button>
+            </div>
+          </aside>
+
+          {/* Right — product grid */}
+          <div className="min-w-0 flex-1">
+            <p className="text-sm text-ink-secondary">
+              Showing <span className="font-bold text-brand">{filtered.length}</span> of {total} products
+            </p>
+
+            <ul className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {filtered.map((p) => (
+                <li key={p.id}>
+                  <ProductCard product={p} />
+                </li>
+              ))}
+            </ul>
+
+            {filtered.length === 0 ? (
+              <p className="mt-12 text-center text-ink-secondary">No products match these filters. Try clearing filters.</p>
+            ) : null}
+          </div>
         </div>
-
-        <p className="mt-8 text-sm text-ink-secondary">
-          Showing <span className="font-bold text-brand">{filtered.length}</span> of {total} products
-        </p>
-
-        <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {filtered.map((p) => (
-            <li key={p.id}>
-              <ProductCard product={p} />
-            </li>
-          ))}
-        </ul>
-
-        {filtered.length === 0 ? (
-          <p className="mt-12 text-center text-ink-secondary">No products match these filters. Try clearing filters.</p>
-        ) : null}
       </div>
     </>
   )

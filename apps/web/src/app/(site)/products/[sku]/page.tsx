@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { fetchCatalogProductByCatalog } from "@/lib/catalog-products"
+import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
 import { ProductPdpFormats } from "./ProductPdpFormats"
 
 type Props = { params: Promise<{ sku: string }> }
@@ -52,8 +53,7 @@ export default async function ProductSkuPage({ params }: Props) {
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">
               {product.imageUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <CatalogProductImage
                   src={product.imageUrl}
                   alt=""
                   className="mx-auto max-h-[420px] w-full object-contain"
