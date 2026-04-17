@@ -52,9 +52,16 @@ async function main() {
 
   const { data: invRead, error: e2 } = await db.from("quests").select("inventory").eq("id", QUEST_ID).single()
   if (e2) throw e2
-  const inv = invRead?.inventory
-  if (!Array.isArray(inv) || inv.length !== 2) throw new Error(`inventory verify failed: ${JSON.stringify(inv)}`)
-  console.log("inventory OK")
+  const raw = invRead?.inventory
+  const rows = Array.isArray(raw) ? raw : Array.isArray(raw?.evidence) ? raw.evidence : null
+  if (!rows || rows.length !== 2) throw new Error(`inventory verify failed: ${JSON.stringify(raw)}`)
+  for (const row of rows) {
+    const url = row?.payload?.url
+    if (typeof url !== "string" || !url.includes("supabase.co")) {
+      throw new Error(`inventory row missing storage url: ${JSON.stringify(row)}`)
+    }
+  }
+  console.log("inventory OK (2 deliverables with Supabase URLs)")
 
   const { error: e3 } = await db.from("quests").update({ stage: "purrview" }).eq("id", QUEST_ID)
   if (e3) throw e3

@@ -88,13 +88,14 @@ async function main() {
 
   const { data: invRow, error: selInv } = await db.from("quests").select("inventory").eq("id", QUEST_ID).single()
   if (selInv) throw selInv
-  const inv = invRow?.inventory
-  if (!Array.isArray(inv) || inv.length !== 2) {
-    console.error("VERIFY FAILED: expected inventory length 2, got", inv)
+  const raw = invRow?.inventory
+  const rows = Array.isArray(raw) ? raw : Array.isArray(raw?.evidence) ? raw.evidence : null
+  if (!rows || rows.length !== 2) {
+    console.error("VERIFY FAILED: expected 2 deliverables, got", raw)
     process.exit(1)
   }
   console.log("\n--- SELECT inventory FROM quests WHERE id = ... ---")
-  console.log(JSON.stringify(inv, null, 2))
+  console.log(JSON.stringify(rows, null, 2))
 
   const { error: stageErr } = await db.from("quests").update({ stage: "purrview" }).eq("id", QUEST_ID)
   if (stageErr) throw stageErr
