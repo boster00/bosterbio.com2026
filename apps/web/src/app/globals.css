@@ -191,3 +191,13 @@
     @apply list-none pl-0;
   }
 }
+
+/* Round 7 — site shell header: force navy bar (wins over stale / conflicting Tailwind output) */
+.site-nav-header {
+  background-color: #004c95 !important;
+}
+.site-nav-header a,
+.site-nav-header button,
+.site-nav-header span {
+  color: white !important;
+}
