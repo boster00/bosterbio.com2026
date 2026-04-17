@@ -43,7 +43,7 @@ export function SiteHeader() {
         <form
           className="mx-auto hidden min-w-0 flex-1 max-w-xl md:flex"
           role="search"
-          action="/products"
+          action="/search"
           method="get"
         >
           <label htmlFor="site-search" className="sr-only">
@@ -87,7 +87,7 @@ export function SiteHeader() {
       </div>
 
       <div className="container-content pb-3 md:hidden">
-        <form className="flex" role="search" action="/products" method="get">
+        <form className="flex" role="search" action="/search" method="get">
           <label htmlFor="mobile-search" className="sr-only">
             Search catalog
           </label>
