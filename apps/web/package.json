@@ -17,7 +17,9 @@
     "screenshots:design-guide": "PUPPETEER_POST_LOAD_MS=2500 node scripts/capture-design-guide-upload.mjs",
     "screenshots:design-guide:upload": "PUPPETEER_POST_LOAD_MS=2500 node scripts/capture-design-guide-upload.mjs upload",
     "screenshots:smoke-core": "PUPPETEER_POST_LOAD_MS=2500 node scripts/capture-smoke-core-5.mjs",
-    "submit:smoke-purrview": "node scripts/submit-smoke-purrview.mjs"
+    "screenshots:quest-4444-plp-pdp": "node scripts/capture-products-pdp-playwright.mjs",
+    "submit:smoke-purrview": "node scripts/submit-smoke-purrview.mjs",
+    "submit:quest-4444-products-pdp": "node scripts/submit-quest-4444-products-pdp.mjs"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.0.0",
@@ -37,6 +39,7 @@
     "autoprefixer": "^10.4.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^15.0.0",
+    "playwright": "^1.59.1",
     "postcss": "^8.4.0",
     "puppeteer-core": "^24.40.0",
     "tailwindcss": "^3.4.0",

@@ -22,7 +22,7 @@ export default async function ProductSkuPage({ params }: Props) {
   return (
     <main id="main-content" className="min-h-screen bg-[#f4f6f8]">
       <div className="border-b border-black/10 bg-white">
-        <div className="container-content py-4 text-sm text-slate-600">
+        <div className="container-smoke py-4 text-sm text-slate-600">
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -47,7 +47,7 @@ export default async function ProductSkuPage({ params }: Props) {
         </div>
       </div>
 
-      <div className="container-content py-10 md:py-14">
+      <div className="container-smoke py-10 md:py-14">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">

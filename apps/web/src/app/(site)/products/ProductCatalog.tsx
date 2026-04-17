@@ -120,7 +120,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
   return (
     <>
       <div className="page-hero-bar border-b border-brand/10">
-        <div className="container-content flex min-w-0 flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:py-14">
+        <div className="container-smoke flex min-w-0 flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:py-14">
           <div className="min-w-0 max-w-xl">
             <p className="text-xs font-bold uppercase tracking-widest text-accent">Catalog</p>
             <h1 className="mt-2 font-display text-display-md text-brand">Antibodies &amp; reagents</h1>
@@ -157,7 +157,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
         </div>
       </div>
 
-      <div className="container-content py-10">
+      <div className="container-smoke py-10">
         <div className="rounded-2xl border-2 border-brand/10 bg-white p-5 shadow-card md:p-7">
           <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-sm font-bold uppercase tracking-wider text-brand">Refine results</h2>
@@ -260,7 +260,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
           Showing <span className="font-bold text-brand">{filtered.length}</span> of {total} products
         </p>
 
-        <ul className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {filtered.map((p) => (
             <li key={p.id}>
               <ProductCard product={p} />

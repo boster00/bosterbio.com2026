@@ -65,6 +65,8 @@ const config: Config = {
       },
       maxWidth: {
         content: "1200px",
+        /** Product PLP/PDP smoke layout — align with 1440 Figma exports */
+        smoke: "1440px",
       },
     },
   },

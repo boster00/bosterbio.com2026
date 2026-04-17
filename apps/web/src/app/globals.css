@@ -38,6 +38,11 @@
     @apply mx-auto w-full max-w-content px-[var(--container-px)];
   }
 
+  /** Wider canvas for catalog + PDP vs 1440 Figma references */
+  .container-smoke {
+    @apply mx-auto w-full max-w-smoke px-[var(--container-px)];
+  }
+
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand focus:shadow-card;
   }
