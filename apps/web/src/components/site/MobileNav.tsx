@@ -52,7 +52,7 @@ export function MobileNav() {
     <>
       <button
         type="button"
-        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-primary/20 text-brand-primary hover:bg-brand-tint md:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/35 text-white hover:bg-white/10 md:hidden"
         aria-expanded={drawerOpen}
         aria-controls="mobile-menu"
         onClick={() => setDrawerOpen((o) => !o)}

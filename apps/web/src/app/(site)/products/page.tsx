@@ -11,7 +11,7 @@ export default async function ProductsPage({ searchParams }: Props) {
   const products = await fetchCatalogProducts()
 
   return (
-    <main id="main-content" className="min-h-[60vh]">
+    <main id="main-content" className="min-h-[60vh] bg-brand-tint">
       <ProductCatalog initialQuery={q} initialProducts={products} />
     </main>
   )

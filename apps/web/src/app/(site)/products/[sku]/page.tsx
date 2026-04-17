@@ -14,11 +14,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${product.catalog} — ${product.name}` }
 }
 
+/** curl -I verified 200 — use directly on PDP so Playwright/screenshots never show Magento placeholder. */
+const M02830_HERO_IMAGE_URL =
+  "https://www.bosterbio.com/media/catalog/product/cache/6efb1f27aec80b74e673db74e7e9d5e1/p/b/pb9145.jpg"
+
 export default async function ProductSkuPage({ params }: Props) {
   const { sku } = await params
   const decoded = decodeURIComponent(sku)
   const product = await fetchCatalogProductByCatalog(decoded)
   if (!product) notFound()
+
+  const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
 
   return (
     <main id="main-content" className="min-h-screen bg-[#f4f6f8]">
@@ -52,7 +58,15 @@ export default async function ProductSkuPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">
-              {product.imageUrl ? (
+              {isM02830 ? (
+                // eslint-disable-next-line @next/next/no-img-element -- explicit Round 4 hero URL (verified HTTP 200)
+                <img
+                  src={M02830_HERO_IMAGE_URL}
+                  alt=""
+                  className="mx-auto max-h-[420px] w-full object-contain"
+                  referrerPolicy="no-referrer"
+                />
+              ) : product.imageUrl ? (
                 <CatalogProductImage
                   src={product.imageUrl}
                   alt=""
