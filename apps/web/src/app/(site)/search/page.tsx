@@ -54,6 +54,40 @@ export default async function SearchPage({ searchParams }: Props) {
             {filtered.length} product{filtered.length === 1 ? "" : "s"} found
             {needle ? "." : " — enter a term in the header search to filter antibodies and reagents."}
           </p>
+          <form
+            className="mt-6 flex w-full max-w-2xl flex-col gap-3 sm:flex-row sm:items-stretch"
+            role="search"
+            action="/search"
+            method="get"
+          >
+            <label htmlFor="search-page-q" className="sr-only">
+              Search query
+            </label>
+            <input
+              id="search-page-q"
+              name="q"
+              type="search"
+              defaultValue={q}
+              placeholder="e.g. antibody, WB, GAPDH…"
+              className="min-h-[44px] w-full flex-1 rounded-md border-2 border-[#004C95]/25 bg-white px-4 py-2 text-sm text-[#0f172a] placeholder:text-slate-400 focus:border-[#EA8D28] focus:outline-none focus:ring-2 focus:ring-[#EA8D28]/30"
+              style={{ fontFamily: "var(--font-search-body), Mulish, sans-serif" }}
+            />
+            <button
+              type="submit"
+              className="min-h-[44px] shrink-0 rounded-md px-6 text-sm font-bold uppercase tracking-wide text-white shadow-md transition hover:opacity-95"
+              style={{ backgroundColor: "#004C95", fontFamily: "var(--font-search-heading), Josefin Sans, serif" }}
+            >
+              Search
+            </button>
+          </form>
+          {q ? (
+            <p
+              className="mt-4 inline-flex w-fit rounded-full border border-[#004C95]/20 bg-[#004C95]/5 px-3 py-1 text-xs font-semibold text-[#004C95]"
+              style={{ fontFamily: "var(--font-search-body), Mulish, sans-serif" }}
+            >
+              Active query: <span className="ml-1 font-mono">{q}</span>
+            </p>
+          ) : null}
         </div>
       </div>
 

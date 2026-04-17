@@ -87,10 +87,12 @@ function ProductCard({ product }: { product: CatalogProduct }) {
 
 type Props = {
   initialQuery?: string
-  initialProducts: CatalogProduct[]
+  /** When omitted or undefined, renders empty catalog safely (smoke / edge cases). */
+  initialProducts?: CatalogProduct[]
 }
 
 export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
+  const products = initialProducts ?? []
   const router = useRouter()
   const searchParams = useSearchParams()
   const [query, setQuery] = useState(initialQuery)
@@ -99,14 +101,14 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
   const [application, setApplication] = useState("")
   const [reactivity, setReactivity] = useState("")
 
-  const hosts = useMemo(() => uniqueSorted(initialProducts.map((a) => a.host).filter((h) => h && h !== "—")), [initialProducts])
-  const targets = useMemo(() => uniqueSorted(initialProducts.map((a) => a.target).filter((t) => t && t !== "—")), [initialProducts])
-  const applications = useMemo(() => uniqueSorted(initialProducts.flatMap((a) => a.applications)), [initialProducts])
-  const reactivities = useMemo(() => uniqueSorted(initialProducts.flatMap((a) => a.reactivity)), [initialProducts])
+  const hosts = useMemo(() => uniqueSorted(products.map((a) => a.host).filter((h) => h && h !== "—")), [products])
+  const targets = useMemo(() => uniqueSorted(products.map((a) => a.target).filter((t) => t && t !== "—")), [products])
+  const applications = useMemo(() => uniqueSorted(products.flatMap((a) => a.applications)), [products])
+  const reactivities = useMemo(() => uniqueSorted(products.flatMap((a) => a.reactivity)), [products])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return initialProducts.filter((p) => {
+    return products.filter((p) => {
       if (q) {
         if (!catalogSearchHaystack(p).includes(q)) return false
       }
@@ -116,9 +118,9 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
       if (reactivity && !p.reactivity.includes(reactivity)) return false
       return true
     })
-  }, [query, target, host, application, reactivity, initialProducts])
+  }, [query, target, host, application, reactivity, products])
 
-  const total = initialProducts.length
+  const total = products.length
 
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "")
