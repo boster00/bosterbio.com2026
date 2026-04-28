@@ -33,8 +33,14 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  themeColor: "#1a365d",
   manifest: "/manifest.webmanifest",
+}
+
+// Next.js 15 wants themeColor + viewport in a separate export.
+export const viewport = {
+  themeColor: "#1a365d",
+  width: "device-width",
+  initialScale: 1,
 }
 
 export default async function RootLayout({
