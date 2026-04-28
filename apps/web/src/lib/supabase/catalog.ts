@@ -65,7 +65,7 @@ async function loadHeroImagesByProductId(productIds: number[]): Promise<Map<numb
   return map;
 }
 
-export async function listProductsFromSupabase(opts: { limit?: number; template?: string; category?: string } = {}): Promise<CatalogProduct[]> {
+export async function listProductsFromSupabase(opts: { limit?: number; template?: string; category?: string; withImagesOnly?: boolean } = {}): Promise<CatalogProduct[]> {
   const sb = supabaseService();
   let q = sb.from("products").select("*").eq("status", "enabled").limit(opts.limit ?? 50);
   if (opts.template) q = q.eq("product_template", opts.template);
@@ -77,7 +77,9 @@ export async function listProductsFromSupabase(opts: { limit?: number; template?
   }
   const rows = (data ?? []) as ProductRow[];
   const images = await loadHeroImagesByProductId(rows.map((r) => r.id));
-  return rows.map((r) => rowToCatalog(r, images.get(r.id) ?? null));
+  let mapped = rows.map((r) => rowToCatalog(r, images.get(r.id) ?? null));
+  if (opts.withImagesOnly) mapped = mapped.filter((p) => p.imageUrl);
+  return mapped;
 }
 
 export async function getProductFromSupabase(skuOrHandle: string): Promise<CatalogProduct | null> {

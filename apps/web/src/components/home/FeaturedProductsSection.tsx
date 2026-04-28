@@ -11,7 +11,8 @@ export async function FeaturedProductsSection() {
     return null;
   }
 
-  const products = await listProductsFromSupabase({ limit: 8 }).catch(() => []);
+  // Pull more rows than we need so we can filter to products with images.
+  const products = (await listProductsFromSupabase({ limit: 24, withImagesOnly: true }).catch(() => [])).slice(0, 8);
   if (!products.length) return null;
 
   return (
