@@ -33,6 +33,8 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  themeColor: "#1a365d",
+  manifest: "/manifest.webmanifest",
 }
 
 export default async function RootLayout({
