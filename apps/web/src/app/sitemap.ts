@@ -27,19 +27,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    // Products (paginated; cap at 50k for now — Google sitemap-per-file limit)
-    const { data: products } = await sb
-      .from("products")
-      .select("handle, updated_at")
-      .eq("status", "enabled")
-      .limit(50000);
-    for (const p of products ?? []) {
-      entries.push({
-        url: `${SITE_ORIGIN}/${p.handle}.html`,
-        lastModified: p.updated_at ? new Date(p.updated_at) : undefined,
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
+    // Products — paginate because PostgREST defaults to db-max-rows=1000.
+    // Google sitemap files cap at 50k entries; if the catalog grows past
+    // that we'll split into a sitemap index. For now just append all.
+    const PAGE = 1000;
+    const MAX_PAGES = 50;
+    for (let offset = 0; offset < PAGE * MAX_PAGES; offset += PAGE) {
+      const { data: page } = await sb
+        .from("products")
+        .select("handle, updated_at")
+        .eq("status", "enabled")
+        .order("id", { ascending: true })
+        .range(offset, offset + PAGE - 1);
+      if (!page || page.length === 0) break;
+      for (const p of page) {
+        entries.push({
+          url: `${SITE_ORIGIN}/${p.handle}.html`,
+          lastModified: p.updated_at ? new Date(p.updated_at) : undefined,
+          changeFrequency: "monthly",
+          priority: 0.6,
+        });
+      }
+      if (page.length < PAGE) break;
     }
   } catch (e) {
     console.warn("[sitemap] error reading from supabase:", (e as Error).message);
