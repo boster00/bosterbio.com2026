@@ -81,9 +81,69 @@ type Props = {
   initialQuery?: string
   /** When omitted, renders an empty catalog safely (smoke / edge cases). */
   initialProducts?: CatalogProduct[]
+  /** Optional filter context (template slug, e.g. "elisa-kits") to drive heading copy. */
+  templateFilter?: string
 }
 
-export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
+const TEMPLATE_TITLES: Record<string, { eyebrow: string; heading: string; description: string }> = {
+  antibodies: {
+    eyebrow: "Catalog",
+    heading: "Antibodies",
+    description: "Primary and secondary antibodies for WB, IHC, ICC, IF, and flow.",
+  },
+  "elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "ELISA Kits",
+    description: "Picokine® sandwich ELISAs with pre-coated plates and ready-to-use detection.",
+  },
+  proteins: {
+    eyebrow: "Catalog",
+    heading: "Recombinant Proteins",
+    description: "Highly pure proteins for assay development, structural studies, and standards.",
+  },
+  "over-expression-lysates": {
+    eyebrow: "Catalog",
+    heading: "Cell Lysates",
+    description: "Over-expression and control lysates for Western blot validation and pathway analysis.",
+  },
+  "cell-based-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Cell-based ELISA Kits",
+    description: "In-cell ELISA kits for studying signaling pathways without lysing cells.",
+  },
+  "cell-based-phospho-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Cell-based Phospho-ELISA Kits",
+    description: "Quantify phosphorylation events in adherent cells.",
+  },
+  "tag-quick-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Tag-Quick ELISA Kits",
+    description: "Rapid ELISAs for HA, His, FLAG, GFP and other epitope tags.",
+  },
+  "ez-set": {
+    eyebrow: "Catalog",
+    heading: "EZ-Set ELISA Antibody Pairs",
+    description: "Matched pairs for building your own ELISAs.",
+  },
+  "veterinary-diagnostic-kits": {
+    eyebrow: "Catalog",
+    heading: "Veterinary Diagnostic Kits",
+    description: "Veterinary diagnostic ELISA kits.",
+  },
+  "elisa-kits-custom-components": {
+    eyebrow: "Catalog",
+    heading: "ELISA Kit Components",
+    description: "Individual components for custom ELISA workflows.",
+  },
+  "custom-description": {
+    eyebrow: "Catalog",
+    heading: "Specialty Products",
+    description: "Bundles, panels, and custom-described products.",
+  },
+}
+
+export function ProductCatalog({ initialQuery = "", initialProducts, templateFilter }: Props) {
   const products = initialProducts ?? []
   const [query, setQuery] = useState(initialQuery)
   const [target, setTarget] = useState("")
@@ -111,17 +171,22 @@ export function ProductCatalog({ initialQuery = "", initialProducts }: Props) {
   }, [query, target, host, application, reactivity, products])
 
   const total = products.length
+  const titleConfig = templateFilter && TEMPLATE_TITLES[templateFilter]
+    ? TEMPLATE_TITLES[templateFilter]
+    : { eyebrow: "Catalog", heading: "Antibodies & reagents", description: "" }
 
   return (
     <>
       <div className="page-hero-bar border-b border-brand/10">
         <div className="container-smoke flex min-w-0 flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:py-14">
           <div className="min-w-0 max-w-xl">
-            <p className="text-xs font-bold uppercase tracking-widest text-accent">Catalog</p>
-            <h1 className="mt-2 font-display text-display-md text-brand">Antibodies &amp; reagents</h1>
+            <p className="text-xs font-bold uppercase tracking-widest text-accent">{titleConfig.eyebrow}</p>
+            <h1 className="mt-2 font-display text-display-md text-brand">{titleConfig.heading}</h1>
             <p className="mt-3 text-ink-secondary">
               {total > 0
-                ? `Featured catalog — ${total} product${total === 1 ? "" : "s"} (Medusa when configured, otherwise local seed).`
+                ? titleConfig.description
+                  ? `${titleConfig.description} ${total} product${total === 1 ? "" : "s"} shown.`
+                  : `Featured catalog — ${total} product${total === 1 ? "" : "s"}.`
                 : "No products available. Start the Medusa API or ensure featured-catalog seed data is present."}
             </p>
           </div>

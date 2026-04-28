@@ -30,7 +30,7 @@ export default async function ProductsPage({ searchParams }: Props) {
 
   return (
     <main id="main-content" className="min-h-[60vh] bg-brand-tint">
-      <ProductCatalog initialQuery={q} initialProducts={products} />
+      <ProductCatalog initialQuery={q} initialProducts={products} templateFilter={template} />
     </main>
   )
 }
