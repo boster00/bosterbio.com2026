@@ -31,13 +31,26 @@ const orgJsonLd = {
 // ISR: homepage re-renders every 10 minutes (Featured Products refresh from Supabase)
 export const revalidate = 600
 
-export default async function HomePage() {
+type Props = { searchParams: Promise<{ subscribed?: string }> }
+
+export default async function HomePage({ searchParams }: Props) {
+  const sp = await searchParams
+  const subscribed = sp.subscribed === "1"
   return (
     <main id="main-content">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
       />
+      {subscribed ? (
+        <div className="border-b border-green-200 bg-green-50 py-3">
+          <div className="container-content flex items-center justify-between gap-4">
+            <p className="text-sm font-medium text-green-800">
+              Thanks for subscribing — you&rsquo;ll get product updates monthly.
+            </p>
+          </div>
+        </div>
+      ) : null}
       <HeroSection />
       <PromoStripSection />
       <CategoryGridSection />
