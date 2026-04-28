@@ -46,3 +46,31 @@ export async function listAllCmsIdentifiers(): Promise<string[]> {
   }
   return (data ?? []).map((r) => r.identifier);
 }
+
+export type CmsIndexEntry = {
+  identifier: string;
+  title: string;
+  legacy_updated_at: string | null;
+};
+
+/**
+ * Returns CMS pages whose identifier starts with the given prefix.
+ * Used by the catch-all to render a parent-listing page when no exact
+ * identifier match is found (e.g. /diseases lists 54 child pages).
+ */
+export async function listCmsPagesUnderPrefix(prefix: string, limit = 200): Promise<CmsIndexEntry[]> {
+  if (!prefix) return [];
+  const sb = supabaseService();
+  const { data, error } = await sb
+    .from("cms_pages")
+    .select("identifier, title, legacy_updated_at")
+    .like("identifier", `${prefix}/%`)
+    .eq("is_active", true)
+    .order("title", { ascending: true })
+    .limit(limit);
+  if (error) {
+    console.error("[cms] listCmsPagesUnderPrefix error:", error.message);
+    return [];
+  }
+  return (data ?? []) as CmsIndexEntry[];
+}
