@@ -187,7 +187,9 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
                 ? titleConfig.description
                   ? `${titleConfig.description} ${total} product${total === 1 ? "" : "s"} shown.`
                   : `Featured catalog — ${total} product${total === 1 ? "" : "s"}.`
-                : "No products available. Start the Medusa API or ensure featured-catalog seed data is present."}
+                : templateFilter
+                  ? `${titleConfig.description || ""} No products are currently published in this category — try Browse all or another category.`
+                  : "Catalog is loading. If this persists, check database connectivity."}
             </p>
           </div>
           <form
