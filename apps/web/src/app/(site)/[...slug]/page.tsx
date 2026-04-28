@@ -22,18 +22,29 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const page = await getCmsPageBySlug(identifier);
   if (page) {
     const cleanTitle = page.meta_title || page.title.replace(/\s*\|\s*BosterBio.*$/i, "").trim();
+    const description =
+      page.meta_description ||
+      (page.content
+        ? page.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 200) + "…"
+        : undefined);
     return {
       title: page.meta_title || `${cleanTitle} | Boster Bio`,
-      description: page.meta_description ?? undefined,
+      description,
       keywords: page.meta_keywords ?? undefined,
+      openGraph: {
+        title: cleanTitle,
+        description,
+        type: "article",
+      },
     };
   }
   // Index page metadata
   const children = await listCmsPagesUnderPrefix(identifier, 1);
   if (children.length) {
+    const prettyName = identifier.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
     return {
-      title: `${identifier.replace(/-/g, " ")} | Boster Bio`,
-      description: `Browse pages under /${identifier} on Boster Bio.`,
+      title: `${prettyName} | Boster Bio`,
+      description: `Browse all ${children.length}+ ${prettyName.toLowerCase()} pages on Boster Bio.`,
     };
   }
   return { title: "Page not found | Boster Bio" };
