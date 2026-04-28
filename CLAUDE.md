@@ -33,6 +33,7 @@ You were spawned by **`cursor.writeAgent`** in GuildOS, which prepended a creden
 - URL: `https://kjgizxqglzcrwfiauhaj.supabase.co`
 - Region: us-east-1 (North Virginia), Postgres 17.6, free-tier Nano compute
 - Connection: **session pooler at `aws-1-us-east-1.pooler.supabase.com:5432`** (free tier is not IPv4-compatible on direct, so always use the pooler)
+- **DB size note (2026-04-28):** ~543 MB, slightly over the 500 MB free-tier soft cap after migrating 64K+ products + 272K images + 52K publications. Project still functions at this size; Supabase's pause typically triggers above 500 MB sustained over multiple days. **If launching for real: upgrade to Pro ($25/mo, 8 GB included)** OR prune the disabled (status≠'enabled') product rows that add no traffic value (~22K rows).
 - Schema: 5 SQL migrations under `sql/`
   - `001_initial_schema.sql` — 8 tables (products, product_images, attribute_definitions, cms_pages, publications, product_publications, not_found_log, customers_staging)
   - `002_attribute_definitions_seed.sql` — 275 rows (11 templates × 25 attrs)
