@@ -31,8 +31,30 @@ export default async function ProductsPage({ searchParams }: Props) {
     products = await fetchCatalogProducts()
   }
 
+  // Schema.org/ItemList JSON-LD — helps Google understand category listings.
+  const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://www.bosterbio.com"
+  const itemListJsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "ItemList",
+    itemListElement: products.slice(0, 30).map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Product",
+        name: p.name,
+        sku: p.catalog,
+        url: `${SITE_ORIGIN}/products/${encodeURIComponent(p.catalog)}`,
+        ...(p.imageUrl ? { image: p.imageUrl } : {}),
+      },
+    })),
+  }
+
   return (
     <main id="main-content" className="min-h-[60vh] bg-brand-tint">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <ProductCatalog initialQuery={q} initialProducts={products} templateFilter={template} />
     </main>
   )
