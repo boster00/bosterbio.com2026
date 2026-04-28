@@ -5,6 +5,7 @@ import { fetchCatalogProductByCatalog } from "@/lib/catalog-products"
 import { getProductAttributesByTemplate } from "@/lib/supabase/attributes"
 import { getPublicationsForProduct } from "@/lib/supabase/publications"
 import { getSimilarProducts } from "@/lib/supabase/catalog"
+import { getAllImagesForProduct } from "@/lib/supabase/product-images"
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
 import { ProductPdpFormats } from "./ProductPdpFormats"
 
@@ -54,6 +55,9 @@ export default async function ProductSkuPage({ params }: Props) {
 
   // Similar products (same template + same reactivity)
   const similar = await getSimilarProducts(decoded, 4).catch(() => [])
+
+  // Gallery images (hero + secondary)
+  const gallery = await getAllImagesForProduct(decoded).catch(() => [])
 
   const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
 
@@ -145,6 +149,21 @@ export default async function ProductSkuPage({ params }: Props) {
                 </div>
               )}
             </div>
+            {gallery.length > 1 ? (
+              <ul className="mt-3 grid grid-cols-4 gap-2">
+                {gallery.slice(0, 8).map((g, i) => (
+                  <li key={`${g.image_url}-${i}`}>
+                    <div className="aspect-square overflow-hidden rounded-lg border border-[#004C95]/10 bg-white p-1">
+                      <CatalogProductImage
+                        src={g.image_url}
+                        alt={g.alt_text ?? ""}
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
 
           <div className="lg:col-span-7">
