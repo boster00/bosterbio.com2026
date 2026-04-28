@@ -4,10 +4,10 @@ const footerColumns = [
   {
     title: "Products",
     links: [
-      { label: "Primary Antibodies", href: "/products?category=primary" },
-      { label: "Secondary Antibodies", href: "/products?category=secondary" },
-      { label: "ELISA Kits", href: "/products?category=elisa" },
-      { label: "Conjugation Kits", href: "/products?category=conjugation" },
+      { label: "Antibodies", href: "/products?template=antibodies" },
+      { label: "ELISA Kits", href: "/products?template=elisa-kits" },
+      { label: "Recombinant Proteins", href: "/products?template=proteins" },
+      { label: "Cell Lysates", href: "/products?template=over-expression-lysates" },
       { label: "Custom Services", href: "/services" },
     ],
   },
@@ -102,18 +102,47 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-white/55 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Boster Biological Technology. All rights reserved.</p>
-          <div className="flex flex-wrap gap-6">
-            <Link href="/privacy" className="nav-link-animate hover:text-accent">
-              Privacy
-            </Link>
-            <Link href="/terms" className="nav-link-animate hover:text-accent">
-              Terms
-            </Link>
-            <Link href="/contact" className="nav-link-animate hover:text-accent">
-              Contact
-            </Link>
+        <div className="mt-12 grid gap-6 border-t border-white/10 pt-8 lg:grid-cols-2 lg:gap-12">
+          <div>
+            <h2 className="font-heading text-base font-semibold text-white">Get product updates</h2>
+            <p className="mt-2 text-sm text-white/70">
+              New protocols, ELISA panels, and promo codes — about once per month, no spam.
+            </p>
+            <form action="/api/newsletter" method="post" className="mt-3 flex max-w-md flex-col gap-2 sm:flex-row">
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="newsletter-email"
+                name="email"
+                type="email"
+                required
+                placeholder="you@lab.edu"
+                className="h-11 flex-1 rounded-full border border-white/20 bg-white/10 px-4 text-sm text-white placeholder:text-white/55 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
+              />
+              <input type="hidden" name="source" value="footer" />
+              <button
+                type="submit"
+                className="h-11 rounded-full bg-accent px-5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-black/15 transition hover:bg-accent-hover"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+
+          <div className="flex flex-col gap-4 text-sm text-white/55 md:items-end md:justify-end">
+            <p>© {new Date().getFullYear()} Boster Biological Technology. All rights reserved.</p>
+            <div className="flex flex-wrap gap-6">
+              <Link href="/privacy" className="nav-link-animate hover:text-accent">
+                Privacy
+              </Link>
+              <Link href="/terms" className="nav-link-animate hover:text-accent">
+                Terms
+              </Link>
+              <Link href="/contact" className="nav-link-animate hover:text-accent">
+                Contact
+              </Link>
+            </div>
           </div>
         </div>
       </div>
