@@ -33,9 +33,30 @@ You were spawned by **`cursor.writeAgent`** in GuildOS, which prepended a creden
 - URL: `https://kjgizxqglzcrwfiauhaj.supabase.co`
 - Region: us-east-1 (North Virginia), Postgres 17.6, free-tier Nano compute
 - Connection: **session pooler at `aws-1-us-east-1.pooler.supabase.com:5432`** (free tier is not IPv4-compatible on direct, so always use the pooler)
-- Schema: `sql/001_initial_schema.sql` (8 tables) + `sql/002_attribute_definitions_seed.sql`
+- Schema: 5 SQL migrations under `sql/`
+  - `001_initial_schema.sql` — 8 tables (products, product_images, attribute_definitions, cms_pages, publications, product_publications, not_found_log, customers_staging)
+  - `002_attribute_definitions_seed.sql` — 275 rows (11 templates × 25 attrs)
+  - `003_rls_policies.sql` — RLS for public read + insert-only-anon + service-role-only
+  - `004_contact_messages.sql` — contact form submissions
+  - `005_newsletter_signups.sql` — email signups
 - Server-side client: `import { supabaseService } from "@/lib/supabase/server"` — uses `SUPABASE_SECRETE_KEY`
-- CMS reader: `import { getCmsPageBySlug } from "@/lib/supabase/cms"`
+- Domain helpers under `apps/web/src/lib/supabase/`:
+  - `cms.ts` — getCmsPageBySlug, listCmsPagesUnderPrefix
+  - `catalog.ts` — listProductsFromSupabase, getProductFromSupabase, searchProductsInSupabase, getSimilarProducts
+  - `attributes.ts` — getProductAttributesByTemplate (Type B labelled attrs)
+  - `publications.ts` — getPublicationsForProduct
+  - `product-images.ts` — getAllImagesForProduct (gallery)
+  - `by-gene.ts` — findProductsByGene
+  - `not-found-log.ts` — logNotFound (filters asset/system paths)
+
+**API routes** (all under `apps/web/src/app/api/`):
+- `POST /api/contact` — writes to contact_messages
+- `POST /api/newsletter` — writes to newsletter_signups
+- `GET /api/health` — Supabase liveness with `supabase_rtt_ms`
+- `GET /api/stats` — public catalog totals JSON (10-min ISR cache)
+- `GET /api/proxy-product-image` — same-origin Magento CDN proxy (existing)
+
+**ISR caching**: home (600s), PLP (300s), PDP (600s), CMS catch-all (300s), api/stats (600s).
 
 **Medusa v2** (`apps/api`) is still scaffolded against PostgreSQL but is not yet wired to Supabase — checkout / cart will be hooked up in a later phase. Storefront reads (PLP, PDP, CMS, search) read DIRECTLY from Supabase via the supabaseService client; do not route those through Medusa.
 
