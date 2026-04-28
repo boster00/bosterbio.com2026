@@ -6,7 +6,12 @@ export const metadata: Metadata = {
     "Contact BosterBio for antibodies, ELISA kits, and custom services — Pleasanton, CA. Phone, email, and contact form.",
 }
 
-export default function ContactPage() {
+type Props = { searchParams: Promise<{ ok?: string; product?: string }> }
+
+export default async function ContactPage({ searchParams }: Props) {
+  const sp = await searchParams
+  const submitted = sp.ok === "1"
+  const prefillProduct = typeof sp.product === "string" ? sp.product : ""
   return (
     <main id="main-content">
       <div className="page-hero-bar border-b border-brand/10">
@@ -31,7 +36,19 @@ export default function ContactPage() {
           <h2 id="contact-form-heading" className="font-display text-title text-brand">
             Send a message
           </h2>
-          <form className="mt-6 space-y-4" action="#" method="post">
+          {submitted ? (
+            <div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800">
+              <p className="font-semibold">Thanks — your message has been received.</p>
+              <p className="mt-1">
+                We typically respond within one business day. For urgent issues, call{" "}
+                <a href="tel:+19256772200" className="underline">
+                  +1 (925) 677-2200
+                </a>
+                .
+              </p>
+            </div>
+          ) : null}
+          <form className="mt-6 space-y-4" action="/api/contact" method="post">
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-brand">
                 Name
@@ -57,17 +74,20 @@ export default function ContactPage() {
               />
             </div>
             <div>
-              <label htmlFor="institution" className="block text-sm font-semibold text-brand">
+              <label htmlFor="company" className="block text-sm font-semibold text-brand">
                 Institution (optional)
               </label>
               <input
-                id="institution"
-                name="institution"
+                id="company"
+                name="company"
                 type="text"
                 autoComplete="organization"
                 className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/30 px-4 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25"
               />
             </div>
+            {prefillProduct ? (
+              <input type="hidden" name="product_sku" value={prefillProduct} />
+            ) : null}
             <div>
               <label htmlFor="message" className="block text-sm font-semibold text-brand">
                 How can we help?
@@ -86,7 +106,9 @@ export default function ContactPage() {
               Send message
             </button>
             <p className="text-xs text-ink-tertiary">
-              Form submission is a UI placeholder — connect to your CRM, help desk, or email API for production.
+              {prefillProduct
+                ? `Product reference ${prefillProduct} will be included with your message.`
+                : "We'll include any context from the page you came from."}
             </p>
           </form>
         </section>
