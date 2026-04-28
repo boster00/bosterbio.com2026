@@ -1,8 +1,16 @@
 import type { CatalogProduct } from "./catalog-product-types"
 import { medusa } from "./medusa"
 import { seedCatalogProductBySku, seedRowsToCatalogProducts } from "./featured-catalog-seed"
+import {
+  listProductsFromSupabase,
+  getProductFromSupabase,
+} from "./supabase/catalog"
 
 export type { CatalogProduct }
+
+function supabaseConfigured(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()))
+}
 
 const PRODUCT_LIST_FIELDS =
   "id,title,description,thumbnail,*images,*variants.calculated_price,*variants.prices,*variants.options,*options,*metadata"
@@ -113,22 +121,30 @@ function storeProductListQuery(extra?: { q?: string; limit?: number }) {
 export async function fetchCatalogProducts(): Promise<CatalogProduct[]> {
   const fromSeed = () => seedRowsToCatalogProducts()
 
-  if (!medusaConfigured()) {
-    console.warn("[catalog] Medusa env not set; using featured-catalog.seed.json fallback")
-    return fromSeed()
+  // Source priority: Medusa (live commerce) → Supabase (migrated catalog) → seed JSON.
+  if (medusaConfigured()) {
+    try {
+      const { products } = await medusa.store.product.list(storeProductListQuery() as never)
+      const list = (products ?? []) as unknown as Record<string, unknown>[]
+      const mapped = list.map(productToCatalog).filter((x) => x.catalog)
+      if (mapped.length) return mapped
+      console.warn("[catalog] Medusa returned no products; falling through to Supabase")
+    } catch (e) {
+      console.error("[catalog] Medusa store.product.list failed; falling through to Supabase", e instanceof Error ? e.message : e)
+    }
   }
 
-  try {
-    const { products } = await medusa.store.product.list(storeProductListQuery() as never)
-    const list = (products ?? []) as unknown as Record<string, unknown>[]
-    const mapped = list.map(productToCatalog).filter((x) => x.catalog)
-    if (mapped.length) return mapped
-    console.warn("[catalog] Medusa returned no products; using seed fallback")
-    return fromSeed()
-  } catch (e) {
-    console.error("[catalog] Medusa store.product.list failed", e instanceof Error ? e.message : e)
-    return fromSeed()
+  if (supabaseConfigured()) {
+    try {
+      const rows = await listProductsFromSupabase({ limit: 200 })
+      if (rows.length) return rows
+      console.warn("[catalog] Supabase returned no products; using seed fallback")
+    } catch (e) {
+      console.error("[catalog] Supabase list failed", e instanceof Error ? e.message : e)
+    }
   }
+
+  return fromSeed()
 }
 
 export async function fetchCatalogProductByCatalog(catalog: string): Promise<CatalogProduct | null> {
@@ -151,7 +167,16 @@ export async function fetchCatalogProductByCatalog(catalog: string): Promise<Cat
 
       if (match) return productToCatalog(match)
     } catch (e) {
-      console.error("[catalog] PDP fetch failed", e instanceof Error ? e.message : e)
+      console.error("[catalog] Medusa PDP fetch failed; falling through to Supabase", e instanceof Error ? e.message : e)
+    }
+  }
+
+  if (supabaseConfigured()) {
+    try {
+      const row = await getProductFromSupabase(sku)
+      if (row) return row
+    } catch (e) {
+      console.error("[catalog] Supabase PDP fetch failed", e instanceof Error ? e.message : e)
     }
   }
 

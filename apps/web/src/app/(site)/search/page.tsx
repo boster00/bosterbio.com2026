@@ -1,15 +1,30 @@
 import Link from "next/link"
 import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { catalogSearchHaystack } from "@/lib/catalog-search"
+import { searchProductsInSupabase } from "@/lib/supabase/catalog"
 
 type Props = { searchParams: Promise<{ q?: string }> }
+
+function supabaseConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
+      (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()),
+  )
+}
 
 export default async function SearchPage({ searchParams }: Props) {
   const params = await searchParams
   const q = typeof params.q === "string" ? params.q.trim() : ""
-  const products = await fetchCatalogProducts()
-  const needle = q.toLowerCase()
-  const results = needle ? products.filter((p) => catalogSearchHaystack(p).includes(needle)) : products
+
+  // Source priority: Supabase server-side full-text search → seed/Medusa fallback (client-side filter).
+  let results
+  if (supabaseConfigured()) {
+    results = await searchProductsInSupabase(q, 100)
+  } else {
+    const products = await fetchCatalogProducts()
+    const needle = q.toLowerCase()
+    results = needle ? products.filter((p) => catalogSearchHaystack(p).includes(needle)) : products
+  }
 
   return (
     <main id="main-content" className="min-h-screen bg-[#f4f6f8]">
@@ -18,7 +33,7 @@ export default async function SearchPage({ searchParams }: Props) {
           <p className="text-xs font-bold uppercase tracking-widest text-[#EA8D28]">Search</p>
           <h1 className="mt-2 font-heading text-3xl font-bold text-[#004C95] md:text-4xl">Product search</h1>
           <p className="mt-3 max-w-2xl text-slate-600">
-            Search the featured antibody catalog by gene, catalog number, application, or keyword.
+            Search the catalog by gene, catalog number, application, or keyword.
           </p>
 
           <form
@@ -58,7 +73,7 @@ export default async function SearchPage({ searchParams }: Props) {
       <div className="container-content py-10">
         <p className="text-sm text-slate-600">
           <span className="font-bold text-[#004C95]">{results.length}</span> result{results.length === 1 ? "" : "s"}
-          {q ? ` for “${q}”` : ""}
+          {q ? ` for "${q}"` : ""}
         </p>
 
         <ul className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
