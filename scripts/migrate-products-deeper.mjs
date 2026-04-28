@@ -42,8 +42,10 @@ const TARGET_INFO_FIELDS = ['gene_name', 'uniprot_id', 'synonyms', 'protein_func
 function parseArrayString(s) { if (!s) return []; return s.split(/[,;|]/).map(x => x.trim()).filter(Boolean); }
 function parseImages(rawImages, rawLabels) {
   if (!rawImages) return [];
-  const paths = rawImages.split(/[:;]/).map(s => s.trim()).filter(Boolean);
-  const labels = (rawLabels || '').split(/[:;]/).map(s => s.trim());
+  // Magento uses | as the delimiter between multiple image paths.
+  // Each path looks like "/a/0/foo.jpg" and needs the CDN prefix.
+  const paths = rawImages.split(/[|]/).map(s => s.trim()).filter(Boolean);
+  const labels = (rawLabels || '').split(/[|]/).map(s => s.trim());
   return paths.map((p, i) => ({
     image_url: p.startsWith('http') ? p : `https://www.bosterbio.com/media/catalog/product${p.startsWith('/') ? p : '/' + p}`,
     alt_text: labels[i] || null,

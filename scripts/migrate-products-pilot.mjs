@@ -60,9 +60,10 @@ function parseArrayString(s) {
 
 function parseImages(rawImages, rawLabels) {
   if (!rawImages) return [];
-  // Magento images are colon-delimited paths like "image1.jpg:gallery2.jpg:datasheet.pdf"
-  const paths = rawImages.split(/[:;]/).map(s => s.trim()).filter(Boolean);
-  const labels = (rawLabels || '').split(/[:;]/).map(s => s.trim());
+  // Magento uses | as the delimiter between multiple image paths.
+  // Each path looks like "/a/0/foo.jpg" and needs the CDN prefix.
+  const paths = rawImages.split(/[|]/).map(s => s.trim()).filter(Boolean);
+  const labels = (rawLabels || '').split(/[|]/).map(s => s.trim());
   return paths.map((p, i) => ({
     image_url: p.startsWith('http') ? p : `https://www.bosterbio.com/media/catalog/product${p.startsWith('/') ? p : '/' + p}`,
     alt_text: labels[i] || null,

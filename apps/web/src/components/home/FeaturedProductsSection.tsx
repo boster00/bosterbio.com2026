@@ -3,6 +3,7 @@
 // returns 0 rows (so it gracefully degrades on dev without env).
 import Link from "next/link";
 import { listProductsFromSupabase } from "@/lib/supabase/catalog";
+import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
 
 export async function FeaturedProductsSection() {
   // Only render when Supabase is wired
@@ -47,8 +48,7 @@ export async function FeaturedProductsSection() {
               >
                 <div className="flex aspect-[4/3] items-center justify-center bg-[#f0f7fc] p-3">
                   {p.imageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
+                    <CatalogProductImage
                       src={p.imageUrl}
                       alt=""
                       className="max-h-full max-w-full object-contain"
