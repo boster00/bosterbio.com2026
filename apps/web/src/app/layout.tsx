@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { cookies, headers } from "next/headers"
 import { Josefin_Sans, Mulish } from "next/font/google"
+import { TrackingNoscript, TrackingScripts } from "@/components/site/TrackingScripts"
 import "./globals.css"
 
 const josefin = Josefin_Sans({
@@ -52,7 +53,13 @@ export default async function RootLayout({
   await headers()
   return (
     <html lang="en" className={`${josefin.variable} ${mulish.variable}`}>
-      <body className="min-h-screen font-sans">{children}</body>
+      <head>
+        <TrackingScripts />
+      </head>
+      <body className="min-h-screen font-sans">
+        <TrackingNoscript />
+        {children}
+      </body>
     </html>
   )
 }
