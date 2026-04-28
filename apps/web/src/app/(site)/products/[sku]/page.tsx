@@ -10,6 +10,9 @@ import { ProductPdpFormats } from "./ProductPdpFormats"
 
 type Props = { params: Promise<{ sku: string }> }
 
+// ISR: PDP re-renders every 10 minutes
+export const revalidate = 600
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { sku } = await params
   const product = await fetchCatalogProductByCatalog(decodeURIComponent(sku))

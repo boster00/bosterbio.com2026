@@ -28,6 +28,9 @@ const orgJsonLd = {
   },
 }
 
+// ISR: homepage re-renders every 10 minutes (Featured Products refresh from Supabase)
+export const revalidate = 600
+
 export default async function HomePage() {
   return (
     <main id="main-content">

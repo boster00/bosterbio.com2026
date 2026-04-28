@@ -13,8 +13,8 @@ import type { CmsNavPayload } from "@/lib/cms-nav";
 
 type Params = { slug: string[] };
 
-// Re-fetch on every request for now; flip to ISR once cache invalidation is wired.
-export const dynamic = "force-dynamic";
+// ISR: re-render at most every 5 minutes; CMS edits propagate via cache revalidation.
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;

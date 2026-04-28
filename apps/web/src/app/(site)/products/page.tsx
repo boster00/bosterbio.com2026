@@ -6,6 +6,9 @@ type Props = {
   searchParams: Promise<{ q?: string; template?: string; category?: string }>
 }
 
+// ISR: PLP re-renders every 5 minutes per unique searchParams set
+export const revalidate = 300
+
 function supabaseConfigured(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
