@@ -21,7 +21,7 @@ async function getTemplateCounts(): Promise<Record<string, number>> {
     )
     const out: Record<string, number> = {}
     targets.forEach((t, i) => {
-      const c = results[i].count
+      const c = results[i]?.count
       if (typeof c === "number") out[t] = c
     })
     return out
@@ -73,7 +73,7 @@ export async function CategoryGridSection() {
   const counts = await getTemplateCounts()
   const templateForHref = (href: string): string | null => {
     const m = href.match(/[?&]template=([^&]+)/)
-    return m ? decodeURIComponent(m[1]) : null
+    return m && m[1] ? decodeURIComponent(m[1]) : null
   }
   return (
     <section
