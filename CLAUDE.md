@@ -26,7 +26,20 @@ Dev server: **port 3003** for the web app.
 
 You were spawned by **`cursor.writeAgent`** in GuildOS, which prepended a credentials block to your prompt that exports `GUILDOS_NEXT_PUBLIC_SUPABASE_URL` + `GUILDOS_SUPABASE_SECRETE_KEY` (and the basic-name aliases for backward compat) into `~/.guildos.env`. **GuildOS is your primary workspace** (`/workspace = ~/GuildOS`); this repo (`~/bosterbio.com2026`) is checked out as a sibling. All quest bookkeeping (items, item_comments, submit gate) targets GuildOS Supabase.
 
-**Crucial distinction for this repo:** the storefront's own product data lives in **local PostgreSQL via Medusa** — that overrides any older code or doc that mentions Supabase for product data. Existing Supabase-backed product code is legacy to be migrated. Use local PostgreSQL going forward. GuildOS Supabase is for quest bookkeeping ONLY, never for product data.
+**Storefront data store — Supabase Postgres** (decided 2026-04-27 to avoid local-PG progress loss between sessions). Product catalog, CMS pages, publications, customers, and 404 logs all live in a dedicated Supabase project:
+
+- Project: `bosterbio.com2026` (org `wpycfhqkpzsdhupwwjgt` / "CJ Personal Projects")
+- Project ref: `kjgizxqglzcrwfiauhaj`
+- URL: `https://kjgizxqglzcrwfiauhaj.supabase.co`
+- Region: us-east-1 (North Virginia), Postgres 17.6, free-tier Nano compute
+- Connection: **session pooler at `aws-1-us-east-1.pooler.supabase.com:5432`** (free tier is not IPv4-compatible on direct, so always use the pooler)
+- Schema: `sql/001_initial_schema.sql` (8 tables) + `sql/002_attribute_definitions_seed.sql`
+- Server-side client: `import { supabaseService } from "@/lib/supabase/server"` — uses `SUPABASE_SECRETE_KEY`
+- CMS reader: `import { getCmsPageBySlug } from "@/lib/supabase/cms"`
+
+**Medusa v2** (`apps/api`) is still scaffolded against PostgreSQL but is not yet wired to Supabase — checkout / cart will be hooked up in a later phase. Storefront reads (PLP, PDP, CMS, search) read DIRECTLY from Supabase via the supabaseService client; do not route those through Medusa.
+
+GuildOS Supabase remains separate — it's only for quest bookkeeping (items, quest_comments, submitForPurrview).
 
 If `~/.guildos.env` is missing or empty, escalate via `housekeeping.escalate` with `detail.reason = "GuildOS credentials block missing — spawn was not via cursor.writeAgent"`. Do not paper over the gap.
 
@@ -57,10 +70,12 @@ Full detail lives in the `bosterbio` skill book (`migrateProducts`, `buildStoref
 - **Primary data source: full product CSV on the Magento server.** `/home/jetrails/bosterbio.com/html/pub/internal-export.csv` — auto-regenerated, ~412 MB, **100 columns**. The `template` column (col 100) holds the slug values (`antibodies | elisa-kits | proteins | …`); map directly to `products.product_template`. Do NOT derive `template` from `product_category`. Sibling files: `pub/export.csv` (81 cols, 260MB, no template) and `pub/niches.csv` (empty header) — both inferior; ignore.
 - **Smoke-testing the CSV:** use byte-bounded `head` (`head -c 20000000`), not line-bounded — HTML cells contain embedded newlines inside quoted strings, so line count != product count. Parse with a streaming CSV parser and stop after N product rows.
 - **No bulk redirects.** Discard ALL legacy Magento URL rewrites. Implement a 404 monitoring system instead; surface high-frequency 404s and fix selectively. Sitemap: generate fresh.
+  - **Implementation status (2026-04-28):** the catch-all CMS route at `apps/web/src/app/(site)/[...slug]/page.tsx` calls `logNotFound(path)` from `@/lib/supabase/not-found-log` before throwing `notFound()`. Every miss bumps `not_found_log.hit_count`. Sitemap is at `apps/web/src/app/sitemap.ts` and reads from `cms_pages` + `products`.
 - **Customers:** migrate 2,352 accounts; force password reset via email. Login requirement deferred.
 - **Orders:** do NOT migrate historical orders. Zoho Books is system of record; future Phase 3 wires Medusa → Zoho.
 - **Payments:** retain Authorize.net (NOT migrating to Stripe). Tax authority: Zoho Books.
-- **CMS pages:** 481 to migrate (out of 755 total) per `docs/cms-page-audit.md` and `docs/cms-html-template-guide.md`. Use the template library system. Absolute bosterbio.com URLs in exports are rewritten to `https://SITE_ORIGIN_PLACEHOLDER`; restore real origin at deploy time.
+- **CMS pages:** 481 (of 755) migrated 2026-04-28 by `scripts/migrate-cms-pages.mjs` into `cms_pages`. The catch-all route `app/(site)/[...slug]/page.tsx` queries by `identifier` and renders via the existing `NavCmsPage` component. Static routes (e.g. `/about-us`, `/products`) win over the catch-all by Next.js precedence — leave hand-coded pages alone unless you explicitly want them to come from the DB. Absolute `bosterbio.com` URLs in exports are stored as `https://SITE_ORIGIN_PLACEHOLDER` and rewritten at render time by `hydrateCmsHtml()` in `lib/cms-nav.ts`.
+- **Products:** schema in `sql/001_initial_schema.sql` (Type A dedicated columns + `attr_1..attr_25` + `target_info` JSON + separate `product_images` table). Pilot of 99 products across 9 templates migrated 2026-04-28 by `scripts/migrate-products-pilot.mjs`. Full 85,929-product migration deferred until pilot validates. Source: `https://www.bosterbio.com/internal-export.csv` (publicly served, 411 MB, 100 columns).
 
 ### SSH to the Magento production server
 

@@ -41,3 +41,8 @@ apps/api/.medusa/
 # Magento CMS exports (large, may contain sensitive URLs) — generate locally
 cms_pages_export.json
 docs/_cms-template-catalog.generated.md
+
+# Local working data (CSV samples, scratch tests, etc.)
+tmp/
+.supabase-anon.tmp
+.supabase-service-role.tmp
