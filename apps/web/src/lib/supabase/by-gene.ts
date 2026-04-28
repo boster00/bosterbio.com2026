@@ -25,15 +25,27 @@ export async function findProductsByGene(gene: string, limit = 60): Promise<Cata
   const sb = supabaseService();
   const cleaned = gene.trim().toUpperCase();
   if (!cleaned) return [];
+  // Magento gene_name is usually compact (e.g. "IL6", "GAPDH"); accept both
+  // dashed/dotted user input and compact form.
+  const compact = cleaned.replace(/[-_.\s]/g, "");
 
-  // Match exact gene_name in target_info JSON OR products whose title contains the gene
+  // Use a simple title ILIKE — Supabase JS doesn't reliably support
+  // target_info->>gene_name in OR clauses; the title contains gene name in
+  // a vast majority of cases. Then de-dup and prioritize exact-target matches.
+  const patterns = [`%${compact}%`];
+  if (cleaned !== compact) patterns.push(`%${cleaned}%`);
+  const orClause = patterns.map((p) => `title.ilike.${p}`).join(",");
+
   const { data, error } = await sb
     .from("products")
     .select("*")
     .eq("status", "enabled")
-    .or(`target_info->>gene_name.eq.${cleaned},title.ilike.%${cleaned}%`)
+    .or(orClause)
     .limit(limit);
-  if (error || !data) return [];
+  if (error || !data) {
+    if (error) console.error("[by-gene]", error.message);
+    return [];
+  }
 
   // Map to CatalogProduct shape
   return (data as ProductRow[]).map((p) => ({
