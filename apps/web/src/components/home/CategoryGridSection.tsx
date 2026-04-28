@@ -4,27 +4,27 @@ import { cn } from "@/lib/cn"
 
 const categories = [
   {
-    title: "Primary Antibodies",
+    title: "Antibodies",
     description: "Rabbit and mouse monoclonals, polyclonals, and phospho-specific primaries for WB, IHC, ICC, and flow.",
-    href: "/products?category=primary",
+    href: "/products?template=antibodies",
     badge: "antibodies" as const,
-  },
-  {
-    title: "Secondary Antibodies",
-    description: "HRP, AP, FITC, and Alexa Fluor®-conjugated secondaries with minimal cross-reactivity.",
-    href: "/products?category=secondary",
-    badge: "secondary" as const,
   },
   {
     title: "ELISA Kits",
     description: "Picokine® sandwich ELISAs with pre-coated plates, standards, and ready-to-use detection.",
-    href: "/products?category=elisa",
+    href: "/products?template=elisa-kits",
     badge: "elisa" as const,
   },
   {
-    title: "Conjugation Kits",
-    description: "Label your own antibodies with biotin, fluorophores, and enzymes using optimized kits.",
-    href: "/products?category=conjugation",
+    title: "Recombinant Proteins",
+    description: "Highly pure proteins for assay development, structural studies, and standards.",
+    href: "/products?template=proteins",
+    badge: "antibodies" as const,
+  },
+  {
+    title: "Cell Lysates",
+    description: "Over-expression and control lysates for Western blot validation and pathway analysis.",
+    href: "/products?template=over-expression-lysates",
     badge: "conjugation" as const,
   },
   {
