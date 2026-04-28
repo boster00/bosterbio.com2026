@@ -25,22 +25,7 @@ type ProductRow = {
 
 type ImageRow = { product_id: number; image_url: string; type: string; position: number };
 
-function decodeEntities(s: string): string {
-  // Decode common HTML entities that survive Magento → CSV → DB roundtrip.
-  // (Server-side; we can't use innerHTML on the server.)
-  return s
-    .replace(/&amp;/g, "&")
-    .replace(/&reg;/g, "®")
-    .replace(/&copy;/g, "©")
-    .replace(/&trade;/g, "™")
-    .replace(/&#174;/g, "®")
-    .replace(/&#169;/g, "©")
-    .replace(/&#8482;/g, "™")
-    .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
-}
+import { decodeEntities } from "./utils";
 
 function rowToCatalog(p: ProductRow, imageUrl: string | null): CatalogProduct {
   const target = p.target_info?.gene_name || p.target_info?.protein_name || "—";

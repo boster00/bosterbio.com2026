@@ -2,17 +2,8 @@
 // Used by /products/by-gene/[gene] for genomics-search landing pages.
 import "server-only";
 import { supabaseService } from "./server";
+import { decodeEntities } from "./utils";
 import type { CatalogProduct } from "../catalog-product-types";
-
-function decodeEntities(s: string): string {
-  return s
-    .replace(/&amp;/g, "&")
-    .replace(/&reg;/g, "®")
-    .replace(/&copy;/g, "©")
-    .replace(/&trade;/g, "™")
-    .replace(/&#174;/g, "®")
-    .replace(/&quot;/g, '"');
-}
 
 type ProductRow = {
   id: number;
