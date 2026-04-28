@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { fetchCatalogProductByCatalog } from "@/lib/catalog-products"
+import { getProductAttributesByTemplate } from "@/lib/supabase/attributes"
+import { getPublicationsForProduct } from "@/lib/supabase/publications"
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
 import { ProductPdpFormats } from "./ProductPdpFormats"
 
@@ -22,6 +24,12 @@ export default async function ProductSkuPage({ params }: Props) {
   const decoded = decodeURIComponent(sku)
   const product = await fetchCatalogProductByCatalog(decoded)
   if (!product) notFound()
+
+  // Type B labelled attributes (only present when running off Supabase)
+  const labelledAttrs = await getProductAttributesByTemplate(decoded).catch(() => [])
+
+  // Citations for this product (top 20)
+  const publications = await getPublicationsForProduct(decoded, 20).catch(() => [])
 
   const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
 
@@ -135,6 +143,68 @@ export default async function ProductSkuPage({ params }: Props) {
               className="mt-4 max-w-none space-y-3 text-base leading-relaxed text-slate-700 [&_a]:text-[#004C95] [&_a]:underline [&_h2]:font-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-[#004C95] [&_p]:m-0"
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
+          </section>
+        ) : null}
+
+        {labelledAttrs.length > 0 ? (
+          <section className="mt-12 rounded-2xl border border-[#004C95]/10 bg-white p-6 md:p-10">
+            <h2 className="font-heading text-xl font-bold text-[#004C95]">Specifications</h2>
+            <dl className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+              {labelledAttrs.map((a) => (
+                <div key={a.attr_key} className="border-b border-slate-100 pb-3">
+                  <dt className="text-xs font-bold uppercase tracking-wide text-[#004C95]/70">{a.label}</dt>
+                  {a.type === "html" ? (
+                    <dd
+                      className="mt-1 text-sm leading-relaxed text-slate-700"
+                      dangerouslySetInnerHTML={{ __html: a.value }}
+                    />
+                  ) : (
+                    <dd className="mt-1 text-sm leading-relaxed text-slate-700">{a.value}</dd>
+                  )}
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null}
+
+        {publications.length > 0 ? (
+          <section className="mt-12 rounded-2xl border border-[#004C95]/10 bg-white p-6 md:p-10">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 className="font-heading text-xl font-bold text-[#004C95]">Publications citing this product</h2>
+              <span className="text-xs font-semibold uppercase tracking-wide text-[#EA8D28]">
+                Top {publications.length}
+              </span>
+            </div>
+            <ul className="mt-6 space-y-5 divide-y divide-slate-100">
+              {publications.map((p) => (
+                <li key={p.id} className="pt-5 first:pt-0">
+                  {p.url ? (
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-heading text-base font-semibold text-[#004C95] hover:text-[#EA8D28] hover:underline"
+                    >
+                      {p.title || "Untitled publication"}
+                    </a>
+                  ) : (
+                    <span className="font-heading text-base font-semibold text-[#004C95]">
+                      {p.title || "Untitled publication"}
+                    </span>
+                  )}
+                  <p className="mt-2 text-sm text-slate-600">
+                    {p.authors ? <span>{p.authors}</span> : null}
+                    {p.authors && (p.journal || p.year) ? <span> · </span> : null}
+                    {p.journal ? <span className="italic">{p.journal}</span> : null}
+                    {p.year ? <span> ({p.year})</span> : null}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    {p.doi ? <span className="mr-3">DOI: {p.doi}</span> : null}
+                    {p.pubmed_id ? <span>PubMed: {p.pubmed_id}</span> : null}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </section>
         ) : null}
 
