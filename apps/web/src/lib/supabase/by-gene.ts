@@ -4,6 +4,16 @@ import "server-only";
 import { supabaseService } from "./server";
 import type { CatalogProduct } from "../catalog-product-types";
 
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&amp;/g, "&")
+    .replace(/&reg;/g, "®")
+    .replace(/&copy;/g, "©")
+    .replace(/&trade;/g, "™")
+    .replace(/&#174;/g, "®")
+    .replace(/&quot;/g, '"');
+}
+
 type ProductRow = {
   id: number;
   sku: string;
@@ -51,7 +61,7 @@ export async function findProductsByGene(gene: string, limit = 60): Promise<Cata
   return (data as ProductRow[]).map((p) => ({
     id: String(p.id),
     catalog: p.sku,
-    name: p.title,
+    name: decodeEntities(p.title),
     target: p.target_info?.gene_name || p.target_info?.protein_name || "—",
     host: p.host_species || "—",
     applications: p.applications ?? [],
