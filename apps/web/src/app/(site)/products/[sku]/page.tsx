@@ -54,8 +54,8 @@ export default async function ProductSkuPage({ params }: Props) {
 
   const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
 
-  // Schema.org JSON-LD — Product structured data for rich SEO results
-  const jsonLd = {
+  // Schema.org JSON-LD — Product + BreadcrumbList for rich SEO results
+  const productJsonLd = {
     "@context": "https://schema.org/",
     "@type": "Product",
     name: product.name,
@@ -70,12 +70,27 @@ export default async function ProductSkuPage({ params }: Props) {
     ...(product.applications.length ? { category: product.applications.join(", ") } : {}),
   }
 
+  const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://www.bosterbio.com"
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN + "/" },
+      { "@type": "ListItem", position: 2, name: "Products", item: SITE_ORIGIN + "/products" },
+      { "@type": "ListItem", position: 3, name: product.catalog, item: `${SITE_ORIGIN}/products/${encodeURIComponent(product.catalog)}` },
+    ],
+  }
+
   return (
     <main id="main-content" className="min-h-screen bg-[#f4f6f8]">
       {/* Schema.org structured data for SEO */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
       />
       <div className="border-b border-black/10 bg-white">
         <div className="container-smoke py-4 text-sm text-slate-600">
