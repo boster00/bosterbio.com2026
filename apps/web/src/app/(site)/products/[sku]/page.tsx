@@ -12,8 +12,25 @@ type Props = { params: Promise<{ sku: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { sku } = await params
   const product = await fetchCatalogProductByCatalog(decodeURIComponent(sku))
-  if (!product) return { title: "Product" }
-  return { title: `${product.catalog} — ${product.name}` }
+  if (!product) return { title: "Product not found" }
+
+  const cleanName = product.name.replace(/\s*\|\s*BosterBio.*$/i, "").trim()
+  const description =
+    product.shortDescription ||
+    (product.description
+      ? product.description.replace(/<[^>]+>/g, "").slice(0, 200).trim() + "…"
+      : `${cleanName} — Catalog #${product.catalog}, sold by Boster Bio.`)
+
+  return {
+    title: `${cleanName} (${product.catalog}) | Boster Bio`,
+    description,
+    openGraph: {
+      title: cleanName,
+      description,
+      ...(product.imageUrl ? { images: [{ url: product.imageUrl }] } : {}),
+      type: "website",
+    },
+  }
 }
 
 /** Magento “200” URL is ~1.7KB placeholder — use guaranteed visible hero for smoke screenshots. */
@@ -33,8 +50,29 @@ export default async function ProductSkuPage({ params }: Props) {
 
   const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
 
+  // Schema.org JSON-LD — Product structured data for rich SEO results
+  const jsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product.name,
+    sku: product.catalog,
+    brand: { "@type": "Brand", name: "Boster Bio" },
+    ...(product.description
+      ? { description: product.description.replace(/<[^>]+>/g, "").slice(0, 1000) }
+      : product.shortDescription
+        ? { description: product.shortDescription }
+        : {}),
+    ...(product.imageUrl ? { image: product.imageUrl } : {}),
+    ...(product.applications.length ? { category: product.applications.join(", ") } : {}),
+  }
+
   return (
     <main id="main-content" className="min-h-screen bg-[#f4f6f8]">
+      {/* Schema.org structured data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="border-b border-black/10 bg-white">
         <div className="container-smoke py-4 text-sm text-slate-600">
           <nav aria-label="Breadcrumb">

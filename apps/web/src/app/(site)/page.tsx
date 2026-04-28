@@ -6,9 +6,35 @@ import { PromoStripSection } from "@/components/home/PromoStripSection"
 import { ResourcesSection } from "@/components/home/ResourcesSection"
 import { TrustSection } from "@/components/home/TrustSection"
 
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Boster Bio",
+  alternateName: "BosterBio",
+  url: "https://www.bosterbio.com",
+  logo: "https://www.bosterbio.com/media/logo/stores/1/Boster-Logo-Horizontal.png",
+  description:
+    "High-quality antibodies, ELISA kits, and research reagents for life science research.",
+  sameAs: [
+    "https://www.linkedin.com/company/boster-biological-technology",
+    "https://twitter.com/BosterBio",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+1-925-677-2200",
+    contactType: "customer support",
+    areaServed: "Worldwide",
+    availableLanguage: ["English"],
+  },
+}
+
 export default async function HomePage() {
   return (
     <main id="main-content">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+      />
       <HeroSection />
       <PromoStripSection />
       <CategoryGridSection />
