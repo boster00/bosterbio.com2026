@@ -61,10 +61,10 @@ export function DesktopMegaNav() {
   const analyticalCol2 = analyticalServicesLinks.slice(analyticalHalf)
 
   return (
-    <nav className="border-t border-brand-primary/10 bg-brand-primary text-white" aria-label="Primary">
+    <nav className="relative border-t border-brand-primary/10 bg-brand-primary text-white" aria-label="Primary">
       <div className="mx-auto flex w-full max-w-[1440px] items-stretch px-[var(--container-px)]">
         {/* 1. Promotions */}
-        <div className="group relative flex-1">
+        <div className="group flex-1">
           <button
             type="button"
             className="flex h-full w-full items-center justify-center gap-1 bg-accent-warm px-2 py-3.5 text-center font-heading text-[11px] font-bold uppercase tracking-wide text-white transition hover:bg-accent-hover sm:px-3 sm:text-xs"
@@ -121,7 +121,7 @@ export function DesktopMegaNav() {
         </div>
 
         {/* 2. Products */}
-        <div className="group relative flex-1 border-l border-white/15">
+        <div className="group flex-1 border-l border-white/15">
           <button
             type="button"
             className="flex h-full w-full items-center justify-center gap-1 px-2 py-3.5 text-center font-heading text-[11px] font-bold uppercase tracking-wide text-white/95 transition hover:bg-white/10 sm:px-3 sm:text-xs"
@@ -155,7 +155,7 @@ export function DesktopMegaNav() {
         </div>
 
         {/* 3. Services — 4 columns: antibody | custom | analytical | analytical */}
-        <div className="group relative flex-1 border-l border-white/15">
+        <div className="group flex-1 border-l border-white/15">
           <button
             type="button"
             className="flex h-full w-full items-center justify-center gap-1 px-2 py-3.5 text-center font-heading text-[11px] font-bold uppercase tracking-wide text-white/95 transition hover:bg-white/10 sm:px-3 sm:text-xs"
@@ -218,7 +218,7 @@ export function DesktopMegaNav() {
         </div>
 
         {/* 4. Support */}
-        <div className="group relative flex-1 border-l border-white/15">
+        <div className="group flex-1 border-l border-white/15">
           <button
             type="button"
             className="flex h-full w-full items-center justify-center gap-1 px-2 py-3.5 text-center font-heading text-[11px] font-bold uppercase tracking-wide text-white/95 transition hover:bg-white/10 sm:px-3 sm:text-xs"
@@ -298,7 +298,7 @@ export function DesktopMegaNav() {
         </div>
 
         {/* 6. About */}
-        <div className="group relative flex-1 border-l border-white/15">
+        <div className="group flex-1 border-l border-white/15">
           <button
             type="button"
             className="flex h-full w-full items-center justify-center gap-1 px-2 py-3.5 text-center font-heading text-[11px] font-bold uppercase tracking-wide text-white/95 transition hover:bg-white/10 sm:px-3 sm:text-xs"
