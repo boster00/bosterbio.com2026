@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { fetchCatalogProductByCatalog } from "@/lib/catalog-products"
 import { getProductAttributesByTemplate } from "@/lib/supabase/attributes"
 import { getPublicationsForProduct } from "@/lib/supabase/publications"
+import { getSimilarProducts } from "@/lib/supabase/catalog"
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
 import { ProductPdpFormats } from "./ProductPdpFormats"
 
@@ -47,6 +48,9 @@ export default async function ProductSkuPage({ params }: Props) {
 
   // Citations for this product (top 20)
   const publications = await getPublicationsForProduct(decoded, 20).catch(() => [])
+
+  // Similar products (same template + same reactivity)
+  const similar = await getSimilarProducts(decoded, 4).catch(() => [])
 
   const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
 
@@ -202,6 +206,39 @@ export default async function ProductSkuPage({ params }: Props) {
                 </div>
               ))}
             </dl>
+          </section>
+        ) : null}
+
+        {similar.length > 0 ? (
+          <section className="mt-12">
+            <h2 className="font-heading text-xl font-bold text-[#004C95]">Similar products</h2>
+            <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {similar.map((s) => (
+                <li key={s.id}>
+                  <Link
+                    href={`/products/${encodeURIComponent(s.catalog)}`}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#004C95]/10 bg-white shadow-sm transition hover:border-[#EA8D28]/40"
+                  >
+                    <div className="flex aspect-[4/3] items-center justify-center bg-[#f0f7fc] p-3">
+                      {s.imageUrl ? (
+                        <CatalogProductImage src={s.imageUrl} alt="" className="max-h-full max-w-full object-contain" />
+                      ) : (
+                        <span className="text-xs text-slate-400">No image</span>
+                      )}
+                    </div>
+                    <div className="flex flex-1 flex-col gap-1 p-4">
+                      <p className="font-mono text-xs font-bold text-[#EA8D28]">{s.catalog}</p>
+                      <h3 className="font-heading text-sm font-semibold leading-snug text-[#004C95] group-hover:text-[#EA8D28]">
+                        {s.name}
+                      </h3>
+                      <p className="text-xs text-slate-600">
+                        Target: <span className="font-medium text-slate-800">{s.target}</span>
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </section>
         ) : null}
 

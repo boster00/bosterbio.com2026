@@ -105,6 +105,41 @@ export async function getProductFromSupabase(skuOrHandle: string): Promise<Catal
   return rowToCatalog(row, images.get(row.id) ?? null);
 }
 
+export async function getSimilarProducts(skuOrHandle: string, limit = 4): Promise<CatalogProduct[]> {
+  const sb = supabaseService();
+  // Find current product's template + first reactivity for "similar" definition
+  let { data: cur } = await sb
+    .from("products")
+    .select("id, product_template, reactivity, applications")
+    .eq("sku", skuOrHandle)
+    .maybeSingle();
+  if (!cur) {
+    ({ data: cur } = await sb
+      .from("products")
+      .select("id, product_template, reactivity, applications")
+      .eq("handle", skuOrHandle)
+      .maybeSingle());
+  }
+  if (!cur) return [];
+
+  const c = cur as { id: number; product_template: string; reactivity: string[] | null; applications: string[] | null };
+  // Pick other products in same template, prefer same reactivity
+  let q = sb
+    .from("products")
+    .select("*")
+    .eq("status", "enabled")
+    .eq("product_template", c.product_template)
+    .neq("id", c.id);
+  if (c.reactivity && c.reactivity.length > 0) {
+    q = q.contains("reactivity", [c.reactivity[0]]);
+  }
+  const { data, error } = await q.limit(limit);
+  if (error || !data?.length) return [];
+  const rows = data as ProductRow[];
+  const images = await loadHeroImagesByProductId(rows.map((r) => r.id));
+  return rows.map((r) => rowToCatalog(r, images.get(r.id) ?? null));
+}
+
 export async function searchProductsInSupabase(query: string, limit = 50): Promise<CatalogProduct[]> {
   const sb = supabaseService();
   const q = query.trim();
