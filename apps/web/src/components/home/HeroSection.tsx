@@ -1,5 +1,32 @@
 import Link from "next/link"
 import { AntibodyRobotMascot } from "./AntibodyRobotMascot"
+import { supabaseService } from "@/lib/supabase/server"
+
+async function getCatalogStats() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+    return { antibodies: null, publications: null }
+  }
+  try {
+    const sb = supabaseService()
+    const [{ count: antibodies }, { count: publications }] = await Promise.all([
+      sb
+        .from("products")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "enabled")
+        .eq("product_template", "antibodies"),
+      sb.from("publications").select("*", { count: "exact", head: true }),
+    ])
+    return { antibodies, publications }
+  } catch {
+    return { antibodies: null, publications: null }
+  }
+}
+
+function formatStat(n: number | null | undefined, fallback: string): string {
+  if (typeof n !== "number") return fallback
+  if (n >= 1000) return `${Math.floor(n / 100) / 10}K+`
+  return `${n}+`
+}
 
 function MascotPanel() {
   return (
@@ -19,7 +46,8 @@ function MascotPanel() {
   )
 }
 
-export function HeroSection() {
+export async function HeroSection() {
+  const stats = await getCatalogStats()
   return (
     <section id="hero" className="relative overflow-x-clip overflow-y-visible bg-brand text-white">
       {/* Underwater-inspired soft light rays */}
@@ -70,12 +98,16 @@ export function HeroSection() {
           </div>
           <dl className="mt-10 grid grid-cols-1 gap-4 border-t border-white/20 pt-8 sm:grid-cols-3 sm:max-w-2xl">
             <div className="min-w-0">
-              <dt className="text-[10px] font-medium uppercase tracking-wide text-white/60 sm:text-xs">Catalog antibodies</dt>
-              <dd className="mt-1 font-display text-xl font-bold tabular-nums text-accent sm:text-2xl">15,000+</dd>
+              <dt className="text-[10px] font-medium uppercase tracking-wide text-white/60 sm:text-xs">Antibodies in catalog</dt>
+              <dd className="mt-1 font-display text-xl font-bold tabular-nums text-accent sm:text-2xl">
+                {formatStat(stats.antibodies, "50,000+")}
+              </dd>
             </div>
             <div className="min-w-0">
-              <dt className="text-[10px] font-medium uppercase tracking-wide text-white/60 sm:text-xs">Zebrafish antibodies</dt>
-              <dd className="mt-1 font-display text-xl font-bold tabular-nums text-white sm:text-2xl">600+</dd>
+              <dt className="text-[10px] font-medium uppercase tracking-wide text-white/60 sm:text-xs">Citing publications</dt>
+              <dd className="mt-1 font-display text-xl font-bold tabular-nums text-white sm:text-2xl">
+                {formatStat(stats.publications, "52,000+")}
+              </dd>
             </div>
             <div className="min-w-0">
               <dt className="text-[10px] font-medium uppercase tracking-wide text-white/60 sm:text-xs">Fulfillment</dt>
