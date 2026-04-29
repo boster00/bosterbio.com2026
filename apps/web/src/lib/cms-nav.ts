@@ -30,7 +30,9 @@ export function getCmsNavPage(identifier: string): CmsNavPayload | null {
  * <script> tags (chat widgets, analytics), Bootstrap classes that don't exist
  * here, decorative `dark-overlap` / `hero-section` divs that render as gray
  * blocks, inline `style="background-image:url(SITE_ORIGIN_PLACEHOLDER...)"`
- * that 404s, and a duplicate <h1> that collides with the page-shell H1.
+ * that 404s, a duplicate <h1> that collides with the page-shell H1, raw
+ * `{{block ...}}` Magento template directives, and many `<div><br></div>`
+ * spacer chains from the legacy WYSIWYG editor.
  *
  * This function rewrites enough that the body slots cleanly into a Tailwind
  * `prose` container. We do not try to preserve the legacy layout — we throw
@@ -59,16 +61,22 @@ export function hydrateCmsHtml(html: string, pageTitle?: string): string {
   s = s.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, "")
   s = s.replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, "")
 
+  // 2b. Strip raw Magento template directives that leaked into the body. These
+  //     look like `{{block block_id="..." template="..." }}` or
+  //     `{{widget type="..." ...}}` — server-side macros that didn't get
+  //     rendered during the export. Drop them.
+  s = s.replace(/\{\{[^}]*\}\}/g, "")
+
   // 3. Strip decorative wrappers that render as gray blocks under our shell:
   //    - hero-section / dark-overlap / carousel / banner divs from the legacy
   //      Bootstrap layouts
   //    - Inline `style="background-image:url(...)"` (often broken or grey).
   s = s.replace(/\s+style="[^"]*background[^"]*"/gi, "")
   s = s.replace(/\s+style="[^"]*background-image[^"]*"/gi, "")
-  // Inline font / color overrides that fight the design system.
-  s = s.replace(/\s+style="[^"]*(?:font-size|font-family|font-weight|color|text-transform)[^"]*"/gi, "")
-  // Catch-all: drop bgcolor and align attrs (legacy table styling).
-  s = s.replace(/\s+(?:bgcolor|align|valign)="[^"]*"/gi, "")
+  // Inline font / color / sizing overrides that fight the design system.
+  s = s.replace(/\s+style="[^"]*(?:font-size|font-family|font-weight|color|text-transform|width|height|min-width|min-height|max-width|max-height)[^"]*"/gi, "")
+  // Catch-all: drop bgcolor, align, valign, width, height attrs (legacy table styling).
+  s = s.replace(/\s+(?:bgcolor|align|valign|width|height|cellpadding|cellspacing|border)="[^"]*"/gi, "")
 
   // 4. Strip the leading <h1> from body if its text matches the page title.
   //    The page shell already renders an H1; a second one inside the body
@@ -90,11 +98,28 @@ export function hydrateCmsHtml(html: string, pageTitle?: string): string {
   //    apply sensible defaults. Keep semantic structure intact.
   s = s.replace(/\sclass="[^"]*"/gi, "")
 
-  // 6. Trim excess <br> sequences and empty <p>/<div> shells that legacy
-  //    WYSIWYG editors loved to insert.
-  s = s.replace(/(?:<br\s*\/?>(?:\s|&nbsp;)*){3,}/gi, "<br><br>")
-  s = s.replace(/<p[^>]*>(?:\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, "")
-  s = s.replace(/<div[^>]*>(?:\s|&nbsp;)*<\/div>/gi, "")
+  // 6. Trim excess <br> sequences and empty shells. Run this in a fixed-point
+  //    loop because each cleanup can expose another empty wrapper. The legacy
+  //    WYSIWYG editors loved to nest `<div><br></div>` chains 3-4 deep.
+  for (let i = 0; i < 8; i++) {
+    const before = s
+    // Collapse runs of <br> into at most one.
+    s = s.replace(/(?:<br\s*\/?>\s*){2,}/gi, "<br>")
+    // Empty <p>: only whitespace, &nbsp;, or <br>.
+    s = s.replace(/<p[^>]*>(?:\s|&nbsp;|&#160;|<br\s*\/?>)*<\/p>/gi, "")
+    // Empty <div>: only whitespace, &nbsp;, or <br>.
+    s = s.replace(/<div[^>]*>(?:\s|&nbsp;|&#160;|<br\s*\/?>)*<\/div>/gi, "")
+    // Empty <span> with only whitespace.
+    s = s.replace(/<span[^>]*>(?:\s|&nbsp;|&#160;)*<\/span>/gi, "")
+    // <div> wrapping a single <br> (catches nested <div><div><br></div></div>).
+    s = s.replace(/<div[^>]*>\s*<br\s*\/?>\s*<\/div>/gi, "")
+    if (s === before) break
+  }
+
+  // 7. Trim leading/trailing whitespace and stray <br>s that ended up at the
+  //    very top/bottom of the body after the cleanup pass.
+  s = s.replace(/^(?:\s|<br\s*\/?>)+/i, "")
+  s = s.replace(/(?:\s|<br\s*\/?>)+$/i, "")
 
   return s
 }

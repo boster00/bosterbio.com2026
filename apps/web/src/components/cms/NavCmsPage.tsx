@@ -35,14 +35,20 @@ export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) 
         </div>
       </section>
 
+      {/*
+        Card is centered with a comfortable reading width (max-w-3xl ~ 768px).
+        The prose itself uses Tailwind's natural prose width (~65ch); the
+        outer mx-auto keeps the white card visually balanced in the page so
+        we don't end up with a 1100px-wide card holding 700px of text.
+      */}
       <div className="container-content py-10 md:py-14">
         {html ? (
           <article
-            className="prose prose-bosterbio max-w-none rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card sm:p-8 md:p-10"
+            className="prose prose-bosterbio prose-lg mx-auto max-w-3xl rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card sm:p-8 md:p-10"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         ) : (
-          <div className="rounded-2xl border border-brand-primary/10 bg-white p-10 text-center shadow-card">
+          <div className="mx-auto max-w-3xl rounded-2xl border border-brand-primary/10 bg-white p-10 text-center shadow-card">
             <p className="text-ink-secondary">Content is being migrated. Please check back soon.</p>
           </div>
         )}
