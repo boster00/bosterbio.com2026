@@ -9,72 +9,89 @@ type Props = {
 }
 
 /**
- * Modern editorial layout for migrated nav-CMS pages.
+ * Layout for migrated nav-CMS pages.
  *
- * No boxed card, no border, no shadow. Hero is full-bleed brand gradient;
- * the body is a centered reading column directly on the page background,
- * styled by Tailwind `prose`. The first paragraph drops in slightly larger
- * (lead). Section dividers come from the prose `<hr>` style if the body
- * uses them; otherwise it reads as one continuous article.
+ * The Figma master file has no dedicated nav-CMS frame; the closest
+ * editorial-content reference is "About Us" (node 2848:22800). The visual
+ * language there is:
+ *
+ * - Centered orange uppercase title in Josefin Sans Medium 40px
+ *   (color #EA8D28, letter-spacing ~-0.02em).
+ * - Centered subtitle in 16px below the title.
+ * - Section headings ("Humble Start", "30 Years Later"): orange 28px LEFT.
+ * - Body: 16px Mulish, dark gray, on white background.
+ * - No big blue gradient hero band — the page reads as a clean editorial
+ *   article on white.
+ *
+ * This component reproduces that header pattern and lets the prose container
+ * carry section H2s in the same orange/28 style.
  */
 export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) {
-  const title = data?.title?.replace(/\s*\|\s*BosterBio.*$/i, "").trim() || fallbackTitle
-  const heading = data?.content_heading?.trim() || title
-  // Pass `heading` so the sanitizer can strip a duplicate H1 in the body.
+  const rawTitle = data?.title?.replace(/\s*\|\s*BosterBio.*$/i, "").trim() || fallbackTitle
+  const heading = data?.content_heading?.trim() || rawTitle
+  // Figma title is uppercase + letter-spaced. We render the heading itself in
+  // its natural casing via CSS uppercase so the H1 reads correctly to AT.
   const html = data ? hydrateCmsHtml(data.content, heading) : ""
 
   return (
     <main id="main-content" className="bg-white">
-      {/* Full-bleed hero */}
-      <section
-        className="relative overflow-hidden bg-gradient-to-br from-brand-primary via-brand-primary to-brand-sky/90 text-white"
-        aria-labelledby="nav-cms-hero-heading"
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1440 120%27%3E%3Cpath fill=%27%23ffffff%27 fill-opacity=%270.05%27 d=%27M0 60c200 20 400 20 600 0s400-20 600 0v60H0z%27/%3E%3C/svg%3E')] bg-cover bg-bottom" />
-        {/* Subtle radial accent in the top-right corner */}
-        <div className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
-        <div className="container-content relative py-16 md:py-24 lg:py-28">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/70">
-            BosterBio · Resources
-          </p>
+      {/*
+        Page title block. Mirrors About Us:
+        - thin orange separator
+        - 40px uppercase Josefin Medium centered
+        - 16px subtitle centered (uses fallbackDescription if set)
+        - thin orange separator
+      */}
+      <section className="border-b border-surface-muted bg-white" aria-labelledby="nav-cms-title">
+        <div className="container-content py-14 md:py-20 text-center">
           <h1
-            id="nav-cms-hero-heading"
-            className="mt-4 max-w-3xl font-heading text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl"
+            id="nav-cms-title"
+            className="font-heading text-[28px] font-medium uppercase leading-tight tracking-[-0.02em] text-accent md:text-[40px]"
           >
             {heading}
           </h1>
-          {fallbackDescription && !data?.content ? (
-            <p className="mt-6 max-w-2xl text-lg text-white/85">{fallbackDescription}</p>
+          {fallbackDescription ? (
+            <p className="mx-auto mt-3 max-w-2xl text-base text-ink-secondary">
+              {fallbackDescription}
+            </p>
           ) : null}
           {data?.update_time ? (
-            <div className="mt-8 flex items-center gap-3 text-xs text-white/60">
-              <span className="inline-block h-px w-8 bg-white/30" />
-              <span>Updated {data.update_time.slice(0, 10)}</span>
-            </div>
+            <p className="mt-4 text-xs uppercase tracking-[0.18em] text-ink-tertiary">
+              Updated {data.update_time.slice(0, 10)}
+            </p>
           ) : null}
         </div>
       </section>
 
-      {/* Body: narrow reading column directly on page bg, no card */}
+      {/*
+        Body. Constrained reading column on white. Prose styles override:
+        - H2 in brand accent orange, 28px, left-aligned (matches Figma section
+          headers like "Humble Start").
+        - H3 smaller, brand primary blue.
+        - Body text in ink (Mulish via root --font-sans).
+      */}
       {html ? (
         <article
           className={[
             "container-content",
-            "py-14 md:py-20 lg:py-24",
-            // Center the prose with a comfortable reading column.
-            "prose prose-bosterbio prose-lg mx-auto max-w-2xl lg:max-w-[680px]",
-            // Lead-style first paragraph for editorial feel.
-            "prose-p:my-5",
-            "first:[&_p]:text-xl first:[&_p]:leading-relaxed first:[&_p]:text-ink",
-            // Tighter list spacing than prose default.
+            "py-14 md:py-20",
+            "prose prose-bosterbio mx-auto max-w-2xl lg:max-w-[720px]",
+            // Figma section header: orange 28px left.
+            "prose-h2:text-[28px] prose-h2:font-semibold prose-h2:text-accent prose-h2:mt-14 prose-h2:mb-4",
+            // H3: brand-primary blue, 22px.
+            "prose-h3:text-[22px] prose-h3:font-semibold prose-h3:text-brand-primary prose-h3:mt-10 prose-h3:mb-3",
+            // Body paragraphs: 16px-ish, Mulish (inherited).
+            "prose-p:my-5 prose-p:text-ink",
+            // First paragraph as lead.
+            "first:[&_p]:text-lg first:[&_p]:leading-relaxed",
+            // Lists: tighter.
             "prose-li:my-1.5",
-            // Subtle accent under H2/H3 for section rhythm.
-            "prose-h2:mt-14 prose-h2:pb-2 prose-h2:border-b prose-h2:border-brand-primary/15",
-            "prose-h3:mt-10",
-            // Brand-tinted hr.
-            "prose-hr:my-12 prose-hr:border-brand-primary/15",
-            // Make migrated images full-bleed within the column.
+            // Links: brand blue, accent orange on hover (already in tw config).
+            "prose-a:font-medium",
+            // Migrated images: full-width within column, rounded.
             "prose-img:w-full prose-img:rounded-xl prose-img:my-10",
+            // Subtle hr.
+            "prose-hr:border-surface-muted prose-hr:my-12",
           ].join(" ")}
           dangerouslySetInnerHTML={{ __html: html }}
         />
