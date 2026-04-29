@@ -11,7 +11,8 @@ type Props = {
 export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) {
   const title = data?.title?.replace(/\s*\|\s*BosterBio.*$/i, "").trim() || fallbackTitle
   const heading = data?.content_heading?.trim() || title
-  const html = data ? hydrateCmsHtml(data.content) : ""
+  // Pass `heading` so the sanitizer can strip a duplicate H1 in the body.
+  const html = data ? hydrateCmsHtml(data.content, heading) : ""
 
   return (
     <main id="main-content" className="bg-surface-subtle pb-16">
@@ -37,7 +38,7 @@ export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) 
       <div className="container-content py-10 md:py-14">
         {html ? (
           <article
-            className="nav-cms-html overflow-x-auto rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card sm:p-8 md:p-10"
+            className="prose prose-bosterbio max-w-none rounded-2xl border border-brand-primary/10 bg-white p-6 shadow-card sm:p-8 md:p-10"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         ) : (

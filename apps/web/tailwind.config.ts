@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import typography from "@tailwindcss/typography"
 
 /** BosterBio 2026 design system — primary blue, accent orange, light blue */
 const config: Config = {
@@ -68,9 +69,40 @@ const config: Config = {
         /** Product PLP/PDP smoke layout — align with 1440 Figma exports */
         smoke: "1440px",
       },
+      /**
+       * Brand-tinted long-form prose for migrated CMS bodies. Wrap migrated
+       * HTML in `prose prose-bosterbio max-w-none` to give it consistent
+       * typography (links in brand blue, headings in Josefin, list spacing).
+       */
+      typography: {
+        bosterbio: {
+          css: {
+            "--tw-prose-body": "#1e293b",
+            "--tw-prose-headings": "#003366",
+            "--tw-prose-links": "#004C95",
+            "--tw-prose-bold": "#003366",
+            "--tw-prose-counters": "#475569",
+            "--tw-prose-bullets": "#3CA9D6",
+            "--tw-prose-hr": "#e2eaf3",
+            "--tw-prose-quotes": "#003366",
+            "--tw-prose-quote-borders": "#3CA9D6",
+            "--tw-prose-captions": "#64748b",
+            "--tw-prose-code": "#003366",
+            "--tw-prose-pre-bg": "#f4f8fc",
+            "--tw-prose-th-borders": "#e2eaf3",
+            "--tw-prose-td-borders": "#e2eaf3",
+            h1: { fontFamily: "var(--font-heading)", fontWeight: "700" },
+            h2: { fontFamily: "var(--font-heading)", fontWeight: "700" },
+            h3: { fontFamily: "var(--font-heading)", fontWeight: "600" },
+            h4: { fontFamily: "var(--font-heading)", fontWeight: "600" },
+            "a:hover": { color: "#EA8D28" },
+            img: { borderRadius: "0.5rem" },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [typography],
 }
 
 export default config
