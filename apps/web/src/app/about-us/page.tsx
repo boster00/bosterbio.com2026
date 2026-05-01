@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { getCmsNavPage } from "@/lib/cms-nav"
+import { EditorialPageHeader } from "@/components/cms/EditorialPageHeader"
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -80,32 +81,16 @@ export default function AboutUsPage() {
 
   return (
     <main id="main-content" className="bg-surface-subtle">
-      {/* Hero — 1440-aligned, Figma-style */}
-      <section
-        className="relative border-b border-brand-primary/10 bg-gradient-to-br from-brand-primary via-[#003a73] to-brand-sky text-white"
-        aria-labelledby="about-hero-heading"
-      >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-30"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse 80% 60% at 70% 20%, rgba(60,169,214,0.35), transparent 55%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(234,141,40,0.2), transparent 50%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-[1440px] px-[var(--container-px)] py-14 md:py-20 lg:py-24">
-          <p className="font-heading text-xs font-bold uppercase tracking-[0.2em] text-white/75">About BosterBio</p>
-          <h1
-            id="about-hero-heading"
-            className="mt-4 max-w-4xl font-heading text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-[3.25rem]"
-          >
-            About Boster Bio
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/90 md:text-xl">
-            Your experts in offering state-of-the-art ELISA kits, antibodies, custom reagents, and analytical services in
-            immunology, sequencing, cancer research, and more.
-          </p>
-        </div>
-      </section>
+      {/*
+        Editorial header — matches the Figma "About Us" pattern (centered orange
+        uppercase title on white). The previous full-bleed blue-gradient hero
+        was an improvisation that contradicted the Figma reference.
+      */}
+      <EditorialPageHeader
+        id="about-hero-heading"
+        title="About Boster Bio"
+        subtitle="Your experts in state-of-the-art ELISA kits, antibodies, custom reagents, and analytical services in immunology, sequencing, cancer research, and more."
+      />
 
       {/* Values + CTA card */}
       <section className="mx-auto max-w-[1440px] px-[var(--container-px)] py-12 md:py-16">

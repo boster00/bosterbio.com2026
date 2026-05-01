@@ -61,10 +61,26 @@ export function hydrateCmsHtml(html: string, pageTitle?: string): string {
   s = s.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, "")
   s = s.replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, "")
 
+  // 2a. Resolve known Magento `{{customVar code=...}}` placeholders. Some
+  //     migrated bodies say e.g. "Since {{customVar code=company_founded_year}},
+  //     we have:" — without resolution that renders as "Since , we have:".
+  //     Stats sourced from the live www.bosterbio.com about/services pages.
+  const CUSTOM_VAR_VALUES: Record<string, string> = {
+    company_founded_year: "1993",
+    antibodies_count: "15,000+",
+    publications_count: "50,000+",
+    rating: "4.9/5",
+    rating_source: "Biocompare",
+    elisa_kits_count: "500+",
+    countries_served: "60+",
+  }
+  s = s.replace(/\{\{customVar\s+code=([a-z0-9_]+)\s*\}\}/gi, (_, code) => CUSTOM_VAR_VALUES[code] ?? "")
+
   // 2b. Strip raw Magento template directives that leaked into the body. These
   //     look like `{{block block_id="..." template="..." }}` or
   //     `{{widget type="..." ...}}` — server-side macros that didn't get
-  //     rendered during the export. Drop them.
+  //     rendered during the export. Drop them. (customVars are already resolved
+  //     above; anything left after step 2a is unsupported and gets dropped.)
   s = s.replace(/\{\{[^}]*\}\}/g, "")
 
   // 3. Strip decorative wrappers that render as gray blocks under our shell:

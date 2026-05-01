@@ -1,5 +1,6 @@
 import type { CmsNavPayload } from "@/lib/cms-nav"
 import { hydrateCmsHtml } from "@/lib/cms-nav"
+import { EditorialPageHeader } from "./EditorialPageHeader"
 
 type Props = {
   data: CmsNavPayload | null
@@ -35,33 +36,12 @@ export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) 
 
   return (
     <main id="main-content" className="bg-white">
-      {/*
-        Page title block. Mirrors About Us:
-        - thin orange separator
-        - 40px uppercase Josefin Medium centered
-        - 16px subtitle centered (uses fallbackDescription if set)
-        - thin orange separator
-      */}
-      <section className="border-b border-surface-muted bg-white" aria-labelledby="nav-cms-title">
-        <div className="container-content py-14 md:py-20 text-center">
-          <h1
-            id="nav-cms-title"
-            className="font-heading text-[28px] font-medium uppercase leading-tight tracking-[-0.02em] text-accent md:text-[40px]"
-          >
-            {heading}
-          </h1>
-          {fallbackDescription ? (
-            <p className="mx-auto mt-3 max-w-2xl text-base text-ink-secondary">
-              {fallbackDescription}
-            </p>
-          ) : null}
-          {data?.update_time ? (
-            <p className="mt-4 text-xs uppercase tracking-[0.18em] text-ink-tertiary">
-              Updated {data.update_time.slice(0, 10)}
-            </p>
-          ) : null}
-        </div>
-      </section>
+      <EditorialPageHeader
+        id="nav-cms-title"
+        title={heading}
+        subtitle={fallbackDescription ?? null}
+        updatedAt={data?.update_time}
+      />
 
       {/*
         Body. Constrained reading column on white. Prose styles override:

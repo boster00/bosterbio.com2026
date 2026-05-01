@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { EditorialPageHeader } from "@/components/cms/EditorialPageHeader"
 
 export const metadata: Metadata = {
   title: "Design guide | BosterBio 2026",
@@ -18,16 +19,12 @@ function Swatch({ name, hex }: { name: string; hex: string }) {
 
 export default function DesignGuidePage() {
   return (
-    <main id="main-content" className="min-h-screen bg-surface-subtle pb-20">
-      <div className="border-b border-brand/10 bg-gradient-to-br from-brand-primary via-brand-deep to-brand-dark text-white">
-        <div className="container-content py-14 md:py-20">
-          <p className="text-xs font-bold uppercase tracking-widest text-accent-soft">BosterBio · 2026</p>
-          <h1 className="mt-3 font-display text-display-lg">Design system guide</h1>
-          <p className="mt-4 max-w-2xl text-lg text-white/90">
-            Typography (Josefin Sans + Mulish), brand colors, buttons, cards, and form patterns used across the storefront.
-          </p>
-        </div>
-      </div>
+    <main id="main-content" className="min-h-screen bg-white pb-20">
+      <EditorialPageHeader
+        id="design-guide-title"
+        title="Design system guide"
+        subtitle="Typography (Josefin Sans + Mulish), brand colors, buttons, cards, and form patterns used across the storefront."
+      />
 
       <div className="container-content space-y-16 py-12">
         <section className="rounded-2xl border border-brand/10 bg-white p-8 shadow-card">
