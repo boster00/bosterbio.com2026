@@ -1,1 +1,8 @@
-{"page_id":"4","title":"Contact Us | Boster Bio","identifier":"contact-us","content_heading":"","update_time":"2021-02-18 12:33:21","content":"{{block class=\"Magento\\Contact\\Block\\ContactForm\" name=\"contactForm\" template=\"Magento_Contact::form.phtml\"}}\n\n"}
+{
+  "page_id": "4",
+  "title": "Contact Us | Boster Bio",
+  "identifier": "contact-us",
+  "content_heading": "",
+  "update_time": "2021-02-18 12:33:21",
+  "content": "{{block class=\"Magento\\Contact\\Block\\ContactForm\" name=\"c���х��\u0019�ɴ��ѕ����є�5����ѽ}\r��х���陽ɴ���ѵ����("
+}
