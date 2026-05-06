@@ -5,11 +5,12 @@ import {
   listProductsFromSupabase,
   getProductFromSupabase,
 } from "./supabase/catalog"
+import { isCatalogSupabaseConfigured } from "./supabase/catalog-credentials"
 
 export type { CatalogProduct }
 
 function supabaseConfigured(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()))
+  return isCatalogSupabaseConfigured()
 }
 
 const PRODUCT_LIST_FIELDS =
@@ -91,6 +92,7 @@ function productToCatalog(p: Record<string, unknown>): CatalogProduct {
   return {
     id: String(p.id),
     catalog,
+    productTemplate: strMeta(meta, "product_template") || "antibodies",
     name: typeof p.title === "string" ? p.title : catalog,
     target,
     host,
