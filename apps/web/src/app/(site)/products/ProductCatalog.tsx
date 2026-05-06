@@ -83,6 +83,8 @@ type Props = {
   initialProducts?: CatalogProduct[]
   /** Optional filter context (template slug, e.g. "elisa-kits") to drive heading copy. */
   templateFilter?: string
+  /** Enabled-row count from Supabase (head query); when set, PLP copy reflects full catalog size. */
+  enabledCatalogTotal?: number
 }
 
 const TEMPLATE_TITLES: Record<string, { eyebrow: string; heading: string; description: string }> = {
@@ -143,7 +145,12 @@ const TEMPLATE_TITLES: Record<string, { eyebrow: string; heading: string; descri
   },
 }
 
-export function ProductCatalog({ initialQuery = "", initialProducts, templateFilter }: Props) {
+export function ProductCatalog({
+  initialQuery = "",
+  initialProducts,
+  templateFilter,
+  enabledCatalogTotal,
+}: Props) {
   const products = initialProducts ?? []
   const [query, setQuery] = useState(initialQuery)
   const [target, setTarget] = useState("")
@@ -170,7 +177,8 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
     })
   }, [query, target, host, application, reactivity, products])
 
-  const total = products.length
+  const loadedCount = products.length
+  const catalogTotal = typeof enabledCatalogTotal === "number" ? enabledCatalogTotal : loadedCount
   const titleConfig = templateFilter && TEMPLATE_TITLES[templateFilter]
     ? TEMPLATE_TITLES[templateFilter]
     : { eyebrow: "Catalog", heading: "Antibodies & reagents", description: "" }
@@ -183,10 +191,10 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
             <p className="text-xs font-bold uppercase tracking-widest text-accent">{titleConfig.eyebrow}</p>
             <h1 className="mt-2 font-display text-display-md text-brand">{titleConfig.heading}</h1>
             <p className="mt-3 text-ink-secondary">
-              {total > 0
+              {loadedCount > 0
                 ? titleConfig.description
-                  ? `${titleConfig.description} ${total} product${total === 1 ? "" : "s"} shown.`
-                  : `Featured catalog — ${total} product${total === 1 ? "" : "s"}.`
+                  ? `${titleConfig.description} ${catalogTotal.toLocaleString()} enabled product${catalogTotal === 1 ? "" : "s"} in catalog; showing up to ${loadedCount} below.`
+                  : `Featured catalog — ${catalogTotal.toLocaleString()} enabled product${catalogTotal === 1 ? "" : "s"} in catalog; showing up to ${loadedCount} below.`
                 : templateFilter
                   ? `${titleConfig.description || ""} No products are currently published in this category — try Browse all or another category.`
                   : "Catalog is loading. If this persists, check database connectivity."}
@@ -328,7 +336,15 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
           {/* Right — product grid */}
           <div className="min-w-0 flex-1">
             <p className="text-sm text-ink-secondary">
-              Showing <span className="font-bold text-brand">{filtered.length}</span> of {total} products
+              Showing <span className="font-bold text-brand">{filtered.length}</span> of{" "}
+              <span className="font-bold text-brand">{loadedCount}</span> loaded
+              {typeof enabledCatalogTotal === "number" && enabledCatalogTotal > loadedCount ? (
+                <>
+                  {" "}
+                  (<span className="font-bold text-brand">{enabledCatalogTotal.toLocaleString()}</span> enabled in
+                  catalog)
+                </>
+              ) : null}
             </p>
 
             <ul className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

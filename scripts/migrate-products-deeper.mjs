@@ -5,11 +5,11 @@
 //
 // Usage: node scripts/migrate-products-deeper.mjs [--start=200000000] [--length=200000000] [--limit=2000]
 
-import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { parse } from 'csv-parse';
 import { Readable } from 'node:stream';
+import { loadCatalogSupabaseEnv } from './lib/load-catalog-supabase-env.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, '..');
@@ -21,11 +21,7 @@ const START = Number(args.start ?? 200_000_000);
 const LENGTH = Number(args.length ?? 200_000_000);
 const LIMIT = Number(args.limit ?? 2000);
 
-const env = Object.fromEntries(
-  readFileSync(resolve(REPO_ROOT, '.env.local'), 'utf8').split(/\r?\n/).filter(l => l && !l.startsWith('#')).map(l => { const i = l.indexOf('='); return [l.slice(0, i), l.slice(i + 1)]; })
-);
-const SUPABASE_URL = env.NEXT_PUBLIC_SUPABASE_URL;
-const SERVICE_KEY = env.SUPABASE_SECRETE_KEY;
+const { url: SUPABASE_URL, key: SERVICE_KEY } = loadCatalogSupabaseEnv(REPO_ROOT);
 
 // Reuse same TYPE_B_COLUMNS + helpers from migrate-products-pilot.mjs
 const TYPE_B_COLUMNS = [

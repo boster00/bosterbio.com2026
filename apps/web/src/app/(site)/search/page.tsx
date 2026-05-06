@@ -2,15 +2,9 @@ import Link from "next/link"
 import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { catalogSearchHaystack } from "@/lib/catalog-search"
 import { searchProductsInSupabase } from "@/lib/supabase/catalog"
+import { supabaseCatalogConfigured } from "@/lib/supabase/catalog-env"
 
 type Props = { searchParams: Promise<{ q?: string }> }
-
-function supabaseConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
-      (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()),
-  )
-}
 
 export default async function SearchPage({ searchParams }: Props) {
   const params = await searchParams
@@ -18,7 +12,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
   // Source priority: Supabase server-side full-text search → seed/Medusa fallback (client-side filter).
   let results
-  if (supabaseConfigured()) {
+  if (supabaseCatalogConfigured()) {
     results = await searchProductsInSupabase(q, 100)
   } else {
     const products = await fetchCatalogProducts()

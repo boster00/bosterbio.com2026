@@ -13,11 +13,12 @@
 //   - Split images string -> product_images rows
 //   - UPSERT via Supabase REST API on products.sku conflict
 
-import { readFileSync, createReadStream } from 'node:fs';
+import { createReadStream } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { parse } from 'csv-parse';
 import { Readable } from 'node:stream';
+import { loadCatalogSupabaseEnv } from './lib/load-catalog-supabase-env.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, '..');
@@ -28,14 +29,7 @@ const args = Object.fromEntries(
 const LIMIT = Number(args.limit ?? 100);
 const SOURCE = args.source ?? 'local'; // local | live
 
-const env = Object.fromEntries(
-  readFileSync(resolve(REPO_ROOT, '.env.local'), 'utf8')
-    .split(/\r?\n/)
-    .filter(l => l && !l.startsWith('#'))
-    .map(l => { const i = l.indexOf('='); return [l.slice(0, i), l.slice(i + 1)]; })
-);
-const SUPABASE_URL = env.NEXT_PUBLIC_SUPABASE_URL;
-const SERVICE_KEY = env.SUPABASE_SECRETE_KEY;
+const { url: SUPABASE_URL, key: SERVICE_KEY } = loadCatalogSupabaseEnv(REPO_ROOT);
 
 // Type B mapping: which CSV columns go into attr_1..attr_25 per template.
 // Derived from product-attributes-migration-plan.md "Category 2 Attribute Mapping".

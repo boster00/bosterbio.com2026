@@ -2,11 +2,12 @@
 // Used by external embeds (status badges, internal dashboards).
 import { NextResponse } from "next/server";
 import { supabaseService } from "@/lib/supabase/server";
+import { supabaseCatalogConfigured } from "@/lib/supabase/catalog-env";
 
 export const revalidate = 600; // 10 minutes
 
 export async function GET() {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+  if (!supabaseCatalogConfigured()) {
     return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
   }
 
