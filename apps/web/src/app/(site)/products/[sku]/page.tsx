@@ -110,7 +110,7 @@ export default async function ProductSkuPage({ params }: Props) {
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className="text-[#004C95] hover:underline">
+                <Link href="/" className="text-brand hover:underline">
                   Home
                 </Link>
               </li>
@@ -118,7 +118,7 @@ export default async function ProductSkuPage({ params }: Props) {
                 /
               </li>
               <li>
-                <Link href="/products" className="text-[#004C95] hover:underline">
+                <Link href="/products" className="text-brand hover:underline">
                   Products
                 </Link>
               </li>
@@ -134,7 +134,7 @@ export default async function ProductSkuPage({ params }: Props) {
       <div className="container-smoke py-10 md:py-14">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
-            <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">
+            <div className="overflow-hidden rounded-2xl border-2 border-brand/10 bg-white p-6 shadow-card">
               {product.imageUrl ? (
                 <CatalogProductImage
                   src={product.imageUrl}
@@ -151,7 +151,7 @@ export default async function ProductSkuPage({ params }: Props) {
               <ul className="mt-3 grid grid-cols-4 gap-2">
                 {gallery.slice(0, 8).map((g, i) => (
                   <li key={`${g.image_url}-${i}`}>
-                    <div className="aspect-square overflow-hidden rounded-lg border border-[#004C95]/10 bg-white p-1">
+                    <div className="aspect-square overflow-hidden rounded-lg border border-brand/10 bg-white p-1">
                       <CatalogProductImage
                         src={g.image_url}
                         alt={g.alt_text ?? ""}
@@ -165,28 +165,30 @@ export default async function ProductSkuPage({ params }: Props) {
           </div>
 
           <div className="lg:col-span-7">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#EA8D28]">
+            <p className="text-xs font-bold uppercase tracking-widest text-accent">
               {productTemplateEyebrow(product.productTemplate)}
             </p>
-            <h1 className="mt-2 font-heading text-3xl font-bold leading-tight text-[#004C95] md:text-4xl">{product.name}</h1>
+            <h1 className="mt-2 font-heading text-3xl font-bold leading-tight text-brand md:text-4xl">{product.name}</h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#004C95]/10 px-3 py-1 font-mono text-sm font-bold text-[#004C95]">SKU {product.catalog}</span>
+              <span className="rounded-full bg-brand/10 px-3 py-1 font-mono text-sm font-bold text-brand">SKU {product.catalog}</span>
               {product.badges.map((b) => (
-                <span key={b} className="rounded-full border border-[#004C95]/20 px-3 py-1 text-xs font-semibold text-[#004C95]">
+                <span key={b} className="rounded-full border border-brand/20 px-3 py-1 text-xs font-semibold text-brand">
                   {b}
                 </span>
               ))}
             </div>
-            <p className="mt-6 text-2xl font-bold text-[#0f172a]">{product.priceLabel}</p>
+            {product.priceLabel.trim() ? (
+              <p className="mt-6 text-2xl font-bold text-ink">{product.priceLabel}</p>
+            ) : null}
             {product.shortDescription ? (
               <p className="mt-4 text-base leading-relaxed text-slate-600">{product.shortDescription}</p>
             ) : null}
 
-            <div className="mt-8 rounded-2xl border border-[#004C95]/10 bg-white p-6 shadow-sm">
+            <div className="mt-8 rounded-2xl border border-brand/10 bg-white p-6 shadow-sm">
               <dl className="grid gap-4 sm:grid-cols-2">
                 {showQuickFactRow.target ? (
                   <div>
-                    <dt className="text-xs font-bold uppercase text-[#004C95]/70">
+                    <dt className="text-xs font-bold uppercase text-brand/70">
                       {antibodyLike ? "Target" : "Target / analyte"}
                     </dt>
                     <dd className="mt-1 font-medium text-slate-800">{product.target}</dd>
@@ -194,7 +196,7 @@ export default async function ProductSkuPage({ params }: Props) {
                 ) : null}
                 {showQuickFactRow.host ? (
                   <div>
-                    <dt className="text-xs font-bold uppercase text-[#004C95]/70">
+                    <dt className="text-xs font-bold uppercase text-brand/70">
                       {antibodyLike ? "Host" : "Host / source"}
                     </dt>
                     <dd className="mt-1 font-medium text-slate-800">{product.host}</dd>
@@ -202,7 +204,7 @@ export default async function ProductSkuPage({ params }: Props) {
                 ) : null}
                 {showQuickFactRow.applications ? (
                   <div>
-                    <dt className="text-xs font-bold uppercase text-[#004C95]/70">Applications</dt>
+                    <dt className="text-xs font-bold uppercase text-brand/70">Applications</dt>
                     <dd className="mt-1 font-medium text-slate-800">
                       {product.applications.length ? product.applications.join(", ") : "—"}
                     </dd>
@@ -210,7 +212,7 @@ export default async function ProductSkuPage({ params }: Props) {
                 ) : null}
                 {showQuickFactRow.reactivity ? (
                   <div>
-                    <dt className="text-xs font-bold uppercase text-[#004C95]/70">Reactivity</dt>
+                    <dt className="text-xs font-bold uppercase text-brand/70">Reactivity</dt>
                     <dd className="mt-1 font-medium text-slate-800">
                       {product.reactivity.length ? product.reactivity.join(", ") : "—"}
                     </dd>
@@ -218,7 +220,7 @@ export default async function ProductSkuPage({ params }: Props) {
                 ) : null}
                 {showQuickFactRow.clone ? (
                   <div className="sm:col-span-2">
-                    <dt className="text-xs font-bold uppercase text-[#004C95]/70">Clone</dt>
+                    <dt className="text-xs font-bold uppercase text-brand/70">Clone</dt>
                     <dd className="mt-1 font-mono font-medium text-slate-800">{product.clone ?? "—"}</dd>
                   </div>
                 ) : null}
@@ -232,22 +234,22 @@ export default async function ProductSkuPage({ params }: Props) {
         </div>
 
         {product.description ? (
-          <section className="mt-12 rounded-2xl border border-[#004C95]/10 bg-white p-6 md:p-10">
-            <h2 className="font-heading text-xl font-bold text-[#004C95]">Description</h2>
+          <section className="mt-12 rounded-2xl border border-brand/10 bg-white p-6 md:p-10">
+            <h2 className="font-heading text-xl font-bold text-brand">Description</h2>
             <div
-              className="mt-4 max-w-none space-y-3 text-base leading-relaxed text-slate-700 [&_a]:text-[#004C95] [&_a]:underline [&_h2]:font-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-[#004C95] [&_p]:m-0"
+              className="mt-4 max-w-none space-y-3 text-base leading-relaxed text-slate-700 [&_a]:text-brand [&_a]:underline [&_h2]:font-heading [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-brand [&_p]:m-0"
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
           </section>
         ) : null}
 
         {labelledAttrs.length > 0 ? (
-          <section className="mt-12 rounded-2xl border border-[#004C95]/10 bg-white p-6 md:p-10">
-            <h2 className="font-heading text-xl font-bold text-[#004C95]">Specifications</h2>
+          <section className="mt-12 rounded-2xl border border-brand/10 bg-white p-6 md:p-10">
+            <h2 className="font-heading text-xl font-bold text-brand">Specifications</h2>
             <dl className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-2">
               {labelledAttrs.map((a) => (
                 <div key={a.attr_key} className="border-b border-slate-100 pb-3">
-                  <dt className="text-xs font-bold uppercase tracking-wide text-[#004C95]/70">{a.label}</dt>
+                  <dt className="text-xs font-bold uppercase tracking-wide text-brand/70">{a.label}</dt>
                   {a.type === "html" ? (
                     <dd
                       className="mt-1 text-sm leading-relaxed text-slate-700"
@@ -264,15 +266,15 @@ export default async function ProductSkuPage({ params }: Props) {
 
         {similar.length > 0 ? (
           <section className="mt-12">
-            <h2 className="font-heading text-xl font-bold text-[#004C95]">Similar products</h2>
+            <h2 className="font-heading text-xl font-bold text-brand">Similar products</h2>
             <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {similar.map((s) => (
                 <li key={s.id}>
                   <Link
                     href={`/products/${encodeURIComponent(s.catalog)}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#004C95]/10 bg-white shadow-sm transition hover:border-[#EA8D28]/40"
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-sm transition hover:border-accent/40"
                   >
-                    <div className="flex aspect-[4/3] items-center justify-center bg-[#f0f7fc] p-3">
+                    <div className="flex aspect-[4/3] items-center justify-center bg-brand-tint p-3">
                       {s.imageUrl ? (
                         <CatalogProductImage src={s.imageUrl} alt="" className="max-h-full max-w-full object-contain" />
                       ) : (
@@ -280,8 +282,8 @@ export default async function ProductSkuPage({ params }: Props) {
                       )}
                     </div>
                     <div className="flex flex-1 flex-col gap-1 p-4">
-                      <p className="font-mono text-xs font-bold text-[#EA8D28]">{s.catalog}</p>
-                      <h3 className="font-heading text-sm font-semibold leading-snug text-[#004C95] group-hover:text-[#EA8D28]">
+                      <p className="font-mono text-xs font-bold text-accent">{s.catalog}</p>
+                      <h3 className="font-heading text-sm font-semibold leading-snug text-brand group-hover:text-accent">
                         {s.name}
                       </h3>
                       <p className="text-xs text-slate-600">
@@ -296,10 +298,10 @@ export default async function ProductSkuPage({ params }: Props) {
         ) : null}
 
         {publications.length > 0 ? (
-          <section className="mt-12 rounded-2xl border border-[#004C95]/10 bg-white p-6 md:p-10">
+          <section className="mt-12 rounded-2xl border border-brand/10 bg-white p-6 md:p-10">
             <div className="flex items-baseline justify-between gap-4">
-              <h2 className="font-heading text-xl font-bold text-[#004C95]">Publications citing this product</h2>
-              <span className="text-xs font-semibold uppercase tracking-wide text-[#EA8D28]">
+              <h2 className="font-heading text-xl font-bold text-brand">Publications citing this product</h2>
+              <span className="text-xs font-semibold uppercase tracking-wide text-accent">
                 Top {publications.length}
               </span>
             </div>
@@ -311,12 +313,12 @@ export default async function ProductSkuPage({ params }: Props) {
                       href={p.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-heading text-base font-semibold text-[#004C95] hover:text-[#EA8D28] hover:underline"
+                      className="font-heading text-base font-semibold text-brand hover:text-accent hover:underline"
                     >
                       {p.title || "Untitled publication"}
                     </a>
                   ) : (
-                    <span className="font-heading text-base font-semibold text-[#004C95]">
+                    <span className="font-heading text-base font-semibold text-brand">
                       {p.title || "Untitled publication"}
                     </span>
                   )}
@@ -338,7 +340,7 @@ export default async function ProductSkuPage({ params }: Props) {
 
         {product.storage ? (
           <p className="mt-6 text-sm text-slate-500">
-            <span className="font-semibold text-[#004C95]">Storage:</span> {product.storage}
+            <span className="font-semibold text-brand">Storage:</span> {product.storage}
           </p>
         ) : null}
       </div>

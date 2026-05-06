@@ -4,6 +4,7 @@ import "server-only";
 import { supabaseService } from "./server";
 import { decodeEntities } from "./utils";
 import type { CatalogProduct } from "../catalog-product-types";
+import { formatCatalogPriceLabel } from "../catalog-price-label";
 
 type ProductRow = {
   id: number;
@@ -20,6 +21,8 @@ type ProductRow = {
   description: string | null;
   short_description: string | null;
   storage: string | null;
+  list_price?: number | null;
+  metadata?: Record<string, unknown> | null;
 };
 
 export async function findProductsByGene(gene: string, limit = 60): Promise<CatalogProduct[]> {
@@ -58,7 +61,7 @@ export async function findProductsByGene(gene: string, limit = 60): Promise<Cata
     host: p.host_species || "—",
     applications: p.applications ?? [],
     reactivity: p.reactivity ?? [],
-    priceLabel: "Contact for price",
+    priceLabel: formatCatalogPriceLabel({ listPrice: p.list_price ?? null, metadata: p.metadata ?? null }),
     imageUrl: null,
     shortDescription: p.short_description,
     description: p.description,

@@ -55,7 +55,7 @@ function firstImageUrl(p: Record<string, unknown>): string | null {
 }
 
 function priceLabelFromVariant(v: Record<string, unknown> | undefined): string {
-  if (!v) return "Contact for price"
+  if (!v) return ""
   const cp = v.calculated_price as { calculated_amount?: number; currency_code?: string } | undefined
   if (cp && typeof cp.calculated_amount === "number" && Number.isFinite(cp.calculated_amount)) {
     const cur = (cp.currency_code ?? "usd").toUpperCase()
@@ -67,7 +67,7 @@ function priceLabelFromVariant(v: Record<string, unknown> | undefined): string {
     const cur = (prices?.[0]?.currency_code ?? "usd").toUpperCase()
     return `$${(amt / 100).toFixed(2)}`
   }
-  return "Contact for price"
+  return ""
 }
 
 function formatsFromProduct(p: Record<string, unknown>): string[] {

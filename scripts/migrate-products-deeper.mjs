@@ -76,9 +76,18 @@ const HEADER = [
   'custom_attribute_5','custom_attribute_6','template'
 ];
 
+function parseListPriceUsd(row) {
+  const raw = row.price ?? row.price_for_size_1
+  if (raw == null || String(raw).trim() === "") return null
+  const n = parseFloat(String(raw).replace(/[^0-9.-]/g, ""))
+  if (!Number.isFinite(n) || n <= 0) return null
+  return n
+}
+
 function rowToProduct(row) {
   const target_info = {};
   for (const f of TARGET_INFO_FIELDS) if (row[f]) target_info[f] = row[f];
+  const list_price = parseListPriceUsd(row)
   const product = {
     sku: row.sku?.trim(),
     title: row.name?.trim() || row.sku?.trim(),
@@ -100,6 +109,7 @@ function rowToProduct(row) {
     meta_description: row.meta_description || null,
     meta_keywords: row.meta_keyword || null,
     search_index: [row.sku, row.name, row.gene_name, row.uniprot_id, row.synonyms].filter(Boolean).join(' '),
+    ...(list_price != null ? { list_price } : {}),
   };
   for (let i = 0; i < TYPE_B_COLUMNS.length && i < 25; i++) {
     product[`attr_${i + 1}`] = row[TYPE_B_COLUMNS[i]] || null;
