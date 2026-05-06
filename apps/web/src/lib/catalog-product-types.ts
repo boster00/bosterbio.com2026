@@ -14,4 +14,8 @@ export type CatalogProduct = {
   formats: string[]
   badges: string[]
   storage: string | null
+  /** Magento `template` column → Supabase `product_template`. */
+  productTemplate: string
+  /** Row-level JSON from migration (price ladder, conjugate, etc.). */
+  metadata: Record<string, unknown> | null
 }

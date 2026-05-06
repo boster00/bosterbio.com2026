@@ -1,6 +1,7 @@
 // Gene-specific landing page: /products/by-gene/IL-6 → all IL-6 antibodies, ELISAs, etc.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { productDetailPath } from "@/lib/product-urls";
 import { findProductsByGene } from "@/lib/supabase/by-gene";
 
 type Props = { params: Promise<{ gene: string }> };
@@ -56,7 +57,7 @@ export default async function ByGenePage({ params }: Props) {
             {results.map((p) => (
               <li key={p.id}>
                 <Link
-                  href={`/products/${encodeURIComponent(p.catalog)}`}
+                  href={productDetailPath(p.catalog)}
                   className="group block rounded-xl border border-brand-primary/10 bg-white p-4 shadow-sm transition hover:border-accent/40 hover:shadow-md"
                 >
                   <p className="font-mono text-xs font-bold text-accent">{p.catalog}</p>

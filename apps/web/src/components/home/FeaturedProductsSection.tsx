@@ -3,6 +3,7 @@
 // returns 0 rows (so it gracefully degrades on dev without env).
 import Link from "next/link";
 import { listProductsFromSupabase } from "@/lib/supabase/catalog";
+import { productDetailPath } from "@/lib/product-urls";
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
 
 export async function FeaturedProductsSection() {
@@ -44,7 +45,7 @@ export async function FeaturedProductsSection() {
           {products.map((p) => (
             <li key={p.id}>
               <Link
-                href={`/products/${encodeURIComponent(p.catalog)}`}
+                href={productDetailPath(p.catalog)}
                 className="group flex h-full flex-col overflow-hidden rounded-2xl border border-brand/10 bg-white shadow-card transition hover:border-accent/40"
               >
                 <div className="flex aspect-[4/3] items-center justify-center bg-[#f0f7fc] p-3">

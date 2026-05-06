@@ -6,6 +6,7 @@ export function catalogSearchHaystack(p: CatalogProduct): string {
     p.catalog,
     p.target,
     p.host,
+    p.productTemplate,
     p.applications.join(" "),
     p.reactivity.join(" "),
     p.shortDescription ?? "",

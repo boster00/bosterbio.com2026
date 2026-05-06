@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { catalogSearchHaystack } from "@/lib/catalog-search"
+import { productDetailPath } from "@/lib/product-urls"
 import { searchProductsInSupabase } from "@/lib/supabase/catalog"
 
 type Props = { searchParams: Promise<{ q?: string }> }
@@ -89,7 +90,7 @@ export default async function SearchPage({ searchParams }: Props) {
                   )}
                   <div className="min-w-0">
                     <Link
-                      href={`/products/${encodeURIComponent(p.catalog)}`}
+                      href={productDetailPath(p.catalog)}
                       className="font-heading text-base font-semibold text-[#004C95] hover:text-[#EA8D28]"
                     >
                       {p.name}
@@ -103,7 +104,7 @@ export default async function SearchPage({ searchParams }: Props) {
                   </p>
                   <p className="mt-3 text-sm font-bold text-slate-900">{p.priceLabel}</p>
                   <Link
-                    href={`/products/${encodeURIComponent(p.catalog)}`}
+                    href={productDetailPath(p.catalog)}
                     className="mt-auto inline-flex w-fit rounded-full border-2 border-[#004C95] px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#004C95] hover:bg-[#004C95]/5"
                   >
                     View product

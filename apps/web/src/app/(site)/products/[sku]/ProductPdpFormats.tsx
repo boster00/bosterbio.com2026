@@ -13,7 +13,7 @@ export function ProductPdpFormats({ formats, catalog }: Props) {
 
   return (
     <div>
-      <p className="text-xs font-bold uppercase tracking-wider text-[#004C95]/80">Format</p>
+      <p className="text-xs font-bold uppercase tracking-wider text-catalog-brand/80">Format</p>
       <div className="mt-2 flex flex-wrap gap-2">
         {list.map((f) => (
           <button
@@ -22,8 +22,8 @@ export function ProductPdpFormats({ formats, catalog }: Props) {
             onClick={() => setSelected(f)}
             className={`min-h-[40px] rounded-full border-2 px-4 py-2 text-sm font-semibold transition ${
               selected === f
-                ? "border-[#EA8D28] bg-[#EA8D28]/10 text-[#004C95]"
-                : "border-[#004C95]/20 bg-white text-[#0f172a] hover:border-[#004C95]/40"
+                ? "border-catalog-accent bg-catalog-accent/10 text-catalog-brand"
+                : "border-catalog-brand/20 bg-white text-slate-900 hover:border-catalog-brand/40"
             }`}
           >
             {f}
@@ -32,8 +32,7 @@ export function ProductPdpFormats({ formats, catalog }: Props) {
       </div>
       <button
         type="button"
-        className="mt-6 min-h-[48px] w-full max-w-md rounded-md px-6 text-sm font-bold uppercase tracking-wide text-white shadow-md transition hover:opacity-95"
-        style={{ backgroundColor: "#EA8D28" }}
+        className="mt-6 min-h-[48px] w-full max-w-md rounded-md bg-catalog-accent px-6 text-sm font-bold uppercase tracking-wide text-white shadow-md transition hover:opacity-95"
         onClick={() => {
           window.location.href = `/cart?add=${encodeURIComponent(catalog)}&format=${encodeURIComponent(selected)}`
         }}
@@ -41,7 +40,7 @@ export function ProductPdpFormats({ formats, catalog }: Props) {
         Add to cart
       </button>
       <p className="mt-2 text-xs text-slate-500">
-        Selected: <span className="font-mono text-slate-700">{selected}</span> — cart wiring is stubbed for smoke test.
+        Selected: <span className="font-mono text-slate-700">{selected}</span> — cart wiring is stubbed for migration smoke tests.
       </p>
     </div>
   )

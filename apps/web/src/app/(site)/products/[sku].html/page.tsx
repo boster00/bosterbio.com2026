@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: Props) {
   return buildProductPdpMetadata(normalizeProductSkuParam(sku))
 }
 
-export default async function ProductSkuPage({ params }: Props) {
+export default async function ProductSkuHtmlPage({ params }: Props) {
   const { sku } = await params
   return <ProductDetailPage catalog={normalizeProductSkuParam(sku)} />
 }

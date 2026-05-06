@@ -42,6 +42,8 @@ export function seedRowsToCatalogProducts(): CatalogProduct[] {
     formats: Array.isArray(r.formats) ? r.formats : [],
     badges: Array.isArray(r.badges) ? r.badges : [],
     storage: r.storage || null,
+    productTemplate: "antibodies",
+    metadata: null,
   }))
 }
 

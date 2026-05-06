@@ -38,6 +38,12 @@ const config: Config = {
           hover: "#d67a1c",
           soft: "#fff7ed",
         },
+        /** Scoped palette for /products PLP + PDP (Figma migration reference). */
+        catalog: {
+          brand: "#1a365d",
+          accent: "#f97316",
+          tint: "#f8fafc",
+        },
         surface: {
           DEFAULT: "#ffffff",
           subtle: "#f4f8fc",

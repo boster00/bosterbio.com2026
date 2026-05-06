@@ -1,5 +1,7 @@
 import { fetchCatalogProducts } from "@/lib/catalog-products"
+import { getEnabledCountsByTemplate, getEnabledProductCount } from "@/lib/catalog-stats"
 import { listProductsFromSupabase } from "@/lib/supabase/catalog"
+import { productDetailPath } from "@/lib/product-urls"
 import { ProductCatalog } from "./ProductCatalog"
 
 type Props = {
@@ -22,16 +24,23 @@ export default async function ProductsPage({ searchParams }: Props) {
   const template = typeof params.template === "string" ? params.template : undefined
   const category = typeof params.category === "string" ? params.category : undefined
 
-  // When ?template= or ?category= is set, query Supabase directly with the filter.
-  // Otherwise use the existing fallback chain (Medusa → Supabase → seed).
+  let catalogTotalEnabled = 0
+  let templateCounts: Partial<Record<string, number>> = {}
+
   let products
-  if ((template || category) && supabaseConfigured()) {
-    products = await listProductsFromSupabase({ template, category, limit: 200 })
+  if (supabaseConfigured()) {
+    const [list, total, counts] = await Promise.all([
+      listProductsFromSupabase({ template, category, limit: 200 }),
+      getEnabledProductCount(),
+      getEnabledCountsByTemplate(),
+    ])
+    products = list
+    catalogTotalEnabled = total
+    templateCounts = counts
   } else {
     products = await fetchCatalogProducts()
   }
 
-  // Schema.org/ItemList JSON-LD — helps Google understand category listings.
   const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://www.bosterbio.com"
   const itemListJsonLd = {
     "@context": "https://schema.org/",
@@ -43,19 +52,25 @@ export default async function ProductsPage({ searchParams }: Props) {
         "@type": "Product",
         name: p.name,
         sku: p.catalog,
-        url: `${SITE_ORIGIN}/products/${encodeURIComponent(p.catalog)}`,
+        url: `${SITE_ORIGIN}${productDetailPath(p.catalog)}`,
         ...(p.imageUrl ? { image: p.imageUrl } : {}),
       },
     })),
   }
 
   return (
-    <main id="main-content" className="min-h-[60vh] bg-brand-tint">
+    <main id="main-content" className="min-h-[60vh] bg-catalog-tint">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <ProductCatalog initialQuery={q} initialProducts={products} templateFilter={template} />
+      <ProductCatalog
+        initialQuery={q}
+        initialProducts={products}
+        templateFilter={template}
+        catalogTotalEnabled={catalogTotalEnabled}
+        templateCounts={templateCounts}
+      />
     </main>
   )
 }
