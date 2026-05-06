@@ -1,9 +1,10 @@
 import Link from "next/link"
 import { AntibodyRobotMascot } from "./AntibodyRobotMascot"
 import { supabaseService } from "@/lib/supabase/server"
+import { supabaseCatalogConfigured } from "@/lib/supabase/catalog-env"
 
 async function getCatalogStats() {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+  if (!supabaseCatalogConfigured()) {
     return { antibodies: null, publications: null }
   }
   try {

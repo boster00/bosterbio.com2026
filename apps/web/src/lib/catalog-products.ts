@@ -5,11 +5,12 @@ import {
   listProductsFromSupabase,
   getProductFromSupabase,
 } from "./supabase/catalog"
+import { supabaseCatalogConfigured } from "./supabase/catalog-env"
 
 export type { CatalogProduct }
 
 function supabaseConfigured(): boolean {
-  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()))
+  return supabaseCatalogConfigured()
 }
 
 const PRODUCT_LIST_FIELDS =

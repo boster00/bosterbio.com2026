@@ -1,6 +1,8 @@
 import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { listProductsFromSupabase } from "@/lib/supabase/catalog"
 import { ProductCatalog } from "./ProductCatalog"
+import { supabaseCatalogConfigured } from "@/lib/supabase/catalog-env"
+import { supabaseService } from "@/lib/supabase/server"
 
 type Props = {
   searchParams: Promise<{ q?: string; template?: string; category?: string }>
@@ -9,23 +11,30 @@ type Props = {
 // ISR: PLP re-renders every 5 minutes per unique searchParams set
 export const revalidate = 300
 
-function supabaseConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
-      (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()),
-  )
-}
-
 export default async function ProductsPage({ searchParams }: Props) {
   const params = await searchParams
   const q = typeof params.q === "string" ? params.q : ""
   const template = typeof params.template === "string" ? params.template : undefined
   const category = typeof params.category === "string" ? params.category : undefined
 
+  let enabledCatalogTotal: number | undefined
+  if (supabaseCatalogConfigured()) {
+    try {
+      const sb = supabaseService()
+      let cq = sb.from("products").select("*", { count: "exact", head: true }).eq("status", "enabled")
+      if (template) cq = cq.eq("product_template", template)
+      if (category) cq = cq.eq("category", category)
+      const { count, error } = await cq
+      if (!error && typeof count === "number") enabledCatalogTotal = count
+    } catch {
+      /* count is optional for PLP */
+    }
+  }
+
   // When ?template= or ?category= is set, query Supabase directly with the filter.
   // Otherwise use the existing fallback chain (Medusa → Supabase → seed).
   let products
-  if ((template || category) && supabaseConfigured()) {
+  if ((template || category) && supabaseCatalogConfigured()) {
     products = await listProductsFromSupabase({ template, category, limit: 200 })
   } else {
     products = await fetchCatalogProducts()
@@ -55,7 +64,12 @@ export default async function ProductsPage({ searchParams }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <ProductCatalog initialQuery={q} initialProducts={products} templateFilter={template} />
+      <ProductCatalog
+        initialQuery={q}
+        initialProducts={products}
+        templateFilter={template}
+        enabledCatalogTotal={enabledCatalogTotal}
+      />
     </main>
   )
 }

@@ -4,10 +4,11 @@
 import Link from "next/link";
 import { listProductsFromSupabase } from "@/lib/supabase/catalog";
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
+import { supabaseCatalogConfigured } from "@/lib/supabase/catalog-env";
 
 export async function FeaturedProductsSection() {
   // Only render when Supabase is wired
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+  if (!supabaseCatalogConfigured()) {
     return null;
   }
 
