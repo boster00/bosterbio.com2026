@@ -1,0 +1,668 @@
+[
+  {
+    "vp": "desktop",
+    "label": "home",
+    "path": "/",
+    "status": 200,
+    "elapsed": 14659,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Trusted Antibodies for Life Science Research",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 8,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "plp",
+    "path": "/products",
+    "status": 200,
+    "elapsed": 6524,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Antibodies & reagents",
+      "mobileNavVisible": false,
+      "brokenImages": 1,
+      "totalImages": 200,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: Failed to load resource: the server responded with a status of 502 (Bad Gateway)"
+    ]
+  },
+  {
+    "vp": "desktop",
+    "label": "pdp",
+    "path": "/products/A06751",
+    "status": 200,
+    "elapsed": 4152,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Anti-Ficolin-1 FCN1 Antibody",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 5,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "cart",
+    "path": "/cart",
+    "status": 200,
+    "elapsed": 1688,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Shopping cart",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "checkout",
+    "path": "/checkout",
+    "status": 200,
+    "elapsed": 1455,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Checkout",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "contact",
+    "path": "/contact",
+    "status": 200,
+    "elapsed": 1743,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Contact us",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "contact-us",
+    "path": "/contact-us",
+    "status": 200,
+    "elapsed": 1796,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Contact us",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "about",
+    "path": "/about",
+    "status": 200,
+    "elapsed": 2543,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "About Boster Bio",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 5,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "about-us",
+    "path": "/about-us",
+    "status": 200,
+    "elapsed": 1598,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "About Boster Bio",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 5,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "design-guide",
+    "path": "/design-guide",
+    "status": 200,
+    "elapsed": 1800,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Design system guide",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "service-detail",
+    "path": "/services/custom-antibody-production-services",
+    "status": 200,
+    "elapsed": 1782,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Custom Antibody Production Services",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 2,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "service-hub",
+    "path": "/services",
+    "status": 200,
+    "elapsed": 1763,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Custom services",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "knowledge-wb",
+    "path": "/western-blotting-technical-resource-center",
+    "status": 200,
+    "elapsed": 1919,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Western Blotting Technical Resource Center",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "desktop",
+    "label": "knowledge-elisa",
+    "path": "/elisa-technical-resource-center",
+    "status": 200,
+    "elapsed": 1545,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "ELISA Technical Resource Center",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client bran"
+    ]
+  },
+  {
+    "vp": "desktop",
+    "label": "primary-antibodies",
+    "path": "/primary-antibodies",
+    "status": 200,
+    "elapsed": 1547,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Primary Antibodies",
+      "mobileNavVisible": false,
+      "brokenImages": 1,
+      "totalImages": 32,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin",
+      "console.error: A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client bran",
+      "console.error: Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
+    ]
+  },
+  {
+    "vp": "desktop",
+    "label": "blog",
+    "path": "/blog",
+    "status": 200,
+    "elapsed": 1115,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Blog",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client bran"
+    ]
+  },
+  {
+    "vp": "desktop",
+    "label": "404-known",
+    "path": "/__definitely_not_a_real_page__",
+    "status": 404,
+    "elapsed": 3929,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Page not found",
+      "mobileNavVisible": false,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "vp": "mobile",
+    "label": "home",
+    "path": "/",
+    "status": 200,
+    "elapsed": 6603,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Trusted Antibodies for Life Science Research",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 8,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "plp",
+    "path": "/products",
+    "status": 200,
+    "elapsed": 6430,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Antibodies & reagents",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 200,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "pdp",
+    "path": "/products/A06751",
+    "status": 200,
+    "elapsed": 3048,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Anti-Ficolin-1 FCN1 Antibody",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 5,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "cart",
+    "path": "/cart",
+    "status": 200,
+    "elapsed": 1465,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Shopping cart",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "checkout",
+    "path": "/checkout",
+    "status": 200,
+    "elapsed": 1484,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Checkout",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "contact",
+    "path": "/contact",
+    "status": 200,
+    "elapsed": 1569,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Contact us",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "contact-us",
+    "path": "/contact-us",
+    "status": 200,
+    "elapsed": 1786,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Contact us",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "about",
+    "path": "/about",
+    "status": 200,
+    "elapsed": 1859,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "About Boster Bio",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 5,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "about-us",
+    "path": "/about-us",
+    "status": 200,
+    "elapsed": 1657,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "About Boster Bio",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 5,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "design-guide",
+    "path": "/design-guide",
+    "status": 200,
+    "elapsed": 1670,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Design system guide",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "service-detail",
+    "path": "/services/custom-antibody-production-services",
+    "status": 200,
+    "elapsed": 1667,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Custom Antibody Production Services",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 2,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "service-hub",
+    "path": "/services",
+    "status": 200,
+    "elapsed": 1163,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Custom services",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client bran"
+    ]
+  },
+  {
+    "vp": "mobile",
+    "label": "knowledge-wb",
+    "path": "/western-blotting-technical-resource-center",
+    "status": 200,
+    "elapsed": 1229,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Western Blotting Technical Resource Center",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client bran"
+    ]
+  },
+  {
+    "vp": "mobile",
+    "label": "knowledge-elisa",
+    "path": "/elisa-technical-resource-center",
+    "status": 200,
+    "elapsed": 1131,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "ELISA Technical Resource Center",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "primary-antibodies",
+    "path": "/primary-antibodies",
+    "status": 200,
+    "elapsed": 1242,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Primary Antibodies",
+      "mobileNavVisible": true,
+      "brokenImages": 1,
+      "totalImages": 32,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin"
+    ]
+  },
+  {
+    "vp": "mobile",
+    "label": "blog",
+    "path": "/blog",
+    "status": 200,
+    "elapsed": 1189,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Blog",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": []
+  },
+  {
+    "vp": "mobile",
+    "label": "404-known",
+    "path": "/__definitely_not_a_real_page__",
+    "status": 404,
+    "elapsed": 3348,
+    "networkOk": true,
+    "probe": {
+      "hasMain": true,
+      "hasHeader": true,
+      "hasFooter": true,
+      "h1Text": "Page not found",
+      "mobileNavVisible": true,
+      "brokenImages": 0,
+      "totalImages": 0,
+      "overflowX": false
+    },
+    "consoleErrors": [
+      "console.error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  }
+]

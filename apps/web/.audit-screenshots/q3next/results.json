@@ -1,0 +1,272 @@
+[
+  {
+    "key": "core_01_home",
+    "path": "/",
+    "live": "https://www.bosterbio.com/",
+    "label": "core_01_home",
+    "urlPath": "/",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_02_about_us",
+    "path": "/about-us",
+    "live": "https://www.bosterbio.com/about-us",
+    "label": "core_02_about_us",
+    "urlPath": "/about-us",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_03_design_guide",
+    "path": "/design-guide",
+    "live": null,
+    "label": "core_03_design_guide",
+    "urlPath": "/design-guide",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_04_wb_service",
+    "path": "/in-cell-western-blot-service",
+    "live": "https://www.bosterbio.com/in-cell-western-blot-service",
+    "label": "core_04_wb_service",
+    "urlPath": "/in-cell-western-blot-service",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_05_wb_principle",
+    "path": "/protocol-and-troubleshooting/western-blot-principle",
+    "live": "https://www.bosterbio.com/protocol-and-troubleshooting/western-blot-principle",
+    "label": "core_05_wb_principle",
+    "urlPath": "/protocol-and-troubleshooting/western-blot-principle",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_06_gene_info_bdnf",
+    "path": "/gene-info/bdnf",
+    "live": "https://www.bosterbio.com/gene-info/bdnf",
+    "label": "core_06_gene_info_bdnf",
+    "urlPath": "/gene-info/bdnf",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_07_cart",
+    "path": "/cart",
+    "live": "https://www.bosterbio.com/checkout/cart",
+    "label": "core_07_cart",
+    "urlPath": "/cart",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_08_checkout",
+    "path": "/checkout",
+    "live": "https://www.bosterbio.com/checkout",
+    "label": "core_08_checkout",
+    "urlPath": "/checkout",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "core_09_blog_cancer_pathways",
+    "path": "/newsletter-archive/20170811-cancer-research-pathways",
+    "live": "https://www.bosterbio.com/newsletter-archive/20170811-cancer-research-pathways",
+    "label": "core_09_blog_cancer_pathways",
+    "urlPath": "/newsletter-archive/20170811-cancer-research-pathways",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_antibodies_01",
+    "sku": "A00052",
+    "template": "antibodies",
+    "urlPath": "/products/A00052",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_antibodies_02",
+    "sku": "M02059",
+    "template": "antibodies",
+    "urlPath": "/products/M02059",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_cell_based_elisa_01",
+    "sku": "EKC1001",
+    "template": "cell-based-elisa-kits",
+    "urlPath": "/products/EKC1001",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_cell_based_elisa_02",
+    "sku": "EKC1002",
+    "template": "cell-based-elisa-kits",
+    "urlPath": "/products/EKC1002",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_cell_based_phospho_elisa_01",
+    "sku": "EKC2383",
+    "template": "cell-based-phospho-elisa-kits",
+    "urlPath": "/products/EKC2383",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_cell_based_phospho_elisa_02",
+    "sku": "EKC1934",
+    "template": "cell-based-phospho-elisa-kits",
+    "urlPath": "/products/EKC1934",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_custom_description_01",
+    "sku": "zerotest",
+    "template": "custom-description",
+    "urlPath": "/products/zerotest",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_custom_description_02",
+    "sku": "BA1142",
+    "template": "custom-description",
+    "urlPath": "/products/BA1142",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_elisa_kits_01",
+    "sku": "EK1629",
+    "template": "elisa-kits",
+    "urlPath": "/products/EK1629",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_elisa_kits_02",
+    "sku": "EK1679",
+    "template": "elisa-kits",
+    "urlPath": "/products/EK1679",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_elisa_kits_custom_components_01",
+    "sku": "EK7004",
+    "template": "elisa-kits-custom-components",
+    "urlPath": "/products/EK7004",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_elisa_kits_custom_components_02",
+    "sku": "EK7005",
+    "template": "elisa-kits-custom-components",
+    "urlPath": "/products/EK7005",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_ez_set_01",
+    "sku": "EZ0307",
+    "template": "ez-set",
+    "urlPath": "/products/EZ0307",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_ez_set_02",
+    "sku": "EZ0312",
+    "template": "ez-set",
+    "urlPath": "/products/EZ0312",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_over_expression_lysates_01",
+    "sku": "LS000009",
+    "template": "over-expression-lysates",
+    "urlPath": "/products/LS000009",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_over_expression_lysates_02",
+    "sku": "LS000274",
+    "template": "over-expression-lysates",
+    "urlPath": "/products/LS000274",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_proteins_01",
+    "sku": "PROTQ9UBN6",
+    "template": "proteins",
+    "urlPath": "/products/PROTQ9UBN6",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_proteins_02",
+    "sku": "PROTP07333",
+    "template": "proteins",
+    "urlPath": "/products/PROTP07333",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_tag_quick_elisa_01",
+    "sku": "FEK0559",
+    "template": "tag-quick-elisa-kits",
+    "urlPath": "/products/FEK0559",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  },
+  {
+    "key": "pdp_tag_quick_elisa_02",
+    "sku": "FEK0595",
+    "template": "tag-quick-elisa-kits",
+    "urlPath": "/products/FEK0595",
+    "status": 200,
+    "ok": true,
+    "errs": []
+  }
+]

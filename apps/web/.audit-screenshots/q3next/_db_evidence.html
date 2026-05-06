@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Smoke 3.x.next — DB evidence</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", system-ui, sans-serif; background: #f4f8fc; margin: 0; padding: 32px; color: #1e293b; }
+  h1 { color: #004C95; font-weight: 700; margin: 0 0 4px; font-size: 28px; }
+  .sub { color: #64748b; font-size: 14px; margin-bottom: 24px; }
+  .card { background: white; border: 1px solid #e2eaf3; border-radius: 14px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,76,149,0.06); }
+  .ord-num { font-family: ui-monospace, "SF Mono", monospace; color: #EA8D28; font-size: 16px; font-weight: 700; }
+  .row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 12px; }
+  .col { flex: 1 1 200px; }
+  .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #475569; font-weight: 600; }
+  .val { font-size: 14px; color: #1e293b; margin-top: 2px; }
+  .mono { font-family: ui-monospace, "SF Mono", monospace; font-size: 12px; color: #475569; }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+  th { text-align: left; background: #e8eef6; color: #003366; padding: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  td { padding: 8px; border-bottom: 1px solid #e2eaf3; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .badge.placed { background: #dcfce7; color: #166534; }
+  .badge.unpaid { background: #fef3c7; color: #92400e; }
+  .badge.sandbox { background: #dbeafe; color: #1e40af; }
+  .badge.stub { background: #fef3c7; color: #92400e; }
+  .err { background: #fef2f2; color: #991b1b; padding: 10px; border-radius: 8px; font-size: 12px; margin-top: 8px; font-family: ui-monospace, "SF Mono", monospace; }
+</style></head><body>
+<h1>Smoke 3.x.next — Item 3 evidence: orders captured + Zoho fail-safe sync state</h1>
+<p class="sub">Schema: <span class="mono">apps/web/sql/006_orders.sql</span> · API: <span class="mono">POST /api/orders</span> · Sync: <span class="mono">apps/web/src/lib/zoho-books-sync.ts</span> · Source: live Supabase production DB</p>
+
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div>
+        <div class="ord-num">BB-2026-67QWIL</div>
+        <div class="mono" style="margin-top:4px;">id = 2a4590cc-dd69-4e04-9874-df0304a703fa</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge placed">placed</span>
+        <span class="badge unpaid" style="margin-left:6px;">unpaid</span>
+        <span class="badge sandbox" style="margin-left:6px;">sandbox</span>
+        <div class="mono" style="margin-top:6px;">2026-05-02T01:19:15.107Z</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col"><div class="lbl">Customer</div><div class="val">Smoke Test · smoketest@bosterbio.com</div><div class="mono">BosterBio QA</div></div>
+      <div class="col"><div class="lbl">Ship to</div><div class="val">3942-B Valley Ave</div><div class="mono">Pleasanton, CA 94566 · US</div></div>
+      <div class="col"><div class="lbl">Totals</div><div class="val">Subtotal $858.00 · Total $858.00 USD</div></div>
+    </div>
+
+    <table>
+      <tr><th>SKU</th><th>Title</th><th>Template</th><th style="text-align:right;">Unit</th><th style="text-align:right;">Qty</th><th style="text-align:right;">Subtotal</th></tr>
+      
+        <tr>
+          <td class="mono" style="color:#004C95;font-weight:600;">A06751</td>
+          <td>Anti-Ficolin-1 FCN1 Antibody</td>
+          <td class="mono">antibodies</td>
+          <td class="mono" style="text-align:right;">$359.00</td>
+          <td class="mono" style="text-align:right;">1</td>
+          <td class="mono" style="text-align:right;">$359.00</td>
+        </tr>
+      
+        <tr>
+          <td class="mono" style="color:#004C95;font-weight:600;">EK1629</td>
+          <td>Mouse TFF3/ITF ELISA Kit PicoKine®</td>
+          <td class="mono">elisa-kits</td>
+          <td class="mono" style="text-align:right;">$499.00</td>
+          <td class="mono" style="text-align:right;">1</td>
+          <td class="mono" style="text-align:right;">$499.00</td>
+        </tr>
+      
+    </table>
+
+    <div style="margin-top:14px; padding-top:14px; border-top:1px dashed #e2eaf3;">
+      <div class="lbl">Zoho Books fail-safe sync state</div>
+      <div class="row" style="margin-top:6px;">
+        <div class="col"><span class="mono">zoho_synced_at:</span> <span class="badge stub">NULL (not yet synced)</span></div>
+        <div class="col"><span class="mono">zoho_sync_attempts:</span> 1</div>
+      </div>
+      <div class="err">last error: STUB_MODE: credentials not provisioned (refresh_token + org_id missing)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div>
+        <div class="ord-num">BB-2026-FDLJ80</div>
+        <div class="mono" style="margin-top:4px;">id = 035483aa-224f-4b7d-9037-5e6271052b6f</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="badge placed">placed</span>
+        <span class="badge unpaid" style="margin-left:6px;">unpaid</span>
+        <span class="badge sandbox" style="margin-left:6px;">sandbox</span>
+        <div class="mono" style="margin-top:6px;">2026-05-02T01:18:44.140Z</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col"><div class="lbl">Customer</div><div class="val">Smoke Test · smoketest@bosterbio.com</div><div class="mono">BosterBio QA</div></div>
+      <div class="col"><div class="lbl">Ship to</div><div class="val">3942-B Valley Ave</div><div class="mono">Pleasanton, CA 94566 · US</div></div>
+      <div class="col"><div class="lbl">Totals</div><div class="val">Subtotal $858.00 · Total $858.00 USD</div></div>
+    </div>
+
+    <table>
+      <tr><th>SKU</th><th>Title</th><th>Template</th><th style="text-align:right;">Unit</th><th style="text-align:right;">Qty</th><th style="text-align:right;">Subtotal</th></tr>
+      
+        <tr>
+          <td class="mono" style="color:#004C95;font-weight:600;">A06751</td>
+          <td>Anti-Ficolin-1 FCN1 Antibody</td>
+          <td class="mono">antibodies</td>
+          <td class="mono" style="text-align:right;">$359.00</td>
+          <td class="mono" style="text-align:right;">1</td>
+          <td class="mono" style="text-align:right;">$359.00</td>
+        </tr>
+      
+        <tr>
+          <td class="mono" style="color:#004C95;font-weight:600;">EK1629</td>
+          <td>Mouse TFF3/ITF ELISA Kit PicoKine</td>
+          <td class="mono">elisa-kits</td>
+          <td class="mono" style="text-align:right;">$499.00</td>
+          <td class="mono" style="text-align:right;">1</td>
+          <td class="mono" style="text-align:right;">$499.00</td>
+        </tr>
+      
+    </table>
+
+    <div style="margin-top:14px; padding-top:14px; border-top:1px dashed #e2eaf3;">
+      <div class="lbl">Zoho Books fail-safe sync state</div>
+      <div class="row" style="margin-top:6px;">
+        <div class="col"><span class="mono">zoho_synced_at:</span> <span class="badge stub">NULL (not yet synced)</span></div>
+        <div class="col"><span class="mono">zoho_sync_attempts:</span> 1</div>
+      </div>
+      <div class="err">last error: STUB_MODE: credentials not provisioned (refresh_token + org_id missing)</div>
+    </div>
+  </div>
+
+
+<div class="card" style="background:#fff7ed;border-color:#fed7aa;">
+  <h2 style="color:#EA8D28; margin:0 0 8px; font-size:16px;">Stub mode — what's blocking real Zoho sync</h2>
+  <p style="font-size:14px; margin:0 0 8px;">Order capture works end-to-end. Zoho Books sync currently runs in stub mode — failure is logged, retry queue is set, no actual API call made — because the OAuth credentials are incomplete:</p>
+  <ul style="font-size:13px; margin:8px 0 0; padding-left:20px;">
+    <li>✓ <span class="mono">ZOHO_BOOKS_CLIENT_ID</span> — present in profile env_vars</li>
+    <li>✓ <span class="mono">ZOHO_BOOKS_CLIENT_SECRET</span> — present in profile env_vars</li>
+    <li>✗ <span class="mono">ZOHO_BOOKS_REFRESH_TOKEN</span> — NOT YET PROVISIONED (one-time interactive OAuth flow needed)</li>
+    <li>✗ <span class="mono">ZOHO_BOOKS_ORG_ID</span> — NOT YET PROVISIONED (small piece of info from Zoho Books dashboard)</li>
+  </ul>
+  <p style="font-size:13px; margin:10px 0 0;">When refresh_token + org_id arrive, this module flips from stub → live; the cron retry sweep (<span class="mono">retryPendingZohoSyncs()</span>) backfills any pending orders.</p>
+</div>
+
+</body></html>
