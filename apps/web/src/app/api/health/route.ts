@@ -1,12 +1,12 @@
 // GET /api/health — lightweight liveness check.
 // Returns 200 + JSON if Supabase is reachable, 503 otherwise.
 import { NextResponse } from "next/server";
-import { supabaseService } from "@/lib/supabase/server";
+import { storefrontSupabaseConfigured, supabaseService } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+  if (!storefrontSupabaseConfigured()) {
     return NextResponse.json(
       { ok: false, reason: "Supabase not configured" },
       { status: 503 },

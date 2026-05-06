@@ -13,6 +13,7 @@ import { spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { resolveStorefrontSupabaseFromEnv } from './storefront-supabase-env.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, '..');
@@ -22,8 +23,13 @@ const env = Object.fromEntries(
     .split(/\r?\n/).filter(l => l && !l.startsWith('#'))
     .map(l => { const i = l.indexOf('='); return [l.slice(0, i), l.slice(i + 1)]; })
 );
-const SUPABASE_URL = env.NEXT_PUBLIC_SUPABASE_URL;
-const SERVICE_KEY = env.SUPABASE_SECRETE_KEY;
+const creds = resolveStorefrontSupabaseFromEnv(env);
+if (!creds) {
+  console.error('Missing storefront Supabase: set BOSTERBIO_SUPABASE_URL + BOSTERBIO_SUPABASE_KEY or NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SECRETE_KEY in .env.local');
+  process.exit(1);
+}
+const SUPABASE_URL = creds.url;
+const SERVICE_KEY = creds.key;
 
 const SQL = `
 SELECT

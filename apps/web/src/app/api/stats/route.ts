@@ -1,12 +1,12 @@
 // GET /api/stats — public JSON endpoint with catalog totals.
 // Used by external embeds (status badges, internal dashboards).
 import { NextResponse } from "next/server";
-import { supabaseService } from "@/lib/supabase/server";
+import { storefrontSupabaseConfigured, supabaseService } from "@/lib/supabase/server";
 
 export const revalidate = 600; // 10 minutes
 
 export async function GET() {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+  if (!storefrontSupabaseConfigured()) {
     return NextResponse.json({ error: "Supabase not configured" }, { status: 503 });
   }
 

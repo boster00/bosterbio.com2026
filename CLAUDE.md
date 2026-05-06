@@ -40,7 +40,7 @@ You were spawned by **`cursor.writeAgent`** in GuildOS, which prepended a creden
   - `003_rls_policies.sql` — RLS for public read + insert-only-anon + service-role-only
   - `004_contact_messages.sql` — contact form submissions
   - `005_newsletter_signups.sql` — email signups
-- Server-side client: `import { supabaseService } from "@/lib/supabase/server"` — uses `SUPABASE_SECRETE_KEY`
+- Server-side client: `import { supabaseService } from "@/lib/supabase/server"` — prefers `BOSTERBIO_SUPABASE_URL` + `BOSTERBIO_SUPABASE_KEY`, then falls back to `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SECRETE_KEY` (see `storefrontSupabaseConfigured()`).
 - Domain helpers under `apps/web/src/lib/supabase/`:
   - `cms.ts` — getCmsPageBySlug, listCmsPagesUnderPrefix
   - `catalog.ts` — listProductsFromSupabase, getProductFromSupabase, searchProductsInSupabase, getSimilarProducts
@@ -97,7 +97,7 @@ Full detail lives in the `bosterbio` skill book (`migrateProducts`, `buildStoref
 - **Orders:** do NOT migrate historical orders. Zoho Books is system of record; future Phase 3 wires Medusa → Zoho.
 - **Payments:** retain Authorize.net (NOT migrating to Stripe). Tax authority: Zoho Books.
 - **CMS pages:** 481 (of 755) migrated 2026-04-28 by `scripts/migrate-cms-pages.mjs` into `cms_pages`. The catch-all route `app/(site)/[...slug]/page.tsx` queries by `identifier` and renders via the existing `NavCmsPage` component. Static routes (e.g. `/about-us`, `/products`) win over the catch-all by Next.js precedence — leave hand-coded pages alone unless you explicitly want them to come from the DB. Absolute `bosterbio.com` URLs in exports are stored as `https://SITE_ORIGIN_PLACEHOLDER` and rewritten at render time by `hydrateCmsHtml()` in `lib/cms-nav.ts`.
-- **Products:** schema in `sql/001_initial_schema.sql` (Type A dedicated columns + `attr_1..attr_25` + `target_info` JSON + separate `product_images` table). Pilot of 99 products across 9 templates migrated 2026-04-28 by `scripts/migrate-products-pilot.mjs`. Full 85,929-product migration deferred until pilot validates. Source: `https://www.bosterbio.com/internal-export.csv` (publicly served, 411 MB, 100 columns).
+- **Products:** schema in `sql/001_initial_schema.sql` (Type A dedicated columns + `attr_1..attr_25` + `target_info` JSON + separate `product_images` table). Pilot of 99 products across 9 templates migrated 2026-04-28 by `scripts/migrate-products-pilot.mjs`. Full-catalog streaming migration: `scripts/migrate_products_full_stream.py` (reads `template` col → `product_template`, duplicate `url_key` → `handle=sku`). Source: `https://www.bosterbio.com/internal-export.csv` (publicly served, ~411 MB, 100 columns).
 
 ### SSH to the Magento production server
 

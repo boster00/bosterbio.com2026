@@ -24,6 +24,7 @@ import { createClient } from "@supabase/supabase-js"
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
+import { resolveStorefrontSupabaseFromEnv } from "../../scripts/storefront-supabase-env.mjs"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const envPath = join(__dirname, "..", ".env.local")
@@ -38,15 +39,15 @@ const env = Object.fromEntries(
     }),
 )
 
-const SB_URL = env.NEXT_PUBLIC_SUPABASE_URL
-const SB_KEY = env.SUPABASE_SECRETE_KEY
-
-if (!SB_URL || !SB_KEY) {
-  console.error(`missing env (NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SECRETE_KEY) in ${envPath}`)
+const creds = resolveStorefrontSupabaseFromEnv(env)
+if (!creds) {
+  console.error(
+    `missing storefront Supabase env in ${envPath} (BOSTERBIO_SUPABASE_URL + BOSTERBIO_SUPABASE_KEY or NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SECRETE_KEY)`,
+  )
   process.exit(1)
 }
 
-const sb = createClient(SB_URL, SB_KEY, {
+const sb = createClient(creds.url, creds.key, {
   auth: { autoRefreshToken: false, persistSession: false },
 })
 

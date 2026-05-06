@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { CategoryBadgeIcon } from "@/components/ui/CategoryBadgeIcon"
 import { cn } from "@/lib/cn"
-import { supabaseService } from "@/lib/supabase/server"
+import { supabaseService, storefrontSupabaseConfigured } from "@/lib/supabase/server"
 
 async function getTemplateCounts(): Promise<Record<string, number>> {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+  if (!storefrontSupabaseConfigured()) {
     return {}
   }
   try {
