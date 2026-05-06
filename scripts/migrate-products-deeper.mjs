@@ -128,7 +128,30 @@ const parser = stream.pipe(parse({
   trim: false,
 }));
 
-const TEMPLATES = ['antibodies','elisa-kits','proteins','over-expression-lysates','cell-based-elisa-kits','cell-based-phospho-elisa-kits','custom-description','ez-set','tag-quick-elisa-kits','veterinary-diagnostic-kits','elisa-kits-custom-components'];
+const TEMPLATES = [
+  'antibodies',
+  'elisa-kits',
+  'proteins',
+  'over-expression-lysates',
+  'cell-based-elisa-kits',
+  'cell-based-phospho-elisa-kits',
+  'custom-description',
+  'ez-set',
+  'tag-quick-elisa-kits',
+  'veterinary-diagnostic-kits',
+  'elisa-kits-custom-components',
+  'consumables',
+  'detection-kits',
+  'isotype-control-antibodies',
+  'quick-elisa-kits',
+  'reporter-cell-lines',
+  'multiplex-elisa-kits',
+  'beads',
+  'antibody-quick-elisa-kits',
+  'instruments-and-machines',
+  'hs-elisa-kits',
+  'secondary-antibodies',
+];
 const counts = Object.fromEntries(TEMPLATES.map(t => [t, 0]));
 // Per-template cap: with 11 templates and a generous limit, allow ~LIMIT/2 per template.
 // Earlier capping at LIMIT/templates left too much on the table when antibodies dominate the file.
