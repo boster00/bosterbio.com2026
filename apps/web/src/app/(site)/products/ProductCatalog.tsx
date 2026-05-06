@@ -3,7 +3,9 @@
 import Link from "next/link"
 import { useMemo, useState } from "react"
 import type { CatalogProduct } from "@/lib/catalog-products"
+import { PRODUCT_TEMPLATE_SLUGS } from "@/lib/product-template-slugs"
 import { catalogSearchHaystack } from "@/lib/catalog-search"
+import { productDetailPath } from "@/lib/product-urls"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
 
@@ -13,8 +15,8 @@ function uniqueSorted(values: string[]) {
 
 function ProductCard({ product }: { product: CatalogProduct }) {
   return (
-    <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-brand/10 border-l-4 border-l-accent bg-white shadow-card hover:border-accent/40">
-      <div className="flex gap-4 border-b border-brand/10 bg-brand-tint/40 p-5">
+    <article className="product-card-hover group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-catalog-brand/10 border-l-4 border-l-catalog-accent bg-white shadow-card hover:border-catalog-accent/40">
+      <div className="flex gap-4 border-b border-catalog-brand/10 bg-catalog-tint/40 p-5">
         {product.imageUrl ? (
           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200">
             <CatalogProductImage src={product.imageUrl} alt="" className="h-full w-full object-contain p-1" />
@@ -24,10 +26,10 @@ function ProductCard({ product }: { product: CatalogProduct }) {
         )}
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
-            <h2 className="font-display text-base font-semibold leading-snug text-brand group-hover:text-accent">
+            <h2 className="font-display text-base font-semibold leading-snug text-catalog-brand group-hover:text-catalog-accent">
               {product.name}
             </h2>
-            <span className="shrink-0 rounded-full bg-accent px-2.5 py-1 font-mono text-xs font-bold text-white">
+            <span className="shrink-0 rounded-full bg-catalog-accent px-2.5 py-1 font-mono text-xs font-bold text-white">
               {product.catalog}
             </span>
           </div>
@@ -43,7 +45,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
             product.applications.map((app) => (
               <span
                 key={app}
-                className="rounded-full border border-blue-100 bg-[#eff6ff] px-2.5 py-0.5 text-xs font-bold text-brand"
+                className="rounded-full border border-catalog-brand/15 bg-blue-50 px-2.5 py-0.5 text-xs font-bold text-catalog-brand"
               >
                 {app}
               </span>
@@ -55,18 +57,18 @@ function ProductCard({ product }: { product: CatalogProduct }) {
         <p className="mt-3 text-xs text-ink-tertiary">
           Reactivity: {product.reactivity.length ? product.reactivity.join(", ") : "—"}
         </p>
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-brand/10 pt-4">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-catalog-brand/10 pt-4">
           <p className="text-sm font-bold text-ink">{product.priceLabel}</p>
           <div className="flex flex-wrap gap-2">
             <Link
-              href={`/products/${encodeURIComponent(product.catalog)}`}
-              className="rounded-full border-2 border-brand px-4 py-2 text-xs font-bold uppercase tracking-wide text-brand transition duration-200 hover:bg-brand/5 active:scale-[0.98]"
+              href={productDetailPath(product.catalog)}
+              className="rounded-full border-2 border-catalog-brand px-4 py-2 text-xs font-bold uppercase tracking-wide text-catalog-brand transition duration-200 hover:bg-catalog-brand/5 active:scale-[0.98]"
             >
               Details
             </Link>
             <Link
               href={`/contact?product=${encodeURIComponent(product.catalog)}`}
-              className="rounded-full bg-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-md active:scale-[0.98]"
+              className="rounded-full bg-catalog-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-sm transition duration-200 hover:scale-[1.04] hover:opacity-95 hover:shadow-md active:scale-[0.98]"
             >
               Request quote
             </Link>
@@ -83,6 +85,10 @@ type Props = {
   initialProducts?: CatalogProduct[]
   /** Optional filter context (template slug, e.g. "elisa-kits") to drive heading copy. */
   templateFilter?: string
+  /** Total enabled rows in Supabase (full catalog size). */
+  catalogTotalEnabled?: number
+  /** Enabled counts per Magento template slug (for sidebar). */
+  templateCounts?: Partial<Record<string, number>>
 }
 
 const TEMPLATE_TITLES: Record<string, { eyebrow: string; heading: string; description: string }> = {
@@ -141,9 +147,70 @@ const TEMPLATE_TITLES: Record<string, { eyebrow: string; heading: string; descri
     heading: "Specialty Products",
     description: "Bundles, panels, and custom-described products.",
   },
+  consumables: {
+    eyebrow: "Catalog",
+    heading: "Consumables",
+    description: "Buffers, plates, and lab consumables.",
+  },
+  "detection-kits": {
+    eyebrow: "Catalog",
+    heading: "Detection Kits",
+    description: "Chromogenic and chemiluminescent detection kits.",
+  },
+  "isotype-control-antibodies": {
+    eyebrow: "Catalog",
+    heading: "Isotype Controls",
+    description: "Matched isotype controls for flow and IHC.",
+  },
+  "quick-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Quick ELISA Kits",
+    description: "Rapid turnaround sandwich ELISA kits.",
+  },
+  "reporter-cell-lines": {
+    eyebrow: "Catalog",
+    heading: "Reporter Cell Lines",
+    description: "Stable reporter lines for pathway assays.",
+  },
+  "multiplex-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Multiplex ELISA Kits",
+    description: "Multi-analyte quantitative ELISA panels.",
+  },
+  beads: {
+    eyebrow: "Catalog",
+    heading: "Beads",
+    description: "Magnetic and agarose beads for pull-down and sorting.",
+  },
+  "antibody-quick-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Antibody Quick ELISA",
+    description: "Antibody detection Quick ELISA kits.",
+  },
+  "instruments-and-machines": {
+    eyebrow: "Catalog",
+    heading: "Instruments",
+    description: "Readers, washers, and automation accessories.",
+  },
+  "hs-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "High-Sensitivity ELISA",
+    description: "Ultra-sensitive Picokine® HS ELISA kits.",
+  },
+  "secondary-antibodies": {
+    eyebrow: "Catalog",
+    heading: "Secondary Antibodies",
+    description: "HRP, AP, and fluorescent secondaries.",
+  },
 }
 
-export function ProductCatalog({ initialQuery = "", initialProducts, templateFilter }: Props) {
+export function ProductCatalog({
+  initialQuery = "",
+  initialProducts,
+  templateFilter,
+  catalogTotalEnabled = 0,
+  templateCounts = {},
+}: Props) {
   const products = initialProducts ?? []
   const [query, setQuery] = useState(initialQuery)
   const [target, setTarget] = useState("")
@@ -177,19 +244,31 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
 
   return (
     <>
-      <div className="page-hero-bar border-b border-brand/10">
+      <div className="page-hero-bar border-b border-catalog-brand/10">
         <div className="container-smoke flex min-w-0 flex-col gap-8 py-10 md:flex-row md:items-end md:justify-between md:py-14">
           <div className="min-w-0 max-w-xl">
-            <p className="text-xs font-bold uppercase tracking-widest text-accent">{titleConfig.eyebrow}</p>
-            <h1 className="mt-2 font-display text-display-md text-brand">{titleConfig.heading}</h1>
+            <p className="text-xs font-bold uppercase tracking-widest text-catalog-accent">{titleConfig.eyebrow}</p>
+            <h1 className="mt-2 font-display text-display-md text-catalog-brand">{titleConfig.heading}</h1>
             <p className="mt-3 text-ink-secondary">
-              {total > 0
-                ? titleConfig.description
-                  ? `${titleConfig.description} ${total} product${total === 1 ? "" : "s"} shown.`
-                  : `Featured catalog — ${total} product${total === 1 ? "" : "s"}.`
-                : templateFilter
-                  ? `${titleConfig.description || ""} No products are currently published in this category — try Browse all or another category.`
-                  : "Catalog is loading. If this persists, check database connectivity."}
+              {catalogTotalEnabled > 0 ? (
+                <>
+                  Full catalog: approximately{" "}
+                  <span className="font-semibold text-catalog-brand">{catalogTotalEnabled.toLocaleString()}</span>{" "}
+                  enabled products (Supabase). This grid loads up to {total.toLocaleString()} rows per view for
+                  performance — pick a template below or refine with filters.
+                  {templateFilter && titleConfig.description ? <> {titleConfig.description}</> : null}
+                </>
+              ) : total > 0 ? (
+                titleConfig.description ? (
+                  `${titleConfig.description} ${total} product${total === 1 ? "" : "s"} shown.`
+                ) : (
+                  `Featured catalog — ${total} product${total === 1 ? "" : "s"}.`
+                )
+              ) : templateFilter ? (
+                `${titleConfig.description || ""} No products are currently published in this category — try Browse all or another category.`
+              ) : (
+                "Catalog is loading. If this persists, check database connectivity."
+              )}
             </p>
           </div>
           <form
@@ -207,11 +286,11 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Gene, catalog #, application…"
-              className="h-12 w-full min-w-0 rounded-full border border-brand/15 bg-white px-5 text-sm shadow-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+              className="h-12 w-full min-w-0 rounded-full border border-catalog-brand/15 bg-white px-5 text-sm shadow-sm focus:border-catalog-brand focus:outline-none focus:ring-2 focus:ring-catalog-brand/20"
             />
             <button
               type="submit"
-              className="h-12 shrink-0 rounded-full bg-accent px-8 text-sm font-bold text-white shadow-md shadow-accent/25 transition duration-200 hover:scale-[1.02] hover:bg-accent-hover hover:shadow-lg active:scale-[0.98]"
+              className="h-12 shrink-0 rounded-full bg-catalog-accent px-8 text-sm font-bold text-white shadow-md shadow-catalog-accent/25 transition duration-200 hover:scale-[1.02] hover:opacity-95 hover:shadow-lg active:scale-[0.98]"
             >
               Search
             </button>
@@ -221,26 +300,62 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
 
       <div className="container-smoke py-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-          {/* Left sidebar — Figma product listing */}
           <aside
             className="w-full shrink-0 lg:sticky lg:top-24 lg:w-[280px] xl:w-[300px]"
             aria-label="Product filters"
           >
-            <div className="rounded-2xl border-2 border-brand/10 bg-white p-5 shadow-card md:p-6">
-              <div className="flex items-center gap-2 border-b border-brand/10 pb-4">
-                <h2 className="text-sm font-bold uppercase tracking-wider text-brand">Filters</h2>
-                <span className="rounded-full bg-accent-soft px-2 py-0.5 text-xs font-bold text-accent">Refine</span>
+            <div className="mb-6 rounded-2xl border-2 border-catalog-brand/10 bg-white p-5 shadow-card md:p-6">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-catalog-brand">Browse by template</h2>
+              <nav className="mt-4 flex max-h-[min(420px,50vh)] flex-col gap-0.5 overflow-y-auto text-sm" aria-label="Templates">
+                <Link
+                  href="/products"
+                  className={`flex items-center justify-between rounded-lg px-2 py-2 font-medium transition hover:bg-catalog-tint ${!templateFilter ? "bg-catalog-accent/10 text-catalog-brand" : "text-slate-700"}`}
+                >
+                  <span>All products</span>
+                  {catalogTotalEnabled > 0 ? (
+                    <span className="text-xs tabular-nums text-slate-500">{catalogTotalEnabled.toLocaleString()}</span>
+                  ) : null}
+                </Link>
+                {PRODUCT_TEMPLATE_SLUGS.map((slug) => {
+                  const count = templateCounts[slug]
+                  const label = TEMPLATE_TITLES[slug]?.heading ?? slug.replace(/-/g, " ")
+                  const active = templateFilter === slug
+                  return (
+                    <Link
+                      key={slug}
+                      href={`/products?template=${encodeURIComponent(slug)}`}
+                      className={`flex items-center justify-between rounded-lg px-2 py-2 transition hover:bg-catalog-tint ${active ? "bg-catalog-accent/10 font-semibold text-catalog-brand" : "text-slate-700"}`}
+                    >
+                      <span className="min-w-0 pr-2 leading-snug">{label}</span>
+                      <span className="shrink-0 text-xs tabular-nums text-slate-500">
+                        {typeof count === "number" ? count.toLocaleString() : "—"}
+                      </span>
+                    </Link>
+                  )
+                })}
+              </nav>
+            </div>
+
+            <div className="rounded-2xl border-2 border-catalog-brand/10 bg-white p-5 shadow-card md:p-6">
+              <div className="flex items-center gap-2 border-b border-catalog-brand/10 pb-4">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-catalog-brand">Refine results</h2>
+                <span className="rounded-full bg-catalog-accent/15 px-2 py-0.5 text-xs font-bold text-catalog-accent">
+                  Filters
+                </span>
               </div>
               <div className="mt-5 space-y-4">
                 <div>
-                  <label htmlFor="filter-target" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
+                  <label
+                    htmlFor="filter-target"
+                    className="block text-xs font-bold uppercase tracking-wide text-catalog-brand/80"
+                  >
                     Target
                   </label>
                   <select
                     id="filter-target"
                     value={target}
                     onChange={(e) => setTarget(e.target.value)}
-                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                    className="mt-1.5 h-11 w-full rounded-xl border border-catalog-brand/15 bg-catalog-tint/40 px-3 text-sm focus:border-catalog-accent focus:outline-none focus:ring-2 focus:ring-catalog-accent/20"
                   >
                     <option value="">All targets</option>
                     {targets.map((t) => (
@@ -251,14 +366,17 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="filter-host" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
+                  <label
+                    htmlFor="filter-host"
+                    className="block text-xs font-bold uppercase tracking-wide text-catalog-brand/80"
+                  >
                     Host species
                   </label>
                   <select
                     id="filter-host"
                     value={host}
                     onChange={(e) => setHost(e.target.value)}
-                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                    className="mt-1.5 h-11 w-full rounded-xl border border-catalog-brand/15 bg-catalog-tint/40 px-3 text-sm focus:border-catalog-accent focus:outline-none focus:ring-2 focus:ring-catalog-accent/20"
                   >
                     <option value="">All hosts</option>
                     {hosts.map((h) => (
@@ -269,14 +387,17 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="filter-app" className="block text-xs font-bold uppercase tracking-wide text-brand/80">
+                  <label
+                    htmlFor="filter-app"
+                    className="block text-xs font-bold uppercase tracking-wide text-catalog-brand/80"
+                  >
                     Application
                   </label>
                   <select
                     id="filter-app"
                     value={application}
                     onChange={(e) => setApplication(e.target.value)}
-                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                    className="mt-1.5 h-11 w-full rounded-xl border border-catalog-brand/15 bg-catalog-tint/40 px-3 text-sm focus:border-catalog-accent focus:outline-none focus:ring-2 focus:ring-catalog-accent/20"
                   >
                     <option value="">All applications</option>
                     {applications.map((a) => (
@@ -289,7 +410,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
                 <div>
                   <label
                     htmlFor="filter-reactivity"
-                    className="block text-xs font-bold uppercase tracking-wide text-brand/80"
+                    className="block text-xs font-bold uppercase tracking-wide text-catalog-brand/80"
                   >
                     Reactivity
                   </label>
@@ -297,7 +418,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
                     id="filter-reactivity"
                     value={reactivity}
                     onChange={(e) => setReactivity(e.target.value)}
-                    className="mt-1.5 h-11 w-full rounded-xl border border-brand/15 bg-brand-tint/40 px-3 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                    className="mt-1.5 h-11 w-full rounded-xl border border-catalog-brand/15 bg-catalog-tint/40 px-3 text-sm focus:border-catalog-accent focus:outline-none focus:ring-2 focus:ring-catalog-accent/20"
                   >
                     <option value="">All species</option>
                     {reactivities.map((r) => (
@@ -310,7 +431,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
               </div>
               <button
                 type="button"
-                className="mt-6 w-full rounded-xl border border-brand/20 py-2.5 text-sm font-bold text-accent transition hover:bg-accent-soft disabled:pointer-events-none disabled:opacity-40"
+                className="mt-6 w-full rounded-xl border border-catalog-brand/20 py-2.5 text-sm font-bold text-catalog-accent transition hover:bg-catalog-accent/10 disabled:pointer-events-none disabled:opacity-40"
                 disabled={!target && !host && !application && !reactivity && !query.trim()}
                 onClick={() => {
                   setQuery("")
@@ -328,7 +449,13 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
           {/* Right — product grid */}
           <div className="min-w-0 flex-1">
             <p className="text-sm text-ink-secondary">
-              Showing <span className="font-bold text-brand">{filtered.length}</span> of {total} products
+              Showing <span className="font-bold text-catalog-brand">{filtered.length}</span> of {total} on this page
+              {catalogTotalEnabled > total ? (
+                <>
+                  {" "}
+                  (<span className="tabular-nums">{catalogTotalEnabled.toLocaleString()}</span> total in catalog)
+                </>
+              ) : null}
             </p>
 
             <ul className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

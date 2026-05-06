@@ -21,14 +21,36 @@ type ProductRow = {
   description: string | null;
   short_description: string | null;
   storage: string | null;
+  metadata: Record<string, unknown> | null;
 };
 
 type ImageRow = { product_id: number; image_url: string; type: string; position: number };
 
 import { decodeEntities } from "./utils";
 
+export function priceLabelFromMetadata(meta: Record<string, unknown> | null): string {
+  if (!meta || typeof meta !== "object") return "Contact for price";
+  const raw = meta.csv_price;
+  if (typeof raw !== "string" || !raw.trim()) return "Contact for price";
+  const cleaned = raw.trim();
+  const n = parseFloat(cleaned.replace(/[^0-9.-]/g, ""));
+  if (Number.isFinite(n)) return `$${n.toFixed(2)}`;
+  return cleaned.startsWith("$") ? cleaned : `$${cleaned}`;
+}
+
+export function formatsFromMetadata(meta: Record<string, unknown> | null): string[] {
+  if (!meta || typeof meta !== "object") return [];
+  const ladder = meta.formats_ladder;
+  if (!Array.isArray(ladder)) return [];
+  return ladder.filter((x): x is string => typeof x === "string" && x.trim().length > 0);
+}
+
 function rowToCatalog(p: ProductRow, imageUrl: string | null): CatalogProduct {
   const target = p.target_info?.gene_name || p.target_info?.protein_name || "—";
+  const meta =
+    p.metadata && typeof p.metadata === "object"
+      ? (p.metadata as Record<string, unknown>)
+      : null;
   return {
     id: String(p.id),
     catalog: p.sku,
@@ -37,14 +59,16 @@ function rowToCatalog(p: ProductRow, imageUrl: string | null): CatalogProduct {
     host: p.host_species || "—",
     applications: p.applications ?? [],
     reactivity: p.reactivity ?? [],
-    priceLabel: "Contact for price", // wire when Medusa variants are loaded
+    priceLabel: priceLabelFromMetadata(meta),
     imageUrl,
     shortDescription: p.short_description,
     description: p.description,
     clone: p.clone,
-    formats: [], // Medusa-driven
+    formats: formatsFromMetadata(meta),
     badges: p.badges ? p.badges.split(",").map((s) => s.trim()).filter(Boolean) : [],
     storage: p.storage,
+    productTemplate: p.product_template || "antibodies",
+    metadata: meta,
   };
 }
 

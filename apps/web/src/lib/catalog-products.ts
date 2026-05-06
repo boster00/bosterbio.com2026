@@ -104,6 +104,8 @@ function productToCatalog(p: Record<string, unknown>): CatalogProduct {
     formats: formatsFromProduct(p),
     badges: arrMeta(meta, "badges"),
     storage: strMeta(meta, "storage") || null,
+    productTemplate: strMeta(meta, "product_template") || "antibodies",
+    metadata: null,
   }
 }
 

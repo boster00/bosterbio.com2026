@@ -4,6 +4,7 @@ import "server-only";
 import { supabaseService } from "./server";
 import { decodeEntities } from "./utils";
 import type { CatalogProduct } from "../catalog-product-types";
+import { formatsFromMetadata, priceLabelFromMetadata } from "./catalog";
 
 type ProductRow = {
   id: number;
@@ -20,6 +21,7 @@ type ProductRow = {
   description: string | null;
   short_description: string | null;
   storage: string | null;
+  metadata: Record<string, unknown> | null;
 };
 
 export async function findProductsByGene(gene: string, limit = 60): Promise<CatalogProduct[]> {
@@ -57,13 +59,15 @@ export async function findProductsByGene(gene: string, limit = 60): Promise<Cata
     host: p.host_species || "—",
     applications: p.applications ?? [],
     reactivity: p.reactivity ?? [],
-    priceLabel: "Contact for price",
+    priceLabel: priceLabelFromMetadata(p.metadata ?? null),
     imageUrl: null,
     shortDescription: p.short_description,
     description: p.description,
     clone: p.clone,
-    formats: [],
+    formats: formatsFromMetadata(p.metadata ?? null),
     badges: p.badges ? p.badges.split(",").map((s) => s.trim()).filter(Boolean) : [],
     storage: p.storage,
+    productTemplate: p.product_template || "antibodies",
+    metadata: p.metadata ?? null,
   }));
 }
