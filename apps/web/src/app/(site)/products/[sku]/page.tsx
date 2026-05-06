@@ -8,6 +8,7 @@ import { getSimilarProducts } from "@/lib/supabase/catalog"
 import { getAllImagesForProduct } from "@/lib/supabase/product-images"
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
 import { ProductPdpFormats } from "./ProductPdpFormats"
+import { pdpTemplateEyebrow } from "@/lib/pdp-template-label"
 
 type Props = { params: Promise<{ sku: string }> }
 
@@ -38,9 +39,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-/** Magento “200” URL is ~1.7KB placeholder — use guaranteed visible hero for smoke screenshots. */
-const M02830_HERO_IMAGE_URL = "https://picsum.photos/seed/M02830antibody/400/400"
-
 export default async function ProductSkuPage({ params }: Props) {
   const { sku } = await params
   const decoded = decodeURIComponent(sku)
@@ -59,7 +57,7 @@ export default async function ProductSkuPage({ params }: Props) {
   // Gallery images (hero + secondary)
   const gallery = await getAllImagesForProduct(decoded).catch(() => [])
 
-  const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
+  const eyebrow = pdpTemplateEyebrow(product.productTemplate)
 
   // Schema.org JSON-LD — Product + BreadcrumbList for rich SEO results
   const productJsonLd = {
@@ -129,15 +127,7 @@ export default async function ProductSkuPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">
-              {isM02830 ? (
-                // eslint-disable-next-line @next/next/no-img-element -- Round 5 M02830 hero (picsum, no placeholder)
-                <img
-                  src={M02830_HERO_IMAGE_URL}
-                  alt=""
-                  className="mx-auto max-h-[420px] w-full object-contain"
-                  referrerPolicy="no-referrer"
-                />
-              ) : product.imageUrl ? (
+              {product.imageUrl ? (
                 <CatalogProductImage
                   src={product.imageUrl}
                   alt=""
@@ -167,7 +157,7 @@ export default async function ProductSkuPage({ params }: Props) {
           </div>
 
           <div className="lg:col-span-7">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#EA8D28]">Antibody</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[#EA8D28]">{eyebrow}</p>
             <h1 className="mt-2 font-heading text-3xl font-bold leading-tight text-[#004C95] md:text-4xl">{product.name}</h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <span className="rounded-full bg-[#004C95]/10 px-3 py-1 font-mono text-sm font-bold text-[#004C95]">SKU {product.catalog}</span>

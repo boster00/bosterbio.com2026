@@ -52,6 +52,7 @@ export async function findProductsByGene(gene: string, limit = 60): Promise<Cata
   return (data as ProductRow[]).map((p) => ({
     id: String(p.id),
     catalog: p.sku,
+    productTemplate: p.product_template || "antibodies",
     name: decodeEntities(p.title),
     target: p.target_info?.gene_name || p.target_info?.protein_name || "—",
     host: p.host_species || "—",

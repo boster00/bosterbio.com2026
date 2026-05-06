@@ -3,7 +3,11 @@ import seedJson from "../data/featured-catalog.seed.json"
 
 const MAGENTO_MEDIA_BASE = "https://www.bosterbio.com/media/catalog/product"
 
-type SeedRow = (typeof seedJson)[number] & { image_url?: string; local_image?: string }
+type SeedRow = (typeof seedJson)[number] & {
+  image_url?: string
+  local_image?: string
+  product_template?: string
+}
 
 const SEED_ROWS = seedJson as SeedRow[]
 
@@ -29,6 +33,7 @@ export function seedRowsToCatalogProducts(): CatalogProduct[] {
   return SEED_ROWS.map((r) => ({
     id: `seed-${r.catalog_sku}`,
     catalog: r.catalog_sku,
+    productTemplate: typeof r.product_template === "string" && r.product_template.trim() ? r.product_template.trim() : "antibodies",
     name: r.title,
     target: r.target || "—",
     host: r.host || "—",

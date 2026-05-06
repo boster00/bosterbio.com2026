@@ -92,6 +92,7 @@ function productToCatalog(p: Record<string, unknown>): CatalogProduct {
   return {
     id: String(p.id),
     catalog,
+    productTemplate: strMeta(meta, "product_template") || "antibodies",
     name: typeof p.title === "string" ? p.title : catalog,
     target,
     host,

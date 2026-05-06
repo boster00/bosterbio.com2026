@@ -32,6 +32,7 @@ function rowToCatalog(p: ProductRow, imageUrl: string | null): CatalogProduct {
   return {
     id: String(p.id),
     catalog: p.sku,
+    productTemplate: p.product_template || "antibodies",
     name: decodeEntities(p.title),
     target,
     host: p.host_species || "—",
