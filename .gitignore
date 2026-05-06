@@ -46,3 +46,6 @@ docs/_cms-template-catalog.generated.md
 tmp/
 .supabase-anon.tmp
 .supabase-service-role.tmp
+
+# Generated gene-info quest evidence PNGs (also uploaded to GuildOS storage)
+apps/web/public/screenshots/gene-info-cards-1440/
