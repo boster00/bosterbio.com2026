@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
 
   transpilePackages: ["@bosterbio/types"],
 
+  /** Legacy Magento PDP URLs used `.html` suffix; normalize to the App Router segment. */
+  async rewrites() {
+    return [
+      {
+        source: "/products/:path*.html",
+        destination: "/products/:path*",
+      },
+    ]
+  },
+
   /**
    * Don't fail prod builds on ESLint. The default Next 15 config flags
    * `React` as undefined in files using `React.ReactNode` (modern JSX

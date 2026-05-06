@@ -1,6 +1,8 @@
 export type CatalogProduct = {
   id: string
   catalog: string
+  /** Magento `products.product_template` slug (e.g. antibodies, elisa-kits). */
+  productTemplate: string
   name: string
   target: string
   host: string

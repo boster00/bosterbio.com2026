@@ -7,6 +7,7 @@ import { getPublicationsForProduct } from "@/lib/supabase/publications"
 import { getSimilarProducts } from "@/lib/supabase/catalog"
 import { getAllImagesForProduct } from "@/lib/supabase/product-images"
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage"
+import { pdpEyebrowLabel, pdpShowAntibodyCoreFields } from "@/lib/pdp-template-meta"
 import { ProductPdpFormats } from "./ProductPdpFormats"
 
 type Props = { params: Promise<{ sku: string }> }
@@ -38,9 +39,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-/** Magento “200” URL is ~1.7KB placeholder — use guaranteed visible hero for smoke screenshots. */
-const M02830_HERO_IMAGE_URL = "https://picsum.photos/seed/M02830antibody/400/400"
-
 export default async function ProductSkuPage({ params }: Props) {
   const { sku } = await params
   const decoded = decodeURIComponent(sku)
@@ -59,7 +57,8 @@ export default async function ProductSkuPage({ params }: Props) {
   // Gallery images (hero + secondary)
   const gallery = await getAllImagesForProduct(decoded).catch(() => [])
 
-  const isM02830 = product.catalog.trim().toLowerCase() === "m02830"
+  const eyebrow = pdpEyebrowLabel(product.productTemplate)
+  const antibodyStyleHero = pdpShowAntibodyCoreFields(product.productTemplate)
 
   // Schema.org JSON-LD — Product + BreadcrumbList for rich SEO results
   const productJsonLd = {
@@ -129,15 +128,7 @@ export default async function ProductSkuPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-2xl border-2 border-[#004C95]/10 bg-white p-6 shadow-card">
-              {isM02830 ? (
-                // eslint-disable-next-line @next/next/no-img-element -- Round 5 M02830 hero (picsum, no placeholder)
-                <img
-                  src={M02830_HERO_IMAGE_URL}
-                  alt=""
-                  className="mx-auto max-h-[420px] w-full object-contain"
-                  referrerPolicy="no-referrer"
-                />
-              ) : product.imageUrl ? (
+              {product.imageUrl ? (
                 <CatalogProductImage
                   src={product.imageUrl}
                   alt=""
@@ -167,7 +158,7 @@ export default async function ProductSkuPage({ params }: Props) {
           </div>
 
           <div className="lg:col-span-7">
-            <p className="text-xs font-bold uppercase tracking-widest text-[#EA8D28]">Antibody</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[#EA8D28]">{eyebrow}</p>
             <h1 className="mt-2 font-heading text-3xl font-bold leading-tight text-[#004C95] md:text-4xl">{product.name}</h1>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <span className="rounded-full bg-[#004C95]/10 px-3 py-1 font-mono text-sm font-bold text-[#004C95]">SKU {product.catalog}</span>
@@ -188,18 +179,41 @@ export default async function ProductSkuPage({ params }: Props) {
                   <dt className="text-xs font-bold uppercase text-[#004C95]/70">Target</dt>
                   <dd className="mt-1 font-medium text-slate-800">{product.target}</dd>
                 </div>
-                <div>
-                  <dt className="text-xs font-bold uppercase text-[#004C95]/70">Host</dt>
-                  <dd className="mt-1 font-medium text-slate-800">{product.host}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-bold uppercase text-[#004C95]/70">Applications</dt>
-                  <dd className="mt-1 font-medium text-slate-800">{product.applications.length ? product.applications.join(", ") : "—"}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-bold uppercase text-[#004C95]/70">Reactivity</dt>
-                  <dd className="mt-1 font-medium text-slate-800">{product.reactivity.length ? product.reactivity.join(", ") : "—"}</dd>
-                </div>
+                {antibodyStyleHero ? (
+                  <>
+                    <div>
+                      <dt className="text-xs font-bold uppercase text-[#004C95]/70">Host</dt>
+                      <dd className="mt-1 font-medium text-slate-800">{product.host}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-bold uppercase text-[#004C95]/70">Applications</dt>
+                      <dd className="mt-1 font-medium text-slate-800">
+                        {product.applications.length ? product.applications.join(", ") : "—"}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-bold uppercase text-[#004C95]/70">Reactivity</dt>
+                      <dd className="mt-1 font-medium text-slate-800">
+                        {product.reactivity.length ? product.reactivity.join(", ") : "—"}
+                      </dd>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <dt className="text-xs font-bold uppercase text-[#004C95]/70">Applications</dt>
+                      <dd className="mt-1 font-medium text-slate-800">
+                        {product.applications.length ? product.applications.join(", ") : "—"}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-bold uppercase text-[#004C95]/70">Reactivity</dt>
+                      <dd className="mt-1 font-medium text-slate-800">
+                        {product.reactivity.length ? product.reactivity.join(", ") : "—"}
+                      </dd>
+                    </div>
+                  </>
+                )}
                 {product.clone ? (
                   <div className="sm:col-span-2">
                     <dt className="text-xs font-bold uppercase text-[#004C95]/70">Clone</dt>
