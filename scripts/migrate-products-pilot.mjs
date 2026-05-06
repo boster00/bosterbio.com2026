@@ -112,9 +112,30 @@ function rowToProduct(row) {
 
 async function pickProductsFromStream(source, limit) {
   // We want a balanced sample across templates: target ~limit/12 per template.
-  const TEMPLATES = ['antibodies','elisa-kits','proteins','over-expression-lysates',
-    'cell-based-elisa-kits','cell-based-phospho-elisa-kits','custom-description',
-    'ez-set','tag-quick-elisa-kits','veterinary-diagnostic-kits','elisa-kits-custom-components'];
+  const TEMPLATES = [
+    'antibodies',
+    'elisa-kits',
+    'proteins',
+    'over-expression-lysates',
+    'cell-based-elisa-kits',
+    'cell-based-phospho-elisa-kits',
+    'custom-description',
+    'ez-set',
+    'tag-quick-elisa-kits',
+    'veterinary-diagnostic-kits',
+    'elisa-kits-custom-components',
+    'consumables',
+    'detection-kits',
+    'isotype-control-antibodies',
+    'quick-elisa-kits',
+    'reporter-cell-lines',
+    'multiplex-elisa-kits',
+    'beads',
+    'antibody-quick-elisa-kits',
+    'instruments-and-machines',
+    'hs-elisa-kits',
+    'secondary-antibodies',
+  ];
   const perTemplate = Math.max(1, Math.ceil(limit / TEMPLATES.length));
   const counts = Object.fromEntries(TEMPLATES.map(t => [t, 0]));
 
