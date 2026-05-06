@@ -2,14 +2,12 @@ import Link from "next/link"
 import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { catalogSearchHaystack } from "@/lib/catalog-search"
 import { searchProductsInSupabase } from "@/lib/supabase/catalog"
+import { storefrontSupabaseConfigured } from "@/lib/supabase/server"
 
 type Props = { searchParams: Promise<{ q?: string }> }
 
 function supabaseConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
-      (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()),
-  )
+  return storefrontSupabaseConfigured()
 }
 
 export default async function SearchPage({ searchParams }: Props) {

@@ -40,7 +40,7 @@ You were spawned by **`cursor.writeAgent`** in GuildOS, which prepended a creden
   - `003_rls_policies.sql` — RLS for public read + insert-only-anon + service-role-only
   - `004_contact_messages.sql` — contact form submissions
   - `005_newsletter_signups.sql` — email signups
-- Server-side client: `import { supabaseService } from "@/lib/supabase/server"` — uses `SUPABASE_SECRETE_KEY`
+- Server-side client: `import { supabaseService } from "@/lib/supabase/server"` — prefers `BOSTERBIO_SUPABASE_URL` + `BOSTERBIO_SUPABASE_KEY`, then falls back to `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SECRETE_KEY` (see `storefrontSupabaseConfigured()`).
 - Domain helpers under `apps/web/src/lib/supabase/`:
   - `cms.ts` — getCmsPageBySlug, listCmsPagesUnderPrefix
   - `catalog.ts` — listProductsFromSupabase, getProductFromSupabase, searchProductsInSupabase, getSimilarProducts

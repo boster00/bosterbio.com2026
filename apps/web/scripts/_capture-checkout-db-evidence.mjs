@@ -4,6 +4,7 @@ import { chromium } from "playwright"
 import { createClient } from "@supabase/supabase-js"
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
+import { resolveStorefrontSupabaseFromEnv } from "../../scripts/storefront-supabase-env.mjs"
 
 const env = Object.fromEntries(
   readFileSync(".env.local", "utf8").split(/\r?\n/)
@@ -11,7 +12,13 @@ const env = Object.fromEntries(
     .map((l) => { const i = l.indexOf("="); return [l.slice(0, i), l.slice(i + 1)]; }),
 )
 
-const sb = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SECRETE_KEY,
+const creds = resolveStorefrontSupabaseFromEnv(env)
+if (!creds) {
+  console.error("Missing BOSTERBIO_* or NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SECRETE_KEY in .env.local")
+  process.exit(1)
+}
+
+const sb = createClient(creds.url, creds.key,
   { auth: { autoRefreshToken: false, persistSession: false } })
 
 const OUT = ".audit-screenshots/q3next"
