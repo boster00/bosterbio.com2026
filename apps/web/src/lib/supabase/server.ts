@@ -1,16 +1,21 @@
 // Supabase client for server-side reads / writes from RSCs and route handlers.
 // Uses the SERVICE_ROLE key — DO NOT import this from client components.
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import {
+  getCatalogSupabaseAnonKey,
+  getCatalogSupabaseSecretKey,
+  getCatalogSupabaseUrl,
+} from "./catalog-credentials";
 
 let cached: SupabaseClient | null = null;
 
 export function supabaseService(): SupabaseClient {
   if (cached) return cached;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SECRETE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = getCatalogSupabaseUrl();
+  const key = getCatalogSupabaseSecretKey();
   if (!url || !key) {
     throw new Error(
-      "Supabase server credentials missing. Ensure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SECRETE_KEY are set in .env.local"
+      "Supabase server credentials missing. Set BOSTERBIO_SUPABASE_URL + BOSTERBIO_SUPABASE_KEY (or NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SECRETE_KEY) in the environment."
     );
   }
   cached = createClient(url, key, {
@@ -21,10 +26,12 @@ export function supabaseService(): SupabaseClient {
 
 // Read-only public reads (browser-safe). Uses the anon key.
 export function supabaseAnon(): SupabaseClient {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = getCatalogSupabaseUrl();
+  const key = getCatalogSupabaseAnonKey();
   if (!url || !key) {
-    throw new Error("Supabase anon credentials missing.");
+    throw new Error(
+      "Supabase anon credentials missing. Set BOSTERBIO_SUPABASE_ANON_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY for the catalog project."
+    );
   }
   return createClient(url, key);
 }

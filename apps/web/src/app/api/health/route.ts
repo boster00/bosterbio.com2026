@@ -2,11 +2,12 @@
 // Returns 200 + JSON if Supabase is reachable, 503 otherwise.
 import { NextResponse } from "next/server";
 import { supabaseService } from "@/lib/supabase/server";
+import { isCatalogSupabaseConfigured } from "@/lib/supabase/catalog-credentials";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SECRETE_KEY) {
+  if (!isCatalogSupabaseConfigured()) {
     return NextResponse.json(
       { ok: false, reason: "Supabase not configured" },
       { status: 503 },

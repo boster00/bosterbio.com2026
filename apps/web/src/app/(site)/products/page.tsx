@@ -1,5 +1,6 @@
 import { fetchCatalogProducts } from "@/lib/catalog-products"
 import { listProductsFromSupabase } from "@/lib/supabase/catalog"
+import { isCatalogSupabaseConfigured } from "@/lib/supabase/catalog-credentials"
 import { ProductCatalog } from "./ProductCatalog"
 
 type Props = {
@@ -10,10 +11,7 @@ type Props = {
 export const revalidate = 300
 
 function supabaseConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
-      (process.env.SUPABASE_SECRETE_KEY?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()),
-  )
+  return isCatalogSupabaseConfigured()
 }
 
 export default async function ProductsPage({ searchParams }: Props) {

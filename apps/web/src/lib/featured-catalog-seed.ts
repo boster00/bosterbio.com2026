@@ -29,6 +29,7 @@ export function seedRowsToCatalogProducts(): CatalogProduct[] {
   return SEED_ROWS.map((r) => ({
     id: `seed-${r.catalog_sku}`,
     catalog: r.catalog_sku,
+    productTemplate: "antibodies",
     name: r.title,
     target: r.target || "—",
     host: r.host || "—",

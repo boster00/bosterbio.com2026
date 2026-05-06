@@ -141,6 +141,61 @@ const TEMPLATE_TITLES: Record<string, { eyebrow: string; heading: string; descri
     heading: "Specialty Products",
     description: "Bundles, panels, and custom-described products.",
   },
+  "multiplex-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Multiplex ELISA Kits",
+    description: "Multi-analyte panels on a single plate.",
+  },
+  beads: {
+    eyebrow: "Catalog",
+    heading: "Beads",
+    description: "Magnetic and agarose beads for purification and assays.",
+  },
+  "detection-kits": {
+    eyebrow: "Catalog",
+    heading: "Detection Kits",
+    description: "Colorimetric and chemiluminescent detection systems.",
+  },
+  "instruments-and-machines": {
+    eyebrow: "Catalog",
+    heading: "Instruments & Machines",
+    description: "Readers, washers, and automation-compatible hardware.",
+  },
+  "hs-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "High-Sensitivity ELISA Kits",
+    description: "Ultra-low limit of detection ELISA kits.",
+  },
+  "quick-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Quick ELISA Kits",
+    description: "Rapid turnaround sandwich ELISA kits.",
+  },
+  "antibody-quick-elisa-kits": {
+    eyebrow: "Catalog",
+    heading: "Antibody Quick ELISA Kits",
+    description: "One-step detection kits built around primary antibodies.",
+  },
+  "reporter-cell-lines": {
+    eyebrow: "Catalog",
+    heading: "Reporter Cell Lines",
+    description: "Luciferase and fluorescent pathway reporters.",
+  },
+  consumables: {
+    eyebrow: "Catalog",
+    heading: "Consumables",
+    description: "Plates, buffers, and lab consumables.",
+  },
+  "secondary-antibodies": {
+    eyebrow: "Catalog",
+    heading: "Secondary Antibodies",
+    description: "HRP, AP, and fluorescent secondary antibodies.",
+  },
+  "isotype-control-antibodies": {
+    eyebrow: "Catalog",
+    heading: "Isotype Control Antibodies",
+    description: "Matched isotype controls for flow and IHC.",
+  },
 }
 
 export function ProductCatalog({ initialQuery = "", initialProducts, templateFilter }: Props) {
@@ -173,7 +228,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
   const total = products.length
   const titleConfig = templateFilter && TEMPLATE_TITLES[templateFilter]
     ? TEMPLATE_TITLES[templateFilter]
-    : { eyebrow: "Catalog", heading: "Antibodies & reagents", description: "" }
+    : { eyebrow: "Catalog", heading: "Product catalog", description: "" }
 
   return (
     <>
