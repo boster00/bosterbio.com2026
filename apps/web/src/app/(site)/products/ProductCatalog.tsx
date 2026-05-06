@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useMemo, useState } from "react"
 import type { CatalogProduct } from "@/lib/catalog-products"
-import { PRODUCT_TEMPLATE_SLUGS } from "@/lib/catalog-stats"
+import { PRODUCT_TEMPLATE_SLUGS } from "@/lib/product-template-slugs"
 import { catalogSearchHaystack } from "@/lib/catalog-search"
 import { productDetailPath } from "@/lib/product-urls"
 import { ProductPlaceholderThumb } from "@/components/ui/ProductPlaceholderThumb"
