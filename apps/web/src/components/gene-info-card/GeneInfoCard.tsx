@@ -47,7 +47,7 @@ export default function GeneInfoCard(props: GeneCardProps) {
       {/* Main content */}
       <div className="max-w-[1200px] mx-auto px-4 py-8 md:py-10">
         {/* Top two-col grid: Overview left, WB right on lg+ */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 mb-6 items-start">
           <GeneOverviewCard
             superfamily={superfamily}
             uniprotId={uniprotId}
@@ -73,7 +73,7 @@ export default function GeneInfoCard(props: GeneCardProps) {
         </div>
 
         {/* Bottom two-col grid: Tissue left, Antibody right on lg+ */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 mb-6 items-start">
           <TissueExpressionSection
             tissueHigh={tissueHigh}
             tissueMed={tissueMed}

@@ -24,7 +24,6 @@ export default function AntibodyProductsSection({
   ihcImageUrl,
 }: Props) {
   const hasProduct = Boolean(mainSkuWb || wbImageUrl)
-  if (!hasProduct) return null
 
   const apps = assayApps
     ? assayApps.split(',').map((a) => a.trim()).filter(Boolean)
@@ -84,7 +83,7 @@ export default function AntibodyProductsSection({
 
         <div className="p-6">
           {/* Product card */}
-          {mainSkuWb ? (
+          {hasProduct ? (
             <div
               className="rounded-xl border border-border overflow-hidden"
               style={{ boxShadow: '0 1px 3px rgba(0,76,149,0.06)' }}
@@ -177,9 +176,14 @@ export default function AntibodyProductsSection({
               </div>
             </div>
           ) : (
-            <p className="text-sm italic text-ink-muted">
-              No product SKU available for this gene yet.
-            </p>
+            <div className="rounded-xl border border-dashed border-border p-6 text-center">
+              <p className="text-sm italic text-ink-muted">
+                No validated antibody data available for this gene yet.
+              </p>
+              <p className="text-xs text-ink-muted mt-1">
+                Check back as we expand our catalog coverage.
+              </p>
+            </div>
           )}
         </div>
       </div>

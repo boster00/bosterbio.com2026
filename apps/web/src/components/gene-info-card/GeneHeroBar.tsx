@@ -30,8 +30,8 @@ export default function GeneHeroBar({ gene, fullName, aliases }: Props) {
 
           {/* Full name */}
           <p
-            className="font-sans text-blue-100 leading-relaxed max-w-3xl"
-            style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)' }}
+            className="font-sans text-blue-100 leading-snug max-w-2xl break-words"
+            style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.05rem)' }}
           >
             {fullName}
           </p>

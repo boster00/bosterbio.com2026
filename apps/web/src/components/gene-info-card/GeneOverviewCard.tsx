@@ -25,17 +25,18 @@ interface RowProps {
   mono?: boolean
 }
 
-function Row({ label, value, mono = false }: RowProps) {
+function Row({ label, value, mono = false, clamp = false }: RowProps & { clamp?: boolean }) {
   const isEmpty = value === DASH
   return (
-    <div className="flex flex-col sm:flex-row sm:items-start gap-0.5 sm:gap-4 py-3 border-b border-border last:border-0">
-      <dt className="w-full sm:w-44 shrink-0 text-xs font-semibold uppercase tracking-wider text-ink-muted">
+    <div className="flex flex-col sm:flex-row sm:items-start gap-0.5 sm:gap-4 py-3 border-b border-border last:border-0 min-w-0">
+      <dt className="w-full sm:w-40 shrink-0 text-xs font-semibold uppercase tracking-wider text-ink-muted">
         {label}
       </dt>
       <dd
-        className={`text-sm leading-relaxed ${
+        className={`min-w-0 break-words text-sm leading-relaxed ${
           isEmpty ? 'text-ink-muted italic' : 'text-ink'
-        } ${mono ? 'font-mono text-xs' : ''}`}
+        } ${mono ? 'font-mono text-xs tracking-wide' : ''} ${clamp ? 'line-clamp-3' : ''}`}
+        title={clamp && value !== DASH ? value : undefined}
       >
         {value}
       </dd>
@@ -109,8 +110,8 @@ export default function GeneOverviewCard({
           <Row label="UniProt ID" value={val(uniprotId)} mono />
           <Row label="MW (kDa)" value={mwKda ? `${mwKda} kDa` : DASH} />
           <Row label="Signal Peptide" value={val(signalPeptide)} />
-          <Row label="Glycosylation" value={val(glycosylation)} />
-          <Row label="Domains" value={val(domains)} />
+          <Row label="Glycosylation" value={val(glycosylation)} clamp />
+          <Row label="Domains" value={val(domains)} clamp />
           <Row label="Localization" value={val(localization)} />
           <Row label="Isoforms" value={isoformCount ? `${isoformCount} isoform${Number(isoformCount) !== 1 ? 's' : ''}` : DASH} />
         </dl>

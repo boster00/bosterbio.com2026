@@ -21,7 +21,7 @@ function NarrativeBlock({ text, label }: { text: string; label: string }) {
       <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted mb-1.5">
         {label}
       </p>
-      <p className="text-sm text-ink-secondary leading-relaxed">{text}</p>
+      <p className="text-sm text-ink-secondary leading-relaxed line-clamp-5">{text}</p>
     </div>
   )
 }
@@ -86,10 +86,10 @@ export default function WesternBlotSection({
           <div className={`flex flex-col ${hasImage ? 'lg:flex-row' : ''} gap-6`}>
             {/* Left: Image panel */}
             {hasImage && activeImageUrl ? (
-              <div className="lg:w-64 xl:w-72 shrink-0">
+              <div className="lg:w-56 xl:w-64 shrink-0">
                 <div
                   className="relative w-full rounded-xl overflow-hidden border border-border bg-surface-subtle"
-                  style={{ aspectRatio: '3/4', minHeight: '240px' }}
+                  style={{ aspectRatio: '3/4', maxHeight: '320px' }}
                 >
                   <Image
                     src={activeImageUrl}
@@ -110,7 +110,7 @@ export default function WesternBlotSection({
             ) : null}
 
             {/* Right: Metadata + narratives */}
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 overflow-hidden">
               {/* Badge row */}
               <div className="flex flex-wrap gap-3 mb-5">
                 {mwKda && (
