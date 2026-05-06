@@ -31,7 +31,8 @@
     "screenshots:smoke-round7": "node scripts/capture-smoke-round7-playwright.mjs",
     "quest:round7:submit": "node scripts/submit-smoke-round7.mjs",
     "screenshots:gene-info": "PUPPETEER_POST_LOAD_MS=3500 node scripts/capture-gene-info-cards.mjs",
-    "submit:gene-info-guildos": "node scripts/submit-gene-info-guildos.mjs"
+    "submit:gene-info-guildos": "node scripts/submit-gene-info-guildos.mjs",
+    "quest:gene-info:verify-submit": "node scripts/gene-info-quest-verify-and-submit.mjs"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.0.0",
