@@ -29,7 +29,8 @@
     "screenshots:smoke-round6": "node scripts/capture-smoke-round6-playwright.mjs",
     "quest:round6:submit": "node scripts/submit-smoke-round6.mjs",
     "screenshots:smoke-round7": "node scripts/capture-smoke-round7-playwright.mjs",
-    "quest:round7:submit": "node scripts/submit-smoke-round7.mjs"
+    "quest:round7:submit": "node scripts/submit-smoke-round7.mjs",
+    "quest:fd53:capture-upload": "node scripts/capture-and-upload-quest-fd53.mjs"
   },
   "dependencies": {
     "@medusajs/js-sdk": "^2.0.0",
