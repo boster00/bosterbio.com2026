@@ -10,8 +10,10 @@ type Props = Pick<
   | 'isoformCount'
   | 'geoWbMw'
   | 'geoDimer'
+  | 'geoWbExpected'
   | 'mainSkuWb'
   | 'wbAntibodyUrl'
+  | 'localization'
 >
 
 function NarrativeBlock({ text, label }: { text: string; label: string }) {
@@ -34,12 +36,17 @@ export default function WesternBlotSection({
   isoformCount,
   geoWbMw,
   geoDimer,
+  geoWbExpected,
   mainSkuWb,
   wbAntibodyUrl,
+  localization,
 }: Props) {
   const hasImage = Boolean(wbImageUrl || ihcImageUrl)
   const activeImageUrl = wbImageUrl ?? ihcImageUrl
   const imageLabel = wbImageUrl ? 'Western Blot' : 'IHC'
+  const isSecreted = localization
+    ? localization.toLowerCase().includes('secreted')
+    : false
 
   return (
     <section aria-labelledby="wb-heading">
@@ -77,19 +84,39 @@ export default function WesternBlotSection({
               Western Blot Reference
             </h2>
             <p className="text-xs text-ink-secondary mt-0.5">
-              Expected band size &amp; expression data
+              What WB bands should I expect for {gene}?
             </p>
           </div>
         </div>
 
         <div className="p-6">
+          {/* Secreted protein alert — shown before everything else */}
+          {isSecreted && (
+            <div
+              className="mb-5 rounded-xl px-4 py-3 flex items-start gap-3"
+              style={{ background: '#fffbeb', border: '1px solid #fde68a' }}
+            >
+              <span className="text-base mt-0.5 shrink-0">⚠</span>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-0.5">
+                  Secreted Protein — WB Tip
+                </p>
+                <p className="text-sm text-amber-900 leading-relaxed">
+                  {gene} is secreted into the extracellular space, so whole-cell lysates often
+                  underrepresent it. Use tissue lysate (placenta) or conditioned media for
+                  strongest signal. If signal is weak, this is the first variable to address.
+                </p>
+              </div>
+            </div>
+          )}
+
           <div className={`flex flex-col ${hasImage ? 'lg:flex-row' : ''} gap-6`}>
             {/* Left: Image panel */}
             {hasImage && activeImageUrl ? (
-              <div className="lg:w-64 xl:w-72 shrink-0">
+              <div className="lg:w-56 xl:w-64 shrink-0">
                 <div
                   className="relative w-full rounded-xl overflow-hidden border border-border bg-surface-subtle"
-                  style={{ aspectRatio: '3/4', minHeight: '240px' }}
+                  style={{ aspectRatio: '3/4', maxHeight: '320px' }}
                 >
                   <Image
                     src={activeImageUrl}
@@ -110,7 +137,7 @@ export default function WesternBlotSection({
             ) : null}
 
             {/* Right: Metadata + narratives */}
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 overflow-hidden">
               {/* Badge row */}
               <div className="flex flex-wrap gap-3 mb-5">
                 {mwKda && (
@@ -124,7 +151,7 @@ export default function WesternBlotSection({
                     <span className="text-xs font-semibold uppercase tracking-wider text-ink-secondary mt-0.5">
                       kDa
                     </span>
-                    <span className="text-[10px] text-ink-muted mt-0.5">Expected MW</span>
+                    <span className="text-[10px] text-ink-muted mt-0.5">Predicted MW</span>
                   </div>
                 )}
                 {isoformCount && (
@@ -154,7 +181,7 @@ export default function WesternBlotSection({
                 )}
               </div>
 
-              {/* Narrative blocks */}
+              {/* Narrative blocks — order: MW → Correct result → Dimer */}
               {!geoWbMw && !geoDimer && (
                 <p className="text-sm italic text-ink-muted">
                   Detailed WB narrative not yet generated for this gene.
@@ -164,6 +191,14 @@ export default function WesternBlotSection({
                 label="Expected Band Size"
                 text={geoWbMw}
               />
+              {geoWbExpected && (
+                <div className="mt-4 rounded-xl px-4 py-3" style={{ background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+                  <p className="text-xs font-bold uppercase tracking-wider text-green-700 mb-1.5">
+                    ✓ What a Correct Result Looks Like
+                  </p>
+                  <p className="text-sm text-green-900 leading-relaxed">{geoWbExpected}</p>
+                </div>
+              )}
               <NarrativeBlock
                 label="Reducing vs. Non-Reducing Conditions"
                 text={geoDimer}

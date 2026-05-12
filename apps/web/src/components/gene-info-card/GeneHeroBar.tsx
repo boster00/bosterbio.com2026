@@ -1,8 +1,8 @@
 import type { GeneCardProps } from './types'
 
-type Props = Pick<GeneCardProps, 'gene' | 'fullName' | 'aliases'>
+type Props = Pick<GeneCardProps, 'gene' | 'fullName' | 'aliases' | 'pagePurpose'>
 
-export default function GeneHeroBar({ gene, fullName, aliases }: Props) {
+export default function GeneHeroBar({ gene, fullName, aliases, pagePurpose }: Props) {
   return (
     <header
       className="w-full"
@@ -17,7 +17,7 @@ export default function GeneHeroBar({ gene, fullName, aliases }: Props) {
         <div className="flex flex-col gap-3">
           {/* Breadcrumb-style label */}
           <p className="text-xs font-semibold tracking-widest uppercase text-blue-200/70 font-heading">
-            Gene / Protein Reference
+            {pagePurpose ? 'Experiment Design Guide' : 'Gene / Protein Reference'}
           </p>
 
           {/* Gene symbol */}
@@ -30,8 +30,8 @@ export default function GeneHeroBar({ gene, fullName, aliases }: Props) {
 
           {/* Full name */}
           <p
-            className="font-sans text-blue-100 leading-relaxed max-w-3xl"
-            style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)' }}
+            className="font-sans text-blue-100 leading-snug max-w-2xl break-words"
+            style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.05rem)' }}
           >
             {fullName}
           </p>
@@ -55,6 +55,16 @@ export default function GeneHeroBar({ gene, fullName, aliases }: Props) {
                   {alias.trim()}
                 </span>
               ))}
+            </div>
+          ) : null}
+
+          {/* Page purpose statement */}
+          {pagePurpose ? (
+            <div
+              className="mt-3 max-w-2xl rounded-xl px-4 py-3"
+              style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}
+            >
+              <p className="text-sm text-blue-100 leading-relaxed">{pagePurpose}</p>
             </div>
           ) : null}
         </div>

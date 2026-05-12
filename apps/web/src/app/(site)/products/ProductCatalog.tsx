@@ -205,6 +205,9 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
   const [host, setHost] = useState("")
   const [application, setApplication] = useState("")
   const [reactivity, setReactivity] = useState("")
+  const [page, setPage] = useState(1)
+
+  const PAGE_SIZE = 20
 
   const hosts = useMemo(() => uniqueSorted(products.map((a) => a.host).filter((h) => h && h !== "—")), [products])
   const targets = useMemo(() => uniqueSorted(products.map((a) => a.target).filter((t) => t && t !== "—")), [products])
@@ -212,6 +215,7 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
   const reactivities = useMemo(() => uniqueSorted(products.flatMap((a) => a.reactivity)), [products])
 
   const filtered = useMemo(() => {
+    setPage(1)
     const q = query.trim().toLowerCase()
     return products.filter((p) => {
       if (q) {
@@ -224,6 +228,9 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
       return true
     })
   }, [query, target, host, application, reactivity, products])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const total = products.length
   const titleConfig = templateFilter && TEMPLATE_TITLES[templateFilter]
@@ -383,11 +390,15 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
           {/* Right — product grid */}
           <div className="min-w-0 flex-1">
             <p className="text-sm text-ink-secondary">
-              Showing <span className="font-bold text-brand">{filtered.length}</span> of {total} products
+              Showing{" "}
+              <span className="font-bold text-brand">
+                {filtered.length === 0 ? 0 : (page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, filtered.length)}
+              </span>{" "}
+              of <span className="font-bold text-brand">{filtered.length}</span> products
             </p>
 
             <ul className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {filtered.map((p) => (
+              {paginated.map((p) => (
                 <li key={p.id}>
                   <ProductCard product={p} />
                 </li>
@@ -397,6 +408,52 @@ export function ProductCatalog({ initialQuery = "", initialProducts, templateFil
             {filtered.length === 0 ? (
               <p className="mt-12 text-center text-ink-secondary">No products match these filters. Try clearing filters.</p>
             ) : null}
+
+            {totalPages > 1 && (
+              <div className="mt-10 flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => { setPage((p) => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: "smooth" }) }}
+                  disabled={page === 1}
+                  className="rounded-xl border border-brand/20 px-4 py-2 text-sm font-semibold text-brand transition hover:bg-accent-soft disabled:pointer-events-none disabled:opacity-30"
+                >
+                  ← Prev
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 2)
+                  .reduce<(number | "…")[]>((acc, p, i, arr) => {
+                    if (i > 0 && p - (arr[i - 1] as number) > 1) acc.push("…")
+                    acc.push(p)
+                    return acc
+                  }, [])
+                  .map((p, i) =>
+                    p === "…" ? (
+                      <span key={`ellipsis-${i}`} className="px-1 text-ink-secondary">…</span>
+                    ) : (
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }) }}
+                        className={`h-9 w-9 rounded-xl text-sm font-bold transition ${
+                          p === page
+                            ? "bg-accent text-white"
+                            : "border border-brand/20 text-brand hover:bg-accent-soft"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    )
+                  )}
+                <button
+                  type="button"
+                  onClick={() => { setPage((p) => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: "smooth" }) }}
+                  disabled={page === totalPages}
+                  className="rounded-xl border border-brand/20 px-4 py-2 text-sm font-semibold text-brand transition hover:bg-accent-soft disabled:pointer-events-none disabled:opacity-30"
+                >
+                  Next →
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

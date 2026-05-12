@@ -1,6 +1,6 @@
 import type { GeneCardProps } from './types'
 
-type Props = Pick<GeneCardProps, 'tissueHigh' | 'tissueMed' | 'tissueLow' | 'geoTissue'>
+type Props = Pick<GeneCardProps, 'gene' | 'tissueHigh' | 'tissueMed' | 'tissueLow' | 'geoTissue'>
 
 interface LevelRowProps {
   label: string
@@ -11,6 +11,8 @@ interface LevelRowProps {
   levelLabel: string
 }
 
+const MAX_CHIPS = 8
+
 function LevelRow({ label, tissues, chipBg, chipText, dotColor, levelLabel }: LevelRowProps) {
   const items = tissues
     ? tissues
@@ -19,10 +21,13 @@ function LevelRow({ label, tissues, chipBg, chipText, dotColor, levelLabel }: Le
         .filter(Boolean)
     : []
 
+  const visible = items.slice(0, MAX_CHIPS)
+  const overflow = items.length - MAX_CHIPS
+
   return (
-    <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
+    <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 min-w-0">
       {/* Level indicator */}
-      <div className="flex items-center gap-2 w-full sm:w-40 shrink-0">
+      <div className="flex items-center gap-2 w-full sm:w-36 shrink-0">
         <span
           className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
           style={{ background: dotColor }}
@@ -31,24 +36,36 @@ function LevelRow({ label, tissues, chipBg, chipText, dotColor, levelLabel }: Le
         <span className="text-xs font-bold uppercase tracking-wider" style={{ color: dotColor }}>
           {levelLabel}
         </span>
-        <span className="text-xs text-ink-muted ml-0.5 hidden sm:inline">
-          ({items.length || 0})
+        <span className="text-xs text-ink-muted ml-0.5">
+          ({items.length})
         </span>
       </div>
 
       {/* Chips */}
-      <div className="flex flex-wrap gap-1.5" role="list" aria-label={`${label} expression tissues`}>
+      <div className="flex flex-wrap gap-1.5 min-w-0" role="list" aria-label={`${label} expression tissues`}>
         {items.length > 0 ? (
-          items.map((tissue) => (
-            <span
-              key={tissue}
-              role="listitem"
-              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize"
-              style={{ background: chipBg, color: chipText }}
-            >
-              {tissue}
-            </span>
-          ))
+          <>
+            {visible.map((tissue) => (
+              <span
+                key={tissue}
+                role="listitem"
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold capitalize whitespace-nowrap"
+                style={{ background: chipBg, color: chipText }}
+              >
+                {tissue}
+              </span>
+            ))}
+            {overflow > 0 && (
+              <span
+                role="listitem"
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                style={{ background: '#e2eaf3', color: '#475569' }}
+                title={items.slice(MAX_CHIPS).join(', ')}
+              >
+                +{overflow} more
+              </span>
+            )}
+          </>
         ) : (
           <span className="text-xs italic text-ink-muted">—</span>
         )}
@@ -58,6 +75,7 @@ function LevelRow({ label, tissues, chipBg, chipText, dotColor, levelLabel }: Le
 }
 
 export default function TissueExpressionSection({
+  gene,
   tissueHigh,
   tissueMed,
   tissueLow,
@@ -93,7 +111,7 @@ export default function TissueExpressionSection({
               Tissue Expression
             </h2>
             <p className="text-xs text-ink-secondary mt-0.5">
-              RNA &amp; protein expression by tissue type
+              Where is {gene} expressed, and which tissues work as controls?
             </p>
           </div>
         </div>
