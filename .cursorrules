@@ -1,0 +1,76 @@
+# bosterbio.com2026 — Cursor Agent Rules
+
+You are a Cursor agent working on the BosterBio Magento → Medusa migration. Read `CLAUDE.md` in this repo for tech stack, ports, and Supabase wiring.
+
+## Context-hygiene principle (load-bearing — read first)
+
+Your context window is the most expensive resource you have. Bloat it and you make worse decisions, miss details, and run out of budget mid-task. Treat the main agent (you) as an orchestrator that holds **decisions, state, and the next step** — not raw data, intermediate analysis, or large file dumps.
+
+### Rules
+
+1. **RAG everything you can.** Don't bulk-read large files when targeted retrieval works:
+   - Grep first to find the lines you need, then Read with `offset` + `limit` to load only those lines.
+   - Querying Supabase? Select specific columns + tight `where` clauses + limit. Never `select *` from large tables.
+   - Searching docs? Grep for keywords, read the matching block, not the whole file.
+
+2. **Dispatch sub-agents for noisy work.** If a step involves:
+   - Reading >300 lines of a file to extract a few facts
+   - Scraping DOM or scanning a large page
+   - Crunching through many records to find a pattern
+   - Comparing two long artifacts
+   - Reading a large CSV to extract a sample
+
+   → spawn a sub-agent (`Agent` tool) with a focused prompt. Sub-agent returns the clean fact; raw content dies with its context. You stay lean.
+
+3. **What stays in main-agent context:**
+   - The objective and current step
+   - Decisions made (with one-line rationale)
+   - Pointers (file paths, URLs, record IDs) — not contents
+   - Next action
+
+4. **What goes to a sub-agent (or weapon/script):**
+   - Anything you'd describe as "I need to look through X and find Y"
+   - Anything you'd describe as "compare A and B"
+   - Anything that produces a lot of intermediate state you don't carry forward
+   - File reads where you only need a summary or a few extracted values
+
+5. **No improvising on missing tools.** If the work needs an action that doesn't exist (skill book action, weapon function, library), STOP and report `SKILL_BOOK_GAP` to GuildOS rather than improvising a one-off script. The point of the system is reusable substrate.
+
+6. **One decision, one step, one return.** Don't chain "do X then Y then Z" in a single message unless they're truly atomic. Return after each meaningful unit so the orchestrator (or the user) can intervene before drift compounds.
+
+### Anti-patterns
+
+- ❌ "Let me read this 2,000-line file to understand the migration." → use Grep + targeted Read or dispatch a sub-agent.
+- ❌ Loading the full Magento product CSV in your context to find one product's attributes. → Grep the CSV for the SKU, Read 5 lines around the match.
+- ❌ Walking through every product in a 1000-row result to find anomalies in main session. → dispatch a sub-agent with the rows + the check criteria; it returns the anomaly list.
+- ❌ Holding draft + revised + final versions of a page's HTML in the same session. → write each version to disk, keep only the path in context.
+- ❌ "Let me re-fetch this to confirm" — if a sub-agent already fetched it, trust the return. Re-fetch only on legitimate reason (data changes, prior call errored).
+
+### When in doubt
+
+Ask yourself: "If my session crashed right now, what would I need from my context to resume?" That set is what should be in context. Everything else is noise that belongs in a sub-agent, a file, or a Supabase row.
+
+---
+
+## Migration-specific context
+
+- **Repo layout:** Turborepo monorepo. `apps/web/` (Next.js 15 storefront, port 3003), `apps/api/` (Medusa v2 backend), `packages/types/` (shared TypeScript types).
+- **Storefront data:** Supabase Postgres project `bosterbio.com2026` (ref `kjgizxqglzcrwfiauhaj`). Pooler connection only (`aws-1-us-east-1.pooler.supabase.com:5432`). Server-side: `import { supabaseService } from "@/lib/supabase/server"`.
+- **Magento source:** `c100h.bosterbio.com` via SSH (`ssh -p 2223 boster_ooP9u@69.27.32.101`). MySQL: `bosterbio_m2` database. CSV export at `/home/jetrails/bosterbio.com/html/pub/internal-export.csv` (~412 MB, 100 cols, ~568k lines).
+- **Design Guide:** `apps/docs/figma/` — Figma exports (JSON + PNG) for all key pages at 5 breakpoints (375 / 768 / 1200 / 1440 / 1920).
+- **Brand tokens:** Primary blue `#1a365d`, accent orange `#f97316`, Inter + Josefin Sans + Mulish fonts (see `apps/web/src/app/globals.css`).
+
+## Development workflow
+
+- Use `pnpm` (not npm or yarn).
+- Web app: `pnpm --filter web dev` → http://localhost:3003.
+- Branches: work on `main` directly unless explicitly told otherwise (per global discipline rule).
+- Commits: small, focused, with clear messages.
+
+## Reporting back to GuildOS
+
+Quest bookkeeping (items rows, item_comments, submit gate) targets the **GuildOS** Supabase, not the bosterbio one. Use `~/.guildos.env` credentials. Submit work via `questExecution.submit` from GuildOS weapons — never write `quests.stage` directly.
+
+## Final note
+
+If you find yourself thinking "this is getting complex, let me just dump everything into context to be safe" — that's the exact moment to stop and dispatch a sub-agent instead. Discipline pays off cumulatively over a multi-week migration.
