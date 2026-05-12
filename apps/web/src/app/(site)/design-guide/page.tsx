@@ -136,6 +136,20 @@ export default function DesignGuidePage() {
           <h2 className="font-display text-display-md text-brand">Marketing strip</h2>
           <p className="mt-2 text-ink-secondary">Blue-to-white gradient panel (e.g. pricing sections).</p>
         </section>
+
+        <section className="rounded-2xl border border-dashed border-brand/25 bg-white p-8 text-center shadow-card">
+          <h2 className="font-display text-display-md text-brand">CMS transmutation smoke</h2>
+          <p className="mx-auto mt-2 max-w-xl text-ink-secondary">
+            Automated semantic tag parity and section <code className="font-mono text-xs">data-cms-section</code> labels for the
+            two newest <code className="font-mono text-xs">cms_pages</code> rows (TSV seed fallback when Supabase is unavailable).
+          </p>
+          <Link
+            href="/design-guide/cms-transmutation-verify"
+            className="mt-6 inline-flex rounded-full border-2 border-brand px-6 py-2.5 text-sm font-bold text-brand transition hover:bg-brand-tint"
+          >
+            Open verification page
+          </Link>
+        </section>
       </div>
     </main>
   )

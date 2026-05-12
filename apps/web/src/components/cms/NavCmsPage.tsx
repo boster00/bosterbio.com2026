@@ -1,5 +1,5 @@
 import type { CmsNavPayload } from "@/lib/cms-nav"
-import { hydrateCmsHtml } from "@/lib/cms-nav"
+import { composeTransmutedArticleHtml } from "@/lib/cms-transmute"
 import { EditorialPageHeader } from "./EditorialPageHeader"
 
 type Props = {
@@ -32,7 +32,7 @@ export function NavCmsPage({ data, fallbackTitle, fallbackDescription }: Props) 
   const heading = data?.content_heading?.trim() || rawTitle
   // Figma title is uppercase + letter-spaced. We render the heading itself in
   // its natural casing via CSS uppercase so the H1 reads correctly to AT.
-  const html = data ? hydrateCmsHtml(data.content, heading) : ""
+  const html = data ? composeTransmutedArticleHtml(data.content, heading) : ""
 
   return (
     <main id="main-content" className="bg-white">
