@@ -1,6 +1,6 @@
 import type { GeneCardProps } from './types'
 
-type Props = Pick<GeneCardProps, 'tissueHigh' | 'tissueMed' | 'tissueLow' | 'geoTissue'>
+type Props = Pick<GeneCardProps, 'gene' | 'tissueHigh' | 'tissueMed' | 'tissueLow' | 'geoTissue'>
 
 interface LevelRowProps {
   label: string
@@ -75,6 +75,7 @@ function LevelRow({ label, tissues, chipBg, chipText, dotColor, levelLabel }: Le
 }
 
 export default function TissueExpressionSection({
+  gene,
   tissueHigh,
   tissueMed,
   tissueLow,
@@ -110,7 +111,7 @@ export default function TissueExpressionSection({
               Tissue Expression
             </h2>
             <p className="text-xs text-ink-secondary mt-0.5">
-              RNA &amp; protein expression by tissue type
+              Where is {gene} expressed, and which tissues work as controls?
             </p>
           </div>
         </div>
@@ -155,7 +156,7 @@ export default function TissueExpressionSection({
               <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted mb-1.5">
                 Expression Summary
               </p>
-              <p className="text-sm text-ink-secondary leading-relaxed line-clamp-5">{geoTissue}</p>
+              <p className="text-sm text-ink-secondary leading-relaxed">{geoTissue}</p>
             </div>
           )}
         </div>

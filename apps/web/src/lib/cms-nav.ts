@@ -59,6 +59,19 @@ export function hydrateCmsHtml(html: string, pageTitle?: string): string {
   s = s.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
   s = s.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
   s = s.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, "")
+  // 2c. Convert Loom iframes to clickable thumbnail links before the generic
+  //     iframe strip below. Loom self-closing iframes use the pattern
+  //     <iframe src="https://www.loom.com/embed/{id}" ...></iframe> (or />).
+  //     We replace each with a linked thumbnail image pointing to the share URL.
+  //     Thumbnail format: https://cdn.loom.com/sessions/thumbnails/{id}-with-play.gif
+  s = s.replace(
+    /<iframe\b[^>]*\bsrc="https?:\/\/(?:www\.)?loom\.com\/embed\/([a-f0-9]+)[^"]*"[^>]*(?:\/>|>[\s\S]*?<\/iframe>)/gi,
+    (_, videoId) => {
+      const thumbUrl = `https://cdn.loom.com/sessions/thumbnails/${videoId}-with-play.gif`
+      const shareUrl = `https://www.loom.com/share/${videoId}`
+      return `<a href="${shareUrl}" target="_blank" rel="noopener noreferrer"><img src="${thumbUrl}" alt="Watch video on Loom" loading="lazy" /></a>`
+    }
+  )
   s = s.replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, "")
 
   // 2a. Resolve known Magento `{{customVar code=...}}` placeholders. Some

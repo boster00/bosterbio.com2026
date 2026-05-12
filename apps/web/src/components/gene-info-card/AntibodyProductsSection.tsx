@@ -11,6 +11,11 @@ type Props = Pick<
   | 'assayApps'
   | 'wbImageUrl'
   | 'ihcImageUrl'
+  | 'geoAbSelection'
+  | 'bosterGeneUrl'
+  | 'relatedLysateImageUrl'
+  | 'relatedLysateUrl'
+  | 'relatedLysateSku'
 >
 
 export default function AntibodyProductsSection({
@@ -22,6 +27,11 @@ export default function AntibodyProductsSection({
   assayApps,
   wbImageUrl,
   ihcImageUrl,
+  geoAbSelection,
+  bosterGeneUrl,
+  relatedLysateImageUrl,
+  relatedLysateUrl,
+  relatedLysateSku,
 }: Props) {
   const hasProduct = Boolean(mainSkuWb || wbImageUrl)
 
@@ -61,7 +71,7 @@ export default function AntibodyProductsSection({
                 Antibody Products
               </h2>
               <p className="text-xs text-ink-secondary mt-0.5">
-                Validated reagents for {gene}
+                Which antibody should I use for my {gene} experiment?
               </p>
             </div>
           </div>
@@ -82,6 +92,11 @@ export default function AntibodyProductsSection({
         </div>
 
         <div className="p-6">
+          {/* Reasoning narrative — leads the section, product is the conclusion */}
+          {geoAbSelection && (
+            <p className="text-sm text-ink-secondary leading-relaxed mb-5 line-clamp-4">{geoAbSelection}</p>
+          )}
+
           {/* Product card */}
           {hasProduct ? (
             <div
@@ -183,6 +198,78 @@ export default function AntibodyProductsSection({
               <p className="text-xs text-ink-muted mt-1">
                 Check back as we expand our catalog coverage.
               </p>
+            </div>
+          )}
+
+          {/* Related lysate — positive control product */}
+          {(relatedLysateSku || relatedLysateUrl) && (
+            <div className="mt-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-ink-muted mb-2">
+                WB Positive Control
+              </p>
+              <div
+                className="rounded-xl border border-border overflow-hidden flex flex-col sm:flex-row"
+                style={{ boxShadow: '0 1px 3px rgba(0,76,149,0.06)' }}
+              >
+                {relatedLysateImageUrl && (
+                  <div
+                    className="sm:w-28 shrink-0 relative bg-surface-subtle border-r border-border"
+                    style={{ minHeight: '100px' }}
+                  >
+                    <Image
+                      src={relatedLysateImageUrl}
+                      alt={`WB gel for ${gene} over-expression lysate ${relatedLysateSku}`}
+                      fill
+                      className="object-contain p-2"
+                      sizes="112px"
+                    />
+                  </div>
+                )}
+                <div className="flex-1 p-3 flex flex-col justify-between gap-2">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+                      Over-Expression Lysate
+                    </p>
+                    <p className="font-heading font-bold text-base text-ink mt-0.5 tracking-wide font-mono">
+                      {relatedLysateSku}
+                    </p>
+                    <p className="text-xs text-ink-muted mt-0.5">
+                      Human {gene} — use as WB positive control
+                    </p>
+                  </div>
+                  {relatedLysateUrl && (
+                    <a
+                      href={relatedLysateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors hover:opacity-90"
+                      style={{ background: '#e8f1fa', color: '#004C95' }}
+                    >
+                      View Lysate
+                      <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Catalog browse link */}
+          {bosterGeneUrl && (
+            <div className="mt-5 pt-4 border-t border-border">
+              <a
+                href={bosterGeneUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-primary hover:underline"
+              >
+                Browse all {gene} products at Boster
+                <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                </svg>
+              </a>
             </div>
           )}
         </div>

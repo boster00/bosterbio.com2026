@@ -2,6 +2,7 @@ import type { GeneCardProps } from './types'
 
 type Props = Pick<
   GeneCardProps,
+  | 'gene'
   | 'superfamily'
   | 'uniprotId'
   | 'mwKda'
@@ -45,6 +46,7 @@ function Row({ label, value, mono = false, clamp = false }: RowProps & { clamp?:
 }
 
 export default function GeneOverviewCard({
+  gene,
   superfamily,
   uniprotId,
   mwKda,
@@ -71,7 +73,7 @@ export default function GeneOverviewCard({
               Gene Overview
             </h2>
             <p className="text-xs text-ink-secondary mt-0.5">
-              Protein properties &amp; structural annotations
+              What are {gene}&apos;s key structural and molecular properties?
             </p>
           </div>
           {uniprotId && (

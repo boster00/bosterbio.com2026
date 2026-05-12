@@ -4,7 +4,10 @@ import GeneOverviewCard from './GeneOverviewCard'
 import WesternBlotSection from './WesternBlotSection'
 import TissueExpressionSection from './TissueExpressionSection'
 import AntibodyProductsSection from './AntibodyProductsSection'
+import ExperimentDesignSection from './ExperimentDesignSection'
+import SituationalModulesSection from './SituationalModulesSection'
 import ExternalLinksFooter from './ExternalLinksFooter'
+import BiomarkerLibraryBanner from './BiomarkerLibraryBanner'
 
 export type { GeneCardProps }
 
@@ -37,18 +40,33 @@ export default function GeneInfoCard(props: GeneCardProps) {
     geoWbMw,
     geoDimer,
     geoTissue,
+    pagePurpose,
+    geoControls,
+    posControlTissues,
+    negControlTissues,
+    loadingControl,
+    ihcPatternTitle,
+    ihcPatternDetail,
+    geoAbSelection,
+    gotchaNote,
+    geoWbExpected,
+    situationalModulesJson,
+    relatedLysateImageUrl,
+    relatedLysateUrl,
+    relatedLysateSku,
   } = props
 
   return (
     <main className="min-h-screen bg-background">
       {/* Hero bar — full bleed */}
-      <GeneHeroBar gene={gene} fullName={fullName} aliases={aliases} />
+      <GeneHeroBar gene={gene} fullName={fullName} aliases={aliases} pagePurpose={pagePurpose} />
 
       {/* Main content */}
       <div className="max-w-[1200px] mx-auto px-4 py-8 md:py-10">
         {/* Top two-col grid: Overview left, WB right on lg+ */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 mb-6 items-start">
           <GeneOverviewCard
+            gene={gene}
             superfamily={superfamily}
             uniprotId={uniprotId}
             mwKda={mwKda}
@@ -67,14 +85,17 @@ export default function GeneInfoCard(props: GeneCardProps) {
             isoformCount={isoformCount}
             geoWbMw={geoWbMw}
             geoDimer={geoDimer}
+            geoWbExpected={geoWbExpected}
             mainSkuWb={mainSkuWb}
             wbAntibodyUrl={wbAntibodyUrl}
+            localization={localization}
           />
         </div>
 
         {/* Bottom two-col grid: Tissue left, Antibody right on lg+ */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 mb-6 items-start">
           <TissueExpressionSection
+            gene={gene}
             tissueHigh={tissueHigh}
             tissueMed={tissueMed}
             tissueLow={tissueLow}
@@ -89,7 +110,42 @@ export default function GeneInfoCard(props: GeneCardProps) {
             assayApps={assayApps}
             wbImageUrl={wbImageUrl}
             ihcImageUrl={ihcImageUrl}
+            geoAbSelection={geoAbSelection}
+            bosterGeneUrl={bosterGeneUrl}
+            relatedLysateImageUrl={relatedLysateImageUrl}
+            relatedLysateUrl={relatedLysateUrl}
+            relatedLysateSku={relatedLysateSku}
           />
+        </div>
+
+        {/* Experiment design guide */}
+        <div className="mb-6">
+          <ExperimentDesignSection
+            gene={gene}
+            geoControls={geoControls}
+            posControlTissues={posControlTissues}
+            negControlTissues={negControlTissues}
+            loadingControl={loadingControl}
+            ihcPatternTitle={ihcPatternTitle}
+            ihcPatternDetail={ihcPatternDetail}
+            geoAbSelection={geoAbSelection}
+            gotchaNote={gotchaNote}
+            mainSkuWb={mainSkuWb}
+            wbCitations={wbCitations}
+            assayApps={assayApps}
+          />
+        </div>
+
+        {/* Situational mini-modules — common experiment challenges */}
+        {situationalModulesJson && (
+          <div className="mb-6">
+            <SituationalModulesSection gene={gene} situationalModulesJson={situationalModulesJson} />
+          </div>
+        )}
+
+        {/* Biomarker library positioning banner */}
+        <div className="mb-6">
+          <BiomarkerLibraryBanner currentGene={gene} />
         </div>
 
         {/* External links footer row */}
