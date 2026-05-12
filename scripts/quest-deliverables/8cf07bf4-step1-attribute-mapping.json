@@ -1,0 +1,2790 @@
+{
+  "quest_id": "8cf07bf4-e216-42f5-a3af-5abace7ccde8",
+  "item_key": "step-1-attribute-extraction",
+  "generated_at": "2026-05-12T01:58:38.592Z",
+  "computed_type_a": {
+    "search_index": {
+      "kind": "type_a",
+      "dest": "products.search_index",
+      "magento_sources": [
+        "sku",
+        "name",
+        "gene_name",
+        "uniprot_id",
+        "synonyms"
+      ],
+      "notes": "Concatenated in migrate-products-pilot rowToProduct(); not a CSV column"
+    }
+  },
+  "source_csv": "https://www.bosterbio.com/internal-export.csv",
+  "slice_strategy": "First valid row per template from streamed range: development=antibodies, verification=elisa-kits (Type A + B + images coverage).",
+  "products": [
+    {
+      "role": "verification",
+      "sku": "EK0776",
+      "url_key": "human-igf1r-picokine-trade-elisa-kit-ek0776-boster",
+      "product_template": "elisa-kits",
+      "attribute_count": 100
+    },
+    {
+      "role": "development",
+      "sku": "MA1000",
+      "url_key": "anti-actin-antibody-monoclonal-ma1000-boster",
+      "product_template": "antibodies",
+      "attribute_count": 100
+    }
+  ],
+  "csv_column_count": 100,
+  "global_column_map": {
+    "anticoagulant": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "application_details": {
+      "kind": "type_b",
+      "dest": "products.attr_25",
+      "notes": "attribute_definitions label order slot 25"
+    },
+    "application_notes": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "applications": {
+      "kind": "type_a",
+      "dest": "products.applications",
+      "notes": "text[] from CSV string"
+    },
+    "assay_procedure_step_1": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "assay_range": {
+      "kind": "type_b",
+      "dest": "products.attr_8",
+      "notes": "attribute_definitions label order slot 8"
+    },
+    "background": {
+      "kind": "content",
+      "dest": "products.background"
+    },
+    "badges": {
+      "kind": "type_a",
+      "dest": "products.badges"
+    },
+    "category_ids": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "clonality": {
+      "kind": "type_a",
+      "dest": "products.clone",
+      "notes": "merged with clone_number"
+    },
+    "clone_number": {
+      "kind": "type_a",
+      "dest": "products.clone",
+      "notes": "merged with clone_number"
+    },
+    "competitor_equivalent_skus": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "concentration": {
+      "kind": "type_b",
+      "dest": "products.attr_15",
+      "notes": "attribute_definitions label order slot 15"
+    },
+    "conjugate": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "contents": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "created_at": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "cross_reactivity": {
+      "kind": "type_b",
+      "dest": "products.attr_2",
+      "notes": "attribute_definitions label order slot 2"
+    },
+    "custom_attribute_1": {
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    "custom_attribute_2": {
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    "custom_attribute_3": {
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    "custom_attribute_4": {
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    "custom_attribute_5": {
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    "custom_attribute_6": {
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    "custom_listing_information": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "custom_options": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "description": {
+      "kind": "content",
+      "dest": "products.description"
+    },
+    "description_after_attributes": {
+      "kind": "type_b",
+      "dest": "products.attr_12",
+      "notes": "attribute_definitions label order slot 12"
+    },
+    "description_before_attributes": {
+      "kind": "type_b",
+      "dest": "products.attr_11",
+      "notes": "attribute_definitions label order slot 11"
+    },
+    "form": {
+      "kind": "type_b",
+      "dest": "products.attr_16",
+      "notes": "attribute_definitions label order slot 16"
+    },
+    "gene_full_name": {
+      "kind": "type_a",
+      "dest": "products.target_info(jsonb)",
+      "jsonKey": "gene_full_name"
+    },
+    "gene_name": {
+      "kind": "type_a",
+      "dest": "products.target_info(jsonb)",
+      "jsonKey": "gene_name"
+    },
+    "host": {
+      "kind": "type_a",
+      "dest": "products.host_species"
+    },
+    "image_labels": {
+      "kind": "product_images",
+      "dest": "product_images rows",
+      "notes": "split on |; hero=first"
+    },
+    "images": {
+      "kind": "product_images",
+      "dest": "product_images rows",
+      "notes": "split on |; hero=first"
+    },
+    "immunogen": {
+      "kind": "type_b",
+      "dest": "products.attr_13",
+      "notes": "attribute_definitions label order slot 13"
+    },
+    "intra_inter_assay_cv": {
+      "kind": "type_b",
+      "dest": "products.attr_23",
+      "notes": "attribute_definitions label order slot 23"
+    },
+    "isotype": {
+      "kind": "type_b",
+      "dest": "products.attr_17",
+      "notes": "attribute_definitions label order slot 17"
+    },
+    "kit_components": {
+      "kind": "type_b",
+      "dest": "products.attr_1",
+      "notes": "attribute_definitions label order slot 1"
+    },
+    "meta_description": {
+      "kind": "seo",
+      "dest": "products.meta_description"
+    },
+    "meta_keyword": {
+      "kind": "seo",
+      "dest": "products.meta_keywords"
+    },
+    "meta_title": {
+      "kind": "seo",
+      "dest": "products.meta_title"
+    },
+    "molecular_weight": {
+      "kind": "type_b",
+      "dest": "products.attr_20",
+      "notes": "attribute_definitions label order slot 20"
+    },
+    "name": {
+      "kind": "type_a",
+      "dest": "products.title"
+    },
+    "normal_range_citations": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "phospho_site": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "predicted_reactivity": {
+      "kind": "type_b",
+      "dest": "products.attr_4",
+      "notes": "attribute_definitions label order slot 4"
+    },
+    "price": {
+      "kind": "derived_ui",
+      "dest": "Medusa/pricing (not in products row)",
+      "notes": "PDP price still from Magento path in hybrid phase"
+    },
+    "price_for_size_1": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_10": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_2": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_3": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_4": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_5": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_6": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_7": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_8": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "price_for_size_9": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "principle": {
+      "kind": "type_b",
+      "dest": "products.attr_21",
+      "notes": "attribute_definitions label order slot 21"
+    },
+    "product_category": {
+      "kind": "type_a",
+      "dest": "products.category"
+    },
+    "protein_function": {
+      "kind": "type_a",
+      "dest": "products.target_info(jsonb)",
+      "jsonKey": "protein_function"
+    },
+    "protein_name": {
+      "kind": "type_a",
+      "dest": "products.target_info(jsonb)",
+      "jsonKey": "protein_name"
+    },
+    "purification": {
+      "kind": "type_b",
+      "dest": "products.attr_14",
+      "notes": "attribute_definitions label order slot 14"
+    },
+    "rating_value": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "reactivity": {
+      "kind": "type_a",
+      "dest": "products.reactivity",
+      "notes": "text[] from CSV string"
+    },
+    "recommended_detection_systems": {
+      "kind": "type_b",
+      "dest": "products.attr_5",
+      "notes": "attribute_definitions label order slot 5"
+    },
+    "reconstitution": {
+      "kind": "type_b",
+      "dest": "products.attr_3",
+      "notes": "attribute_definitions label order slot 3"
+    },
+    "reproducibility": {
+      "kind": "type_b",
+      "dest": "products.attr_7",
+      "notes": "attribute_definitions label order slot 7"
+    },
+    "research_category": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "ribbons": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "sample_data": {
+      "kind": "type_b",
+      "dest": "products.attr_24",
+      "notes": "attribute_definitions label order slot 24"
+    },
+    "sample_type": {
+      "kind": "type_b",
+      "dest": "products.attr_9",
+      "notes": "attribute_definitions label order slot 9"
+    },
+    "sensitivity": {
+      "kind": "type_b",
+      "dest": "products.attr_6",
+      "notes": "attribute_definitions label order slot 6"
+    },
+    "sequence_similarities": {
+      "kind": "type_b",
+      "dest": "products.attr_10",
+      "notes": "attribute_definitions label order slot 10"
+    },
+    "short_description": {
+      "kind": "content",
+      "dest": "products.short_description"
+    },
+    "size": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "size_1": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_10": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_2": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_3": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_4": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_5": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_6": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_7": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_8": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "size_9": {
+      "kind": "formats",
+      "dest": "ProductPdpFormats / variants",
+      "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+    },
+    "sku": {
+      "kind": "type_a",
+      "dest": "products.sku"
+    },
+    "source": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "source_company": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "status": {
+      "kind": "type_a",
+      "dest": "products.status",
+      "notes": "1→enabled else disabled"
+    },
+    "storage": {
+      "kind": "content",
+      "dest": "products.storage"
+    },
+    "subcellular_localization": {
+      "kind": "type_b",
+      "dest": "products.attr_19",
+      "notes": "attribute_definitions label order slot 19"
+    },
+    "synonyms": {
+      "kind": "type_a",
+      "dest": "products.target_info(jsonb)",
+      "jsonKey": "synonyms"
+    },
+    "tag": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "template": {
+      "kind": "type_a",
+      "dest": "products.product_template"
+    },
+    "tissue_specificity": {
+      "kind": "type_b",
+      "dest": "products.attr_18",
+      "notes": "attribute_definitions label order slot 18"
+    },
+    "tmb_incubation_time": {
+      "kind": "type_b",
+      "dest": "products.attr_22",
+      "notes": "attribute_definitions label order slot 22"
+    },
+    "transfer_price": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "uniprot_id": {
+      "kind": "type_a",
+      "dest": "products.target_info(jsonb)",
+      "jsonKey": "uniprot_id"
+    },
+    "updated_at": {
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    "url_key": {
+      "kind": "type_a",
+      "dest": "products.handle"
+    }
+  },
+  "per_product_attribute_audit": [
+    {
+      "role": "verification",
+      "template": "elisa-kits",
+      "sku": "EK0776",
+      "url_key": "human-igf1r-picokine-trade-elisa-kit-ek0776-boster",
+      "attributes": [
+        {
+          "magento_column": "anticoagulant",
+          "raw_present": true,
+          "raw_length": 15,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "application_details",
+          "raw_present": true,
+          "raw_length": 77,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_25",
+            "notes": "attribute_definitions label order slot 25"
+          }
+        },
+        {
+          "magento_column": "application_notes",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "applications",
+          "raw_present": true,
+          "raw_length": 5,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.applications",
+            "notes": "text[] from CSV string"
+          }
+        },
+        {
+          "magento_column": "assay_procedure_step_1",
+          "raw_present": true,
+          "raw_length": 84,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "assay_range",
+          "raw_present": true,
+          "raw_length": 24,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_8",
+            "notes": "attribute_definitions label order slot 8"
+          }
+        },
+        {
+          "magento_column": "background",
+          "raw_present": true,
+          "raw_length": 700,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.background"
+          }
+        },
+        {
+          "magento_column": "badges",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.badges"
+          }
+        },
+        {
+          "magento_column": "category_ids",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "clonality",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.clone",
+            "notes": "merged with clone_number"
+          }
+        },
+        {
+          "magento_column": "clone_number",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.clone",
+            "notes": "merged with clone_number"
+          }
+        },
+        {
+          "magento_column": "competitor_equivalent_skus",
+          "raw_present": false,
+          "raw_length": 1,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "concentration",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_15",
+            "notes": "attribute_definitions label order slot 15"
+          }
+        },
+        {
+          "magento_column": "conjugate",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "contents",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "created_at",
+          "raw_present": true,
+          "raw_length": 19,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "cross_reactivity",
+          "raw_present": true,
+          "raw_length": 69,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_2",
+            "notes": "attribute_definitions label order slot 2"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_1",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_2",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_3",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_4",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_5",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_6",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_listing_information",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "custom_options",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "description",
+          "raw_present": true,
+          "raw_length": 460,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.description"
+          }
+        },
+        {
+          "magento_column": "description_after_attributes",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_12",
+            "notes": "attribute_definitions label order slot 12"
+          }
+        },
+        {
+          "magento_column": "description_before_attributes",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_11",
+            "notes": "attribute_definitions label order slot 11"
+          }
+        },
+        {
+          "magento_column": "form",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_16",
+            "notes": "attribute_definitions label order slot 16"
+          }
+        },
+        {
+          "magento_column": "gene_full_name",
+          "raw_present": true,
+          "raw_length": 37,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "gene_full_name"
+          }
+        },
+        {
+          "magento_column": "gene_name",
+          "raw_present": true,
+          "raw_length": 5,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "gene_name"
+          }
+        },
+        {
+          "magento_column": "host",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.host_species"
+          }
+        },
+        {
+          "magento_column": "image_labels",
+          "raw_present": true,
+          "raw_length": 45,
+          "mapping": {
+            "kind": "product_images",
+            "dest": "product_images rows",
+            "notes": "split on |; hero=first"
+          }
+        },
+        {
+          "magento_column": "images",
+          "raw_present": true,
+          "raw_length": 15,
+          "mapping": {
+            "kind": "product_images",
+            "dest": "product_images rows",
+            "notes": "split on |; hero=first"
+          }
+        },
+        {
+          "magento_column": "immunogen",
+          "raw_present": true,
+          "raw_length": 65,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_13",
+            "notes": "attribute_definitions label order slot 13"
+          }
+        },
+        {
+          "magento_column": "intra_inter_assay_cv",
+          "raw_present": true,
+          "raw_length": 670,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_23",
+            "notes": "attribute_definitions label order slot 23"
+          }
+        },
+        {
+          "magento_column": "isotype",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_17",
+            "notes": "attribute_definitions label order slot 17"
+          }
+        },
+        {
+          "magento_column": "kit_components",
+          "raw_present": true,
+          "raw_length": 10,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_1",
+            "notes": "attribute_definitions label order slot 1"
+          }
+        },
+        {
+          "magento_column": "meta_description",
+          "raw_present": true,
+          "raw_length": 181,
+          "mapping": {
+            "kind": "seo",
+            "dest": "products.meta_description"
+          }
+        },
+        {
+          "magento_column": "meta_keyword",
+          "raw_present": true,
+          "raw_length": 76,
+          "mapping": {
+            "kind": "seo",
+            "dest": "products.meta_keywords"
+          }
+        },
+        {
+          "magento_column": "meta_title",
+          "raw_present": true,
+          "raw_length": 63,
+          "mapping": {
+            "kind": "seo",
+            "dest": "products.meta_title"
+          }
+        },
+        {
+          "magento_column": "molecular_weight",
+          "raw_present": true,
+          "raw_length": 9,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_20",
+            "notes": "attribute_definitions label order slot 20"
+          }
+        },
+        {
+          "magento_column": "name",
+          "raw_present": true,
+          "raw_length": 45,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.title"
+          }
+        },
+        {
+          "magento_column": "normal_range_citations",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "phospho_site",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "predicted_reactivity",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_4",
+            "notes": "attribute_definitions label order slot 4"
+          }
+        },
+        {
+          "magento_column": "price",
+          "raw_present": true,
+          "raw_length": 8,
+          "mapping": {
+            "kind": "derived_ui",
+            "dest": "Medusa/pricing (not in products row)",
+            "notes": "PDP price still from Magento path in hybrid phase"
+          }
+        },
+        {
+          "magento_column": "price_for_size_1",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_10",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_2",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_3",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_4",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_5",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_6",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_7",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_8",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_9",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "principle",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_21",
+            "notes": "attribute_definitions label order slot 21"
+          }
+        },
+        {
+          "magento_column": "product_category",
+          "raw_present": true,
+          "raw_length": 19,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.category"
+          }
+        },
+        {
+          "magento_column": "protein_function",
+          "raw_present": true,
+          "raw_length": 2087,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "protein_function"
+          }
+        },
+        {
+          "magento_column": "protein_name",
+          "raw_present": true,
+          "raw_length": 37,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "protein_name"
+          }
+        },
+        {
+          "magento_column": "purification",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_14",
+            "notes": "attribute_definitions label order slot 14"
+          }
+        },
+        {
+          "magento_column": "rating_value",
+          "raw_present": true,
+          "raw_length": 3,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "reactivity",
+          "raw_present": true,
+          "raw_length": 5,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.reactivity",
+            "notes": "text[] from CSV string"
+          }
+        },
+        {
+          "magento_column": "recommended_detection_systems",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_5",
+            "notes": "attribute_definitions label order slot 5"
+          }
+        },
+        {
+          "magento_column": "reconstitution",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_3",
+            "notes": "attribute_definitions label order slot 3"
+          }
+        },
+        {
+          "magento_column": "reproducibility",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_7",
+            "notes": "attribute_definitions label order slot 7"
+          }
+        },
+        {
+          "magento_column": "research_category",
+          "raw_present": true,
+          "raw_length": 87,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "ribbons",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "sample_data",
+          "raw_present": true,
+          "raw_length": 335,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_24",
+            "notes": "attribute_definitions label order slot 24"
+          }
+        },
+        {
+          "magento_column": "sample_type",
+          "raw_present": true,
+          "raw_length": 74,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_9",
+            "notes": "attribute_definitions label order slot 9"
+          }
+        },
+        {
+          "magento_column": "sensitivity",
+          "raw_present": true,
+          "raw_length": 9,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_6",
+            "notes": "attribute_definitions label order slot 6"
+          }
+        },
+        {
+          "magento_column": "sequence_similarities",
+          "raw_present": true,
+          "raw_length": 97,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_10",
+            "notes": "attribute_definitions label order slot 10"
+          }
+        },
+        {
+          "magento_column": "short_description",
+          "raw_present": true,
+          "raw_length": 460,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.short_description"
+          }
+        },
+        {
+          "magento_column": "size",
+          "raw_present": true,
+          "raw_length": 36,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "size_1",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_10",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_2",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_3",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_4",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_5",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_6",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_7",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_8",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_9",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "sku",
+          "raw_present": true,
+          "raw_length": 6,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.sku"
+          }
+        },
+        {
+          "magento_column": "source",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "source_company",
+          "raw_present": true,
+          "raw_length": 13,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "status",
+          "raw_present": true,
+          "raw_length": 1,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.status",
+            "notes": "1→enabled else disabled"
+          }
+        },
+        {
+          "magento_column": "storage",
+          "raw_present": true,
+          "raw_length": 177,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.storage"
+          }
+        },
+        {
+          "magento_column": "subcellular_localization",
+          "raw_present": true,
+          "raw_length": 54,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_19",
+            "notes": "attribute_definitions label order slot 19"
+          }
+        },
+        {
+          "magento_column": "synonyms",
+          "raw_present": true,
+          "raw_length": 211,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "synonyms"
+          }
+        },
+        {
+          "magento_column": "tag",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "template",
+          "raw_present": true,
+          "raw_length": 10,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.product_template"
+          }
+        },
+        {
+          "magento_column": "tissue_specificity",
+          "raw_present": true,
+          "raw_length": 294,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_18",
+            "notes": "attribute_definitions label order slot 18"
+          }
+        },
+        {
+          "magento_column": "tmb_incubation_time",
+          "raw_present": true,
+          "raw_length": 8,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_22",
+            "notes": "attribute_definitions label order slot 22"
+          }
+        },
+        {
+          "magento_column": "transfer_price",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "uniprot_id",
+          "raw_present": true,
+          "raw_length": 6,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "uniprot_id"
+          }
+        },
+        {
+          "magento_column": "updated_at",
+          "raw_present": true,
+          "raw_length": 19,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "url_key",
+          "raw_present": true,
+          "raw_length": 50,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.handle"
+          }
+        }
+      ]
+    },
+    {
+      "role": "development",
+      "template": "antibodies",
+      "sku": "MA1000",
+      "url_key": "anti-actin-antibody-monoclonal-ma1000-boster",
+      "attributes": [
+        {
+          "magento_column": "anticoagulant",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "application_details",
+          "raw_present": true,
+          "raw_length": 138,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_25",
+            "notes": "attribute_definitions label order slot 25"
+          }
+        },
+        {
+          "magento_column": "application_notes",
+          "raw_present": true,
+          "raw_length": 96,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "applications",
+          "raw_present": true,
+          "raw_length": 6,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.applications",
+            "notes": "text[] from CSV string"
+          }
+        },
+        {
+          "magento_column": "assay_procedure_step_1",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "assay_range",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_8",
+            "notes": "attribute_definitions label order slot 8"
+          }
+        },
+        {
+          "magento_column": "background",
+          "raw_present": true,
+          "raw_length": 610,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.background"
+          }
+        },
+        {
+          "magento_column": "badges",
+          "raw_present": true,
+          "raw_length": 24,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.badges"
+          }
+        },
+        {
+          "magento_column": "category_ids",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "clonality",
+          "raw_present": true,
+          "raw_length": 10,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.clone",
+            "notes": "merged with clone_number"
+          }
+        },
+        {
+          "magento_column": "clone_number",
+          "raw_present": true,
+          "raw_length": 12,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.clone",
+            "notes": "merged with clone_number"
+          }
+        },
+        {
+          "magento_column": "competitor_equivalent_skus",
+          "raw_present": true,
+          "raw_length": 125,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "concentration",
+          "raw_present": true,
+          "raw_length": 66,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_15",
+            "notes": "attribute_definitions label order slot 15"
+          }
+        },
+        {
+          "magento_column": "conjugate",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "contents",
+          "raw_present": true,
+          "raw_length": 73,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "created_at",
+          "raw_present": true,
+          "raw_length": 19,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "cross_reactivity",
+          "raw_present": true,
+          "raw_length": 39,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_2",
+            "notes": "attribute_definitions label order slot 2"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_1",
+          "raw_present": true,
+          "raw_length": 6,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_2",
+          "raw_present": true,
+          "raw_length": 200,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_3",
+          "raw_present": true,
+          "raw_length": 6,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_4",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_5",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_attribute_6",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "dropped",
+            "dest": null,
+            "notes": "reserved Magento custom slots; not in pilot schema"
+          }
+        },
+        {
+          "magento_column": "custom_listing_information",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "custom_options",
+          "raw_present": true,
+          "raw_length": 1915,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "description",
+          "raw_present": true,
+          "raw_length": 160,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.description"
+          }
+        },
+        {
+          "magento_column": "description_after_attributes",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_12",
+            "notes": "attribute_definitions label order slot 12"
+          }
+        },
+        {
+          "magento_column": "description_before_attributes",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_11",
+            "notes": "attribute_definitions label order slot 11"
+          }
+        },
+        {
+          "magento_column": "form",
+          "raw_present": true,
+          "raw_length": 11,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_16",
+            "notes": "attribute_definitions label order slot 16"
+          }
+        },
+        {
+          "magento_column": "gene_full_name",
+          "raw_present": true,
+          "raw_length": 28,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "gene_full_name"
+          }
+        },
+        {
+          "magento_column": "gene_name",
+          "raw_present": true,
+          "raw_length": 5,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "gene_name"
+          }
+        },
+        {
+          "magento_column": "host",
+          "raw_present": true,
+          "raw_length": 5,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.host_species"
+          }
+        },
+        {
+          "magento_column": "image_labels",
+          "raw_present": true,
+          "raw_length": 13125,
+          "mapping": {
+            "kind": "product_images",
+            "dest": "product_images rows",
+            "notes": "split on |; hero=first"
+          }
+        },
+        {
+          "magento_column": "images",
+          "raw_present": true,
+          "raw_length": 592,
+          "mapping": {
+            "kind": "product_images",
+            "dest": "product_images rows",
+            "notes": "split on |; hero=first"
+          }
+        },
+        {
+          "magento_column": "immunogen",
+          "raw_present": true,
+          "raw_length": 132,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_13",
+            "notes": "attribute_definitions label order slot 13"
+          }
+        },
+        {
+          "magento_column": "intra_inter_assay_cv",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_23",
+            "notes": "attribute_definitions label order slot 23"
+          }
+        },
+        {
+          "magento_column": "isotype",
+          "raw_present": true,
+          "raw_length": 11,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_17",
+            "notes": "attribute_definitions label order slot 17"
+          }
+        },
+        {
+          "magento_column": "kit_components",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_1",
+            "notes": "attribute_definitions label order slot 1"
+          }
+        },
+        {
+          "magento_column": "meta_description",
+          "raw_present": true,
+          "raw_length": 213,
+          "mapping": {
+            "kind": "seo",
+            "dest": "products.meta_description"
+          }
+        },
+        {
+          "magento_column": "meta_keyword",
+          "raw_present": true,
+          "raw_length": 45,
+          "mapping": {
+            "kind": "seo",
+            "dest": "products.meta_keywords"
+          }
+        },
+        {
+          "magento_column": "meta_title",
+          "raw_present": true,
+          "raw_length": 43,
+          "mapping": {
+            "kind": "seo",
+            "dest": "products.meta_title"
+          }
+        },
+        {
+          "magento_column": "molecular_weight",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_20",
+            "notes": "attribute_definitions label order slot 20"
+          }
+        },
+        {
+          "magento_column": "name",
+          "raw_present": true,
+          "raw_length": 45,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.title"
+          }
+        },
+        {
+          "magento_column": "normal_range_citations",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "phospho_site",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "predicted_reactivity",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_4",
+            "notes": "attribute_definitions label order slot 4"
+          }
+        },
+        {
+          "magento_column": "price",
+          "raw_present": true,
+          "raw_length": 8,
+          "mapping": {
+            "kind": "derived_ui",
+            "dest": "Medusa/pricing (not in products row)",
+            "notes": "PDP price still from Magento path in hybrid phase"
+          }
+        },
+        {
+          "magento_column": "price_for_size_1",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_10",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_2",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_3",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_4",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_5",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_6",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_7",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_8",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "price_for_size_9",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "principle",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_21",
+            "notes": "attribute_definitions label order slot 21"
+          }
+        },
+        {
+          "magento_column": "product_category",
+          "raw_present": true,
+          "raw_length": 45,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.category"
+          }
+        },
+        {
+          "magento_column": "protein_function",
+          "raw_present": true,
+          "raw_length": 145,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "protein_function"
+          }
+        },
+        {
+          "magento_column": "protein_name",
+          "raw_present": true,
+          "raw_length": 163,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "protein_name"
+          }
+        },
+        {
+          "magento_column": "purification",
+          "raw_present": true,
+          "raw_length": 7,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_14",
+            "notes": "attribute_definitions label order slot 14"
+          }
+        },
+        {
+          "magento_column": "rating_value",
+          "raw_present": true,
+          "raw_length": 3,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "reactivity",
+          "raw_present": true,
+          "raw_length": 23,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.reactivity",
+            "notes": "text[] from CSV string"
+          }
+        },
+        {
+          "magento_column": "recommended_detection_systems",
+          "raw_present": true,
+          "raw_length": 174,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_5",
+            "notes": "attribute_definitions label order slot 5"
+          }
+        },
+        {
+          "magento_column": "reconstitution",
+          "raw_present": true,
+          "raw_length": 61,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_3",
+            "notes": "attribute_definitions label order slot 3"
+          }
+        },
+        {
+          "magento_column": "reproducibility",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_7",
+            "notes": "attribute_definitions label order slot 7"
+          }
+        },
+        {
+          "magento_column": "research_category",
+          "raw_present": true,
+          "raw_length": 224,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "ribbons",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "sample_data",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_24",
+            "notes": "attribute_definitions label order slot 24"
+          }
+        },
+        {
+          "magento_column": "sample_type",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_9",
+            "notes": "attribute_definitions label order slot 9"
+          }
+        },
+        {
+          "magento_column": "sensitivity",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_6",
+            "notes": "attribute_definitions label order slot 6"
+          }
+        },
+        {
+          "magento_column": "sequence_similarities",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_10",
+            "notes": "attribute_definitions label order slot 10"
+          }
+        },
+        {
+          "magento_column": "short_description",
+          "raw_present": true,
+          "raw_length": 160,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.short_description"
+          }
+        },
+        {
+          "magento_column": "size",
+          "raw_present": true,
+          "raw_length": 11,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "size_1",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_10",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_2",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_3",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_4",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_5",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_6",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_7",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_8",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "size_9",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "formats",
+            "dest": "ProductPdpFormats / variants",
+            "notes": "multi-size pricing; not pilot-mapped to dedicated column"
+          }
+        },
+        {
+          "magento_column": "sku",
+          "raw_present": true,
+          "raw_length": 6,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.sku"
+          }
+        },
+        {
+          "magento_column": "source",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "source_company",
+          "raw_present": true,
+          "raw_length": 13,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "status",
+          "raw_present": true,
+          "raw_length": 1,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.status",
+            "notes": "1→enabled else disabled"
+          }
+        },
+        {
+          "magento_column": "storage",
+          "raw_present": true,
+          "raw_length": 197,
+          "mapping": {
+            "kind": "content",
+            "dest": "products.storage"
+          }
+        },
+        {
+          "magento_column": "subcellular_localization",
+          "raw_present": true,
+          "raw_length": 25,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_19",
+            "notes": "attribute_definitions label order slot 19"
+          }
+        },
+        {
+          "magento_column": "synonyms",
+          "raw_present": true,
+          "raw_length": 54,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "synonyms"
+          }
+        },
+        {
+          "magento_column": "tag",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "template",
+          "raw_present": true,
+          "raw_length": 10,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.product_template"
+          }
+        },
+        {
+          "magento_column": "tissue_specificity",
+          "raw_present": true,
+          "raw_length": 80,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_18",
+            "notes": "attribute_definitions label order slot 18"
+          }
+        },
+        {
+          "magento_column": "tmb_incubation_time",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "type_b",
+            "dest": "products.attr_22",
+            "notes": "attribute_definitions label order slot 22"
+          }
+        },
+        {
+          "magento_column": "transfer_price",
+          "raw_present": false,
+          "raw_length": 0,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "uniprot_id",
+          "raw_present": true,
+          "raw_length": 6,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.target_info(jsonb)",
+            "jsonKey": "uniprot_id"
+          }
+        },
+        {
+          "magento_column": "updated_at",
+          "raw_present": true,
+          "raw_length": 19,
+          "mapping": {
+            "kind": "unmapped_pilot",
+            "dest": "products.metadata(jsonb) or future column",
+            "notes": "not written by migrate-products-pilot.mjs today"
+          }
+        },
+        {
+          "magento_column": "url_key",
+          "raw_present": true,
+          "raw_length": 44,
+          "mapping": {
+            "kind": "type_a",
+            "dest": "products.handle"
+          }
+        }
+      ]
+    }
+  ],
+  "unmapped_or_dropped_summary": [
+    {
+      "column": "anticoagulant",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "application_notes",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "assay_procedure_step_1",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "category_ids",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "competitor_equivalent_skus",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "conjugate",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "contents",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "created_at",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "custom_attribute_1",
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    {
+      "column": "custom_attribute_2",
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    {
+      "column": "custom_attribute_3",
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    {
+      "column": "custom_attribute_4",
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    {
+      "column": "custom_attribute_5",
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    {
+      "column": "custom_attribute_6",
+      "kind": "dropped",
+      "dest": null,
+      "notes": "reserved Magento custom slots; not in pilot schema"
+    },
+    {
+      "column": "custom_listing_information",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "custom_options",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "normal_range_citations",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "phospho_site",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "rating_value",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "research_category",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "ribbons",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "size",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "source",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "source_company",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "tag",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "transfer_price",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    },
+    {
+      "column": "updated_at",
+      "kind": "unmapped_pilot",
+      "dest": "products.metadata(jsonb) or future column",
+      "notes": "not written by migrate-products-pilot.mjs today"
+    }
+  ],
+  "type_b_slot_order": [
+    {
+      "attr_key": "attr_1",
+      "magento_column": "kit_components"
+    },
+    {
+      "attr_key": "attr_2",
+      "magento_column": "cross_reactivity"
+    },
+    {
+      "attr_key": "attr_3",
+      "magento_column": "reconstitution"
+    },
+    {
+      "attr_key": "attr_4",
+      "magento_column": "predicted_reactivity"
+    },
+    {
+      "attr_key": "attr_5",
+      "magento_column": "recommended_detection_systems"
+    },
+    {
+      "attr_key": "attr_6",
+      "magento_column": "sensitivity"
+    },
+    {
+      "attr_key": "attr_7",
+      "magento_column": "reproducibility"
+    },
+    {
+      "attr_key": "attr_8",
+      "magento_column": "assay_range"
+    },
+    {
+      "attr_key": "attr_9",
+      "magento_column": "sample_type"
+    },
+    {
+      "attr_key": "attr_10",
+      "magento_column": "sequence_similarities"
+    },
+    {
+      "attr_key": "attr_11",
+      "magento_column": "description_before_attributes"
+    },
+    {
+      "attr_key": "attr_12",
+      "magento_column": "description_after_attributes"
+    },
+    {
+      "attr_key": "attr_13",
+      "magento_column": "immunogen"
+    },
+    {
+      "attr_key": "attr_14",
+      "magento_column": "purification"
+    },
+    {
+      "attr_key": "attr_15",
+      "magento_column": "concentration"
+    },
+    {
+      "attr_key": "attr_16",
+      "magento_column": "form"
+    },
+    {
+      "attr_key": "attr_17",
+      "magento_column": "isotype"
+    },
+    {
+      "attr_key": "attr_18",
+      "magento_column": "tissue_specificity"
+    },
+    {
+      "attr_key": "attr_19",
+      "magento_column": "subcellular_localization"
+    },
+    {
+      "attr_key": "attr_20",
+      "magento_column": "molecular_weight"
+    },
+    {
+      "attr_key": "attr_21",
+      "magento_column": "principle"
+    },
+    {
+      "attr_key": "attr_22",
+      "magento_column": "tmb_incubation_time"
+    },
+    {
+      "attr_key": "attr_23",
+      "magento_column": "intra_inter_assay_cv"
+    },
+    {
+      "attr_key": "attr_24",
+      "magento_column": "sample_data"
+    },
+    {
+      "attr_key": "attr_25",
+      "magento_column": "application_details"
+    }
+  ],
+  "target_info_keys": [
+    "gene_name",
+    "uniprot_id",
+    "synonyms",
+    "protein_function",
+    "gene_full_name",
+    "protein_name"
+  ]
+}
