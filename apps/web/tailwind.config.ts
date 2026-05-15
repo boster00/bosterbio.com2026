@@ -20,11 +20,13 @@ const config: Config = {
       },
       colors: {
         brand: {
-          /** Primary blue #004C95 */
-          DEFAULT: "#004C95",
-          primary: "#004C95",
-          deep: "#003366",
-          dark: "#002847",
+          /** Primary deep blue — Figma PDP / PLP reference */
+          DEFAULT: "#1a365d",
+          primary: "#1a365d",
+          /** Legacy Magento blue — use sparingly for links on light blue chips */
+          legacy: "#004C95",
+          deep: "#1a365d",
+          dark: "#0f172a",
           /** Light blue accent #3CA9D6 */
           light: "#3CA9D6",
           sky: "#3CA9D6",
@@ -32,10 +34,10 @@ const config: Config = {
           tint: "#f0f7fc",
         },
         accent: {
-          /** Orange #EA8D28 */
-          DEFAULT: "#EA8D28",
-          warm: "#EA8D28",
-          hover: "#d67a1c",
+          /** Warm orange — Figma accent */
+          DEFAULT: "#f97316",
+          warm: "#f97316",
+          hover: "#ea580c",
           soft: "#fff7ed",
         },
         surface: {
@@ -61,8 +63,8 @@ const config: Config = {
         title: ["1.25rem", { lineHeight: "1.35", fontWeight: "600" }],
       },
       boxShadow: {
-        card: "0 1px 3px rgba(0, 76, 149, 0.08), 0 10px 28px rgba(0, 76, 149, 0.1)",
-        nav: "0 1px 0 rgba(0, 76, 149, 0.08)",
+        card: "0 1px 3px rgba(26, 54, 93, 0.08), 0 10px 28px rgba(26, 54, 93, 0.1)",
+        nav: "0 1px 0 rgba(26, 54, 93, 0.08)",
       },
       maxWidth: {
         content: "1200px",
@@ -79,7 +81,7 @@ const config: Config = {
           css: {
             "--tw-prose-body": "#1e293b",
             "--tw-prose-headings": "#003366",
-            "--tw-prose-links": "#004C95",
+            "--tw-prose-links": "#1a365d",
             "--tw-prose-bold": "#003366",
             "--tw-prose-counters": "#475569",
             "--tw-prose-bullets": "#3CA9D6",
@@ -95,7 +97,7 @@ const config: Config = {
             h2: { fontFamily: "var(--font-heading)", fontWeight: "700" },
             h3: { fontFamily: "var(--font-heading)", fontWeight: "600" },
             h4: { fontFamily: "var(--font-heading)", fontWeight: "600" },
-            "a:hover": { color: "#EA8D28" },
+            "a:hover": { color: "#f97316" },
             img: { borderRadius: "0.5rem" },
           },
         },

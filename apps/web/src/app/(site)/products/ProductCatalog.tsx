@@ -43,7 +43,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
             product.applications.map((app) => (
               <span
                 key={app}
-                className="rounded-full border border-blue-100 bg-[#eff6ff] px-2.5 py-0.5 text-xs font-bold text-brand"
+                className="rounded-full border border-brand/15 bg-brand-tint px-2.5 py-0.5 text-xs font-bold text-brand"
               >
                 {app}
               </span>
@@ -56,7 +56,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
           Reactivity: {product.reactivity.length ? product.reactivity.join(", ") : "—"}
         </p>
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-brand/10 pt-4">
-          <p className="text-sm font-bold text-ink">{product.priceLabel}</p>
+          {product.priceLabel.trim() ? <p className="text-sm font-bold text-ink">{product.priceLabel}</p> : null}
           <div className="flex flex-wrap gap-2">
             <Link
               href={`/products/${encodeURIComponent(product.catalog)}`}

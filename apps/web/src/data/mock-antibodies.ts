@@ -19,7 +19,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Mouse",
     applications: ["WB", "IHC", "ICC"],
     reactivity: ["Human", "Mouse", "Rat"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "2",
@@ -29,7 +29,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "IHC-P"],
     reactivity: ["Human", "Mouse", "Rat", "Zebrafish"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "3",
@@ -39,7 +39,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Mouse",
     applications: ["WB", "IHC", "FC"],
     reactivity: ["Human", "Mouse"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "4",
@@ -49,7 +49,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["FC", "IHC"],
     reactivity: ["Human"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "5",
@@ -59,7 +59,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "ICC", "IP"],
     reactivity: ["Recombinant tag"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "6",
@@ -69,7 +69,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Mouse",
     applications: ["IHC-P", "ICC"],
     reactivity: ["Human", "Mouse", "Rat"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "7",
@@ -79,7 +79,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "IHC", "FC"],
     reactivity: ["Human"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "8",
@@ -89,7 +89,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Mouse",
     applications: ["WB", "IHC", "ICC"],
     reactivity: ["Human", "Mouse"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "9",
@@ -99,7 +99,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Mouse",
     applications: ["FC", "IHC"],
     reactivity: ["Human", "Cynomolgus"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "10",
@@ -109,7 +109,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "ICC"],
     reactivity: ["Human", "Mouse", "Rat"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "11",
@@ -119,7 +119,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "IHC"],
     reactivity: ["Zebrafish"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "12",
@@ -129,7 +129,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Mouse",
     applications: ["ICC", "WB"],
     reactivity: ["Zebrafish"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "13",
@@ -139,7 +139,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "IHC", "ICC"],
     reactivity: ["Human", "Mouse", "Rat"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "14",
@@ -149,7 +149,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "ChIP", "ICC"],
     reactivity: ["Human", "Mouse"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "15",
@@ -159,7 +159,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["IHC", "FC", "WB"],
     reactivity: ["Human"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "16",
@@ -169,7 +169,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rabbit",
     applications: ["WB", "IHC", "ICC"],
     reactivity: ["Human", "Mouse", "Bovine"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "17",
@@ -179,7 +179,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Mouse",
     applications: ["WB", "ICC", "IHC"],
     reactivity: ["Human", "Mouse", "Rat"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
   {
     id: "18",
@@ -189,7 +189,7 @@ export const MOCK_ANTIBODIES: MockAntibody[] = [
     host: "Rat",
     applications: ["IHC", "ICC", "FC"],
     reactivity: ["All species (hapten)"],
-    priceLabel: "Contact for price",
+    priceLabel: "",
   },
 ]
 

@@ -21,14 +21,19 @@ type ProductRow = {
   description: string | null;
   short_description: string | null;
   storage: string | null;
+  list_price?: number | null;
+  metadata?: Record<string, unknown> | null;
 };
 
 type ImageRow = { product_id: number; image_url: string; type: string; position: number };
 
 import { decodeEntities } from "./utils";
+import { formatCatalogPriceLabel } from "../catalog-price-label";
 
 function rowToCatalog(p: ProductRow, imageUrl: string | null): CatalogProduct {
   const target = p.target_info?.gene_name || p.target_info?.protein_name || "—";
+  const meta = (p as { metadata?: Record<string, unknown> | null }).metadata ?? null
+  const listPrice = (p as { list_price?: number | null }).list_price ?? null
   return {
     id: String(p.id),
     catalog: p.sku,
@@ -38,7 +43,7 @@ function rowToCatalog(p: ProductRow, imageUrl: string | null): CatalogProduct {
     host: p.host_species || "—",
     applications: p.applications ?? [],
     reactivity: p.reactivity ?? [],
-    priceLabel: "Contact for price", // wire when Medusa variants are loaded
+    priceLabel: formatCatalogPriceLabel({ listPrice, metadata: meta }),
     imageUrl,
     shortDescription: p.short_description,
     description: p.description,
