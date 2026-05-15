@@ -42,9 +42,9 @@ export default function GeneHeroBar({ gene, fullName, aliases, pagePurpose }: Pr
               <span className="text-xs font-semibold uppercase tracking-wider text-blue-200/60 self-center">
                 Also known as:
               </span>
-              {aliases.split(',').map((alias) => (
+              {aliases.split(',').map((alias, idx) => (
                 <span
-                  key={alias.trim()}
+                  key={`${idx}-${alias.trim()}`}
                   className="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-semibold font-sans"
                   style={{
                     background: 'rgba(255,255,255,0.12)',
