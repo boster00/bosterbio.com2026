@@ -16,6 +16,8 @@ export type CmsPageRow = {
   is_active: boolean;
   legacy_updated_at: string | null;
   legacy_created_at: string | null;
+  created_at: string;
+  updated_at: string;
 };
 
 export async function getCmsPageBySlug(slug: string): Promise<CmsPageRow | null> {
@@ -73,4 +75,23 @@ export async function listCmsPagesUnderPrefix(prefix: string, limit = 200): Prom
     return [];
   }
   return (data ?? []) as CmsIndexEntry[];
+}
+
+/**
+ * Newest rows by DB `created_at` (post-migration insert order). Used for smoke
+ * transmutation checks when Supabase credentials are available.
+ */
+export async function listNewestCmsPages(limit: number): Promise<CmsPageRow[]> {
+  const sb = supabaseService();
+  const { data, error } = await sb
+    .from("cms_pages")
+    .select("*")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) {
+    console.error("[cms] listNewestCmsPages error:", error.message);
+    return [];
+  }
+  return (data ?? []) as CmsPageRow[];
 }
